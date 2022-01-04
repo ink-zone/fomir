@@ -1,0 +1,66 @@
+{
+  "name": "fomir",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "example",
+      "website"
+    ]
+  },
+  "scripts": {
+    "dev": "lerna run --stream dev",
+    "build": "lerna run --stream build",
+    "build:types": "lerna run --parallel --stream build:types",
+    "test": "lerna run --parallel --stream test",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "publish": "lerna publish --force-publish=*",
+    "prepare": "husky install"
+  },
+  "eslintConfig": {
+    "extends": "tie-app"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "yarn coveralls",
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forsigner/fomir.git"
+  },
+  "author": "@forsigner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/forsigner/fomir/issues"
+  },
+  "homepage": "https://github.com/forsigner/fomir#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@types/jest": "^26.0.22",
+    "@types/prettier": "^2.2.3",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.8",
+    "coveralls": "^3.1.0",
+    "eslint-config-tie-app": "0.0.5",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lerna": "^4.0.0",
+    "lint-staged": "^12.1.5",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-jest": "^27.1.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {}
+}

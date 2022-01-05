@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input {
+  border: 1px solid #ddd;
+}

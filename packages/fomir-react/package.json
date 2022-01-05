@@ -1,0 +1,34 @@
+{
+  "version": "0.0.0",
+  "name": "fomir-react",
+  "author": "forsigner",
+  "module": "dist/react.esm.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "test:watch": "tsdx test --watch",
+    "test:cov": "tsdx test --coverage",
+    "lint": "tsdx lint"
+  },
+  "devDependencies": {
+    "@types/is-promise": "^2.2.0",
+    "tsdx": "^0.14.1"
+  },
+  "dependencies": {
+    "fomir": "^0.0.0",
+    "fomir-utils": "^0.0.0",
+    "deepmerge": "^4.2.2",
+    "is-promise": "^4.0.0"
+  }
+}

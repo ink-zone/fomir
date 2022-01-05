@@ -1,0 +1,45 @@
+{
+  "name": "fomir",
+  "version": "0.0.0",
+  "author": "forsigner",
+  "module": "dist/core.esm.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "test:watch": "tsdx test --watch",
+    "test:cov": "tsdx test --coverage",
+    "lint": "tsdx lint"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forsigner/fomir.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forsigner/fomir/issues"
+  },
+  "homepage": "https://github.com/forsigner/fomir#readme",
+  "devDependencies": {
+    "@types/is-promise": "^2.2.0",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "tsdx": "^0.14.1"
+  },
+  "dependencies": {
+    "fomir-utils": "^0.0.0",
+    "deepmerge": "^4.2.2",
+    "is-promise": "^4.0.0",
+    "lodash.clonedeep": "^4.5.0",
+    "react-fast-compare": "^3.2.0"
+  }
+}

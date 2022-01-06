@@ -1,5 +1,6 @@
-import type { FormNode } from './interfaces/form'
-import type { FieldNode } from './interfaces/field'
+import type { FormNode } from './form'
+import type { FieldNode } from './field'
+import type { Node } from './node'
 export type ForceUpdate = any
 
 export interface FieldUpdaters {
@@ -16,14 +17,6 @@ export type Errors<T = any> = {
     : string
 }
 
-export interface OnValueChangeOptions<T> extends FieldNode<T> {
-  setFieldState: <T = any>(name: string, fieldState: Partial<FieldNode<T>>) => void
-}
-
-export interface OnFieldInitOptions<T> extends FieldNode<T> {
-  setFieldState: <T = any>(name: string, fieldState: Partial<FieldNode<T>>) => void
-}
-
 export interface FieldValidateOptions {
   fieldState: FieldNode
   values: any
@@ -36,7 +29,6 @@ export type ValidationRuleFn<T = any, K = any> = (
 ) => any | Promise<any>
 
 export interface ValidatorOptions<T = any> {
-  validationSchema: any
   values: T
 }
 
@@ -56,6 +48,4 @@ export interface FomirPlugin {
   }
 }
 
-export interface FormSchema extends Partial<FormNode> {
-  children: any[]
-}
+export type FormSchema = Node | FormNode

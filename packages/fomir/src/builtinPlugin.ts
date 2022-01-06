@@ -1,4 +1,4 @@
-import { FomirPlugin } from './types'
+import { FomirPlugin } from './types/types'
 
 export const builtinPlugin: FomirPlugin = {
   validators: {

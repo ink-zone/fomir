@@ -1,5 +1,5 @@
-import { FormNode } from './interfaces/form'
-import { FomirPlugin, ValidateFn } from './types'
+import { FormNode } from './types/form'
+import { FomirPlugin, ValidateFn } from './types/types'
 
 export class Fomir {
   static Form: any = null

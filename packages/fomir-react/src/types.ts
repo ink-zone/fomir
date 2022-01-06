@@ -26,20 +26,11 @@ export interface FormProps extends HTMLAttributes<HTMLFormElement> {
   [key: string]: any
 }
 
-export interface FieldRegister {
-  value: FomirValue
-  // multiple?: boolean
-  // checked?: boolean
-  onChange: FieldHandlers['handleChange']
-  onBlur: FieldHandlers['handleBlur']
-}
-
 export interface FormRegisterProps extends Form {}
 
-export interface FieldRegisterProps<T = any> extends FieldRenderProps<T> {}
+export interface FieldRegisterProps extends FieldRenderProps {}
 
-export interface FieldRenderProps<T = any> extends FieldNode<T>, FieldHandlers {
-  register: FieldRegister
+export interface FieldRenderProps extends FieldNode, FieldHandlers {
   setFieldState: (fieldState: Partial<FieldNode>) => void
 }
 
@@ -54,7 +45,7 @@ export interface FormSpyProps {
   children: (formSpyRenderProps: FormSpyRenderProps) => ReactNode
 }
 
-export interface FieldProps<T = any> extends Partial<FieldNode<T>> {
+export interface FieldProps extends Partial<FieldNode> {
   name: string
   children?: (props: FieldRenderProps) => ReactNode
 }

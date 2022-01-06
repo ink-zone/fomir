@@ -3,13 +3,13 @@ import isEqual from 'react-fast-compare'
 import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn } from 'fomir-utils'
-import { Errors, ValidatorOptions, FieldUpdaters } from './types'
+import { Errors, ValidatorOptions, FieldUpdaters } from './types/types'
 import { Fomir } from './Fomir'
 import { isFormValid } from './isFormValid'
 import { validateSingleField } from './validateField'
-import { FieldNode } from './interfaces/field'
-import { FormNode } from './interfaces/form'
-import { FormSchema } from './types'
+import { FieldNode } from './types/field'
+import { FormNode } from './types/form'
+import { FormSchema } from './types/types'
 
 // type Path =
 //   | 'values'
@@ -22,7 +22,7 @@ import { FormSchema } from './types'
 //   | 'validating'
 //   | 'status'
 //   | '*'
-interface NodeOptions {
+export interface NodeOptions {
   schema?: FormSchema
   // at?: Location
   match?: (node: any) => boolean
@@ -47,9 +47,8 @@ function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = fa
 export type Form = ReturnType<typeof createForm>
 
 export function createForm(schema: FormSchema) {
-  const validationSchema = schema.validationSchema
-  const onFormChangeCallbacks = schema?.onFormChange?.() || {}
-  const onFieldChangeCallbacks = schema?.onFieldChange?.() || {}
+  const onFormChangeCallbacks = (schema as any)?.onFormChange?.() || {}
+  const onFieldChangeCallbacks = (schema as any)?.onFieldChange?.() || {}
 
   // const initialSchema = cloneDeep(schema)
 
@@ -114,7 +113,7 @@ export function createForm(schema: FormSchema) {
 
     /** on form change */
     for (const key of Object.keys(onFormChangeCallbacks)) {
-      const k = key as keyof FormNode
+      const k = key as keyof FormSchema
 
       if (key === '*') {
         if (isEqual(prevState, schema)) continue
@@ -194,7 +193,6 @@ export function createForm(schema: FormSchema) {
     const [validatorErrors, fieldError] = await Promise.all([
       runValidators({
         ...form,
-        validationSchema,
         values,
       }),
       validateSingleField({ fieldState: state, values }),
@@ -227,7 +225,6 @@ export function createForm(schema: FormSchema) {
     const [validatorErrors, fieldErrors] = await Promise.all([
       runValidators({
         ...form,
-        validationSchema,
         values,
       }),
       validateAllFields(),
@@ -265,10 +262,10 @@ export function createForm(schema: FormSchema) {
   }
 
   async function runUserValidator(validatorOptions: ValidatorOptions): Promise<Errors> {
-    if (!schema?.validate) return {}
+    if (!(schema as any)?.validate) return {}
 
     // function validate
-    let validateFnErrors = schema?.validate?.(validatorOptions)
+    let validateFnErrors = (schema as any)?.validate?.(validatorOptions)
 
     // sync validate
     if (!isPromise(validateFnErrors)) return validateFnErrors
@@ -323,16 +320,16 @@ export function createForm(schema: FormSchema) {
 
     if (valid) {
       setSubmitting(true)
-      schema?.onSubmit?.(values, form)
+      ;(schema as any)?.onSubmit?.(values, form)
     } else {
       setFieldErrors(errors)
-      schema?.onError?.(errors, form)
+      ;(schema as any)?.onError?.(errors, form)
     }
 
     setFormState({
       valid,
       dirty: true,
-      submitCount: schema.submitCount! + 1,
+      submitCount: (schema as any).submitCount! + 1,
     })
   }
 
@@ -377,7 +374,7 @@ export function createForm(schema: FormSchema) {
   }
 
   async function blur(name: string) {
-    if (schema.validationMode !== 'onSubmit') {
+    if ((schema as any).validationMode !== 'onSubmit') {
       const error = await validateField(name)
       if (error) setFieldState(name, { touched: true, error })
     }

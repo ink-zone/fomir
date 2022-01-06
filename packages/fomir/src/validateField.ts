@@ -1,6 +1,6 @@
 import isPromise from 'is-promise'
 import { Fomir } from './Fomir'
-import { FieldValidateOptions } from './types'
+import { FieldValidateOptions } from './types/types'
 
 export async function validateSingleField(options: FieldValidateOptions): Promise<any> {
   let error: any = undefined

@@ -23,7 +23,7 @@ function getComponent(type: any) {
   return type
 }
 
-export function Field<T>(props: FieldProps<T>) {
+export function Field(props: FieldProps) {
   const { name } = props
   // exclude boolean props
   let { showLabel, touched, display, visible, pending, ...rest } = props
@@ -50,11 +50,6 @@ export function Field<T>(props: FieldProps<T>) {
     ...field,
     setFieldState: (nextState) => {
       form.setFieldState(name, nextState)
-    },
-    register: {
-      value: field.value,
-      onChange: handleChange,
-      onBlur: handleBlur,
     },
     handleChange,
     handleBlur,

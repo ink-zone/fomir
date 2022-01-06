@@ -8,7 +8,7 @@ import { Field } from './Field'
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
   const { submitForm } = form
-  const { children = [] } = props.form.schema
+  const { children = [] } = props.form.schema as any
 
   function renderElement(children: any[]): any {
     return children.map((item, index) => {

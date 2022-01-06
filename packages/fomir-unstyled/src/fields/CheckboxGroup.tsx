@@ -9,7 +9,6 @@ export const CheckboxGroup = (props: FieldRegisterProps) => {
   if (value && !Array.isArray(value)) {
     throw new Error('Initial Value of CheckboxGroup should be an Array')
   }
-  console.log('loading:', loading)
 
   return (
     <Box>
@@ -17,7 +16,7 @@ export const CheckboxGroup = (props: FieldRegisterProps) => {
       <Box toLeft>
         {loading && <Box>loading...</Box>}
         {!loading &&
-          options.map((item) => (
+          options?.map((item) => (
             <Box as="label" key={item.value} toLeft toCenterY mr-16>
               <input
                 type="checkbox"

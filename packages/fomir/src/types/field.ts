@@ -38,26 +38,24 @@ export interface FieldValidator {
   [key: string]: any
 }
 
-export interface OnFieldInitOptions<T = any> extends FieldNode<T> {
-  setFieldState: <T = any>(name: string, fieldState: Partial<FieldNode<T>>) => void
+export interface OnFieldInitOptions extends FieldNode {
+  setFieldState: (name: string, fieldState: Partial<FieldNode>) => void
 }
 
-export interface OnValueChangeOptions<T> extends FieldNode<T> {
-  setFieldState: <T = any>(name: string, fieldState: Partial<FieldNode<T>>) => void
+export interface OnValueChangeOptions extends FieldNode {
+  setFieldState: (name: string, fieldState: Partial<FieldNode>) => void
 }
 
-export interface FieldNode<T = any> {
+export interface FieldState {
   label: any
-  type: string
-  componentProps: any
-
+  props: any
   showLabel: boolean
 
   required: boolean
 
   description: any
 
-  value: T
+  value: any
 
   error: string | undefined
 
@@ -86,18 +84,25 @@ export interface FieldNode<T = any> {
   // validate: FieldValidator<T>
 
   validator: FieldValidator
-
-  intercept?(value: T, fieldState: Omit<FieldNode, 'intercept'>): T
-
-  transform?(value: T): T
-
-  onValueChange(options: OnValueChangeOptions<T>): Promise<any> | any
-
-  onFieldInit(options: OnFieldInitOptions<T>): Promise<any> | any
 }
 
-const Field = {
-  isField(node: any): node is FieldNode {
-    return Reflect.has(node, 'name')
-  },
+export interface FieldHandler {
+  intercept<T>(value: T, fieldState: Omit<FieldNode, 'intercept'>): T
+
+  transform<T>(value: T): T
+
+  onValueChange(options: OnValueChangeOptions): Promise<any> | any
+
+  onFieldInit(options: OnFieldInitOptions): Promise<any> | any
 }
+
+export interface FieldNode extends Partial<FieldState>, Partial<FieldHandler> {
+  type: string
+  name: string
+}
+
+// export const Field = {
+//   isField(node: any): node is BaseFieldNode {
+//     return Reflect.has(node, 'name')
+//   },
+// }

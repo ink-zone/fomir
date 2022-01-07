@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react'
 import { Fomir } from 'fomir'
-import { useFormContext } from '../formContext'
+import { useForm } from '../formContext'
 import { FieldProps, FieldRenderProps } from '../types'
 import { getValueFormEvent } from '../utils'
 
@@ -28,7 +28,7 @@ export function Field(props: FieldProps) {
   // exclude boolean props
   let { showLabel, touched, display, visible, pending, ...rest } = props
   const [, forceUpdate] = useState({})
-  const form = useFormContext()
+  const form = useForm()
 
   useMemo(() => {
     form.registerField(name, forceUpdate)

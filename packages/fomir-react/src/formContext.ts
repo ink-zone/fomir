@@ -5,6 +5,6 @@ export const formContext = createContext({} as Form)
 
 export const FormProvider = formContext.Provider
 
-export function useFormContext() {
+export function useForm() {
   return useContext(formContext) as Form
 }

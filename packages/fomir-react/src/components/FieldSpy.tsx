@@ -1,12 +1,12 @@
 import React, { FC, Fragment, useEffect, useState } from 'react'
-import { useFormContext } from '../formContext'
+import { useForm } from '../formContext'
 import { FieldSpyProps } from '../types'
 
 export const FieldSpy: FC<FieldSpyProps> = ({ name, children }) => {
   const [, forceUpdate] = useState({})
   const names = Array.isArray(name) ? name : [name]
 
-  const form = useFormContext()
+  const form = useForm()
 
   useEffect(() => {
     const { data } = form

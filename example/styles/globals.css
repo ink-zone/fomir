@@ -15,6 +15,7 @@ a {
   box-sizing: border-box;
 }
 
-input {
+input,
+textarea {
   border: 1px solid #ddd;
 }

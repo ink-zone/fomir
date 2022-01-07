@@ -1,5 +1,5 @@
-import { FieldState } from '../../src/types'
 import { Fomir } from '../../src/Fomir'
+import { FieldNode } from '../../src/types/field'
 import { builtinPlugin } from '../../src/builtinPlugin'
 import { validateField } from '../../src/validateField'
 
@@ -21,7 +21,7 @@ test('single rule', () => {
     validator: {
       required: requiredMsg,
     },
-  } as FieldState
+  } as FieldNode
   const values = {}
 
   validateField({ fieldState, values }).then((error) => {
@@ -38,7 +38,7 @@ test('multi validator', () => {
       required: requiredMsg,
       minLength: [6, minLengthMsg],
     },
-  } as FieldState
+  } as FieldNode
   const values = {}
 
   validateField({ fieldState, values }).then((error) => {
@@ -78,7 +78,7 @@ test('invalid rule', () => {
 test('no validator', () => {
   const fieldState = {
     value: '',
-  } as FieldState
+  } as FieldNode
   const values = {}
 
   validateField({ fieldState, values }).then((error) => {

@@ -1,15 +1,14 @@
 import { FormNode } from './types/form'
-import { FomirPlugin, ValidateFn } from './types/types'
+import { FomirPlugin } from './types/types'
 
 export class Fomir {
   static Form: any = null
   static Fields: any = {}
-  static validators: ValidateFn[] = []
   static validatorRules: Record<string, any> = {}
   static forms: Record<string, FormNode> = {}
 
   static use = (plugin: FomirPlugin) => {
-    const { validate, Form } = plugin
+    const { Form } = plugin
     if (Form) Fomir.Form = Form
 
     Fomir.Fields = {
@@ -20,10 +19,6 @@ export class Fomir {
     Fomir.validatorRules = {
       ...Fomir.validatorRules,
       ...plugin.validators,
-    }
-
-    if (validate && !Fomir.validators.includes(validate)) {
-      Fomir.validators.push(validate)
     }
   }
 }

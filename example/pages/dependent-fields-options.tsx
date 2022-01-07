@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           { label: 'Cat', value: 'cat' },
           { label: 'Dog', value: 'dog' },
         ],
-        onValueChange: ({ value, setFieldState }) => {
+        onValueChange: ({ value }) => {
           const cats = [
             { label: 'American Bobtai', value: 'American Bobtai' },
             { label: 'Bengal', value: 'Bengal' },
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
             { label: 'Corgi', value: 'Corgi' },
             { label: 'Akita Inu', value: 'Akita Inu' },
           ]
-          setFieldState('animal', {
+          form.setFieldState('animal', {
             options: value === 'cat' ? cats : dogs,
             disabled: !value,
           })

@@ -30,9 +30,7 @@ export interface FormRegisterProps extends Form {}
 
 export interface FieldRegisterProps extends FieldRenderProps {}
 
-export interface FieldRenderProps extends FieldNode, FieldHandlers {
-  setFieldState: (fieldState: Partial<FieldNode>) => void
-}
+export interface FieldRenderProps extends FieldNode, FieldHandlers {}
 
 export interface FieldSpyProps {
   name: string | string[]

@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "fomir-utils": "^0.0.0",
-    "deepmerge": "^4.2.2",
     "is-promise": "^4.0.0",
     "lodash.clonedeep": "^4.5.0",
     "react-fast-compare": "^3.2.0"

@@ -28,20 +28,12 @@ export type ValidationRuleFn<T = any, K = any> = (
   options: FieldValidateOptions,
 ) => any | Promise<any>
 
-export interface ValidatorOptions<T = any> {
-  values: T
-}
-
-export type ValidateFn<T = any> = (options: ValidatorOptions<T>) => Promise<Errors<T>>
-
 export interface FomirPlugin {
   Fields?: {
     [key: string]: any
   }
 
   Form?: any
-
-  validate?: ValidateFn
 
   validators?: {
     [key: string]: ValidationRuleFn

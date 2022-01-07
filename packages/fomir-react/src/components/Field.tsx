@@ -48,9 +48,6 @@ export function Field(props: FieldProps) {
 
   const renderProps: FieldRenderProps = {
     ...field,
-    setFieldState: (nextState) => {
-      form.setFieldState(name, nextState)
-    },
     handleChange,
     handleBlur,
   }

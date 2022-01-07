@@ -1,15 +1,13 @@
-import deepmerge from 'deepmerge'
 import isEqual from 'react-fast-compare'
 import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn } from 'fomir-utils'
-import { Errors, ValidatorOptions, FieldUpdaters } from './types/types'
-import { Fomir } from './Fomir'
+import { FieldUpdaters } from './types/types'
 import { isFormValid } from './isFormValid'
-import { validateSingleField } from './validateField'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
-import { FormSchema } from './types/types'
+import { FormSchema, FieldValidateOptions } from './types/types'
+import { Fomir } from '.'
 
 // type Path =
 //   | 'values'
@@ -84,7 +82,6 @@ export function createForm(schema: FormSchema) {
         item.status = item.status ?? 'editable'
         item.options = item.options ?? []
         item.data = item.data ?? null
-        // validate: field.validate,
         item.validator = item.validator ?? {}
       }
     },
@@ -186,52 +183,26 @@ export function createForm(schema: FormSchema) {
     }, {})
   }
 
-  async function validateField(name: string): Promise<false | string> {
-    const state = getFieldState(name)
-    const values = getValues()
+  async function validateField(options: FieldValidateOptions): Promise<any> {
+    let error: any = undefined
+    const { validator = {} } = options.fieldState
 
-    const [validatorErrors, fieldError] = await Promise.all([
-      runValidators({
-        ...form,
-        values,
-      }),
-      validateSingleField({ fieldState: state, values }),
-    ])
+    for (const validatorRule in validator) {
+      if (!Fomir.validatorRules[validatorRule]) continue
 
-    const prevError = state.error
-    const error = fieldError || getIn(validatorErrors, name)
+      const { value } = options.fieldState
+      const result = Fomir.validatorRules[validatorRule](value, validator[validatorRule], options)
 
-    if (error === prevError || !error) return false
+      error = isPromise(result) ? await result : result
+
+      if (error) break
+    }
 
     return error
   }
 
-  async function runValidators(options: ValidatorOptions): Promise<Errors> {
-    const promises = Fomir.validators.map((validator) => validator(options))
-
-    // run validate function
-    promises.push(runUserValidator(options))
-
-    const errorsArray = await Promise.all(promises)
-
-    const errors = deepmerge.all(errorsArray)
-
-    return errors
-  }
-
   async function validateForm() {
-    const values = getValues()
-
-    const [validatorErrors, fieldErrors] = await Promise.all([
-      runValidators({
-        ...form,
-        values,
-      }),
-      validateAllFields(),
-    ])
-
-    const errors = deepmerge(validatorErrors, fieldErrors) as any
-    return errors
+    return await validateAllFields()
   }
 
   async function validateAllFields(): Promise<any> {
@@ -246,7 +217,7 @@ export function createForm(schema: FormSchema) {
         }
         if (Reflect.has(item, 'name')) {
           if (!item.visible) continue
-          const error = await validateSingleField({ fieldState: item, values })
+          const error = await validateField({ fieldState: item, values })
 
           // if (error && error !== state.error) {
           if (error) {
@@ -256,58 +227,43 @@ export function createForm(schema: FormSchema) {
         }
       }
     }
-    getErrors([schema])
+    await getErrors([schema])
 
     return errors
   }
 
-  async function runUserValidator(validatorOptions: ValidatorOptions): Promise<Errors> {
-    if (!(schema as any)?.validate) return {}
-
-    // function validate
-    let validateFnErrors = (schema as any)?.validate?.(validatorOptions)
-
-    // sync validate
-    if (!isPromise(validateFnErrors)) return validateFnErrors
-
-    try {
-      return (await validateFnErrors) as any
-    } catch {
-      return {}
-    }
-  }
-
   async function change(name: string, value: any) {
-    let fieldState = getFieldState(name)
+    let fieldNode = getFieldState(name)
     let nextValue = value
-    if (typeof fieldState.intercept === 'function') {
-      nextValue = fieldState.intercept(value, fieldState)
+    if (typeof fieldNode.intercept === 'function') {
+      nextValue = fieldNode.intercept(value, fieldNode)
     }
     setFieldState(name, { value: nextValue }) // sync value
 
-    fieldState = { ...fieldState, value: nextValue }
+    fieldNode = { ...fieldNode, value: nextValue }
 
     const values = getValues()
-    const fieldError = await validateSingleField({ fieldState, values })
-    const prevError = fieldState.error
+    const fieldError = await validateField({ fieldState: fieldNode, values })
+    const prevError = fieldNode.error
     const error = fieldError || undefined
 
     if (prevError !== error) setFieldState(name, { error })
 
     /** field change callback, for Dependent fields  */
-    fieldState?.onValueChange?.({
-      ...fieldState,
-      setFieldState: (name, fieldState) => {
-        // TODO: need improve, make it async
-        setTimeout(() => {
-          setFieldState(name, fieldState)
-        }, 0)
-      },
-    })
+    fieldNode?.onValueChange?.(fieldNode)
+  }
+
+  async function blur(name: string) {
+    const fieldNode = getFieldState(name)
+    const values = getValues()
+    if ((schema as any).validationMode !== 'onSubmit') {
+      const error = await validateField({ fieldState: fieldNode, values })
+      if (error) setFieldState(name, { touched: true, error })
+    }
   }
 
   async function submitForm(e?: any) {
-    if (e && e.preventDefault) e.preventDefault()
+    e && e.preventDefault()
 
     let valid: boolean = true
     const values = getValues()
@@ -373,21 +329,9 @@ export function createForm(schema: FormSchema) {
     // ema?.onReset?.(form)
   }
 
-  async function blur(name: string) {
-    if ((schema as any).validationMode !== 'onSubmit') {
-      const error = await validateField(name)
-      if (error) setFieldState(name, { touched: true, error })
-    }
-  }
-
   function onFieldInit(name: string) {
-    const fieldState = getFieldState(name)
-    fieldState?.onFieldInit?.({
-      ...fieldState,
-      setFieldState: (name, fieldState) => {
-        setFieldState(name, fieldState)
-      },
-    })
+    const fieldNode = getFieldState(name)
+    fieldNode.onFieldInit?.(fieldNode)
   }
 
   function getNode<T = any>(opt: NodeOptions) {
@@ -448,7 +392,6 @@ export function createForm(schema: FormSchema) {
     setFormState,
     validateForm,
     validateField,
-    validateAllFields,
     resetForm,
     onFieldInit,
     submitForm,

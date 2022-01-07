@@ -1,6 +1,6 @@
 // import { FieldNode } from './field'
 import { Node } from './node'
-import { Errors, ValidatorOptions } from './types'
+import { Errors } from './types'
 
 export type ComponentType =
   | 'Input'
@@ -33,12 +33,6 @@ export interface FormNode<T = any> {
   children: Node[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
-
-  /**
-   * form-level validation
-   * @param values current values
-   */
-  validate?(options: ValidatorOptions<T>): Errors<T>
 
   /**
    * callback when form submit

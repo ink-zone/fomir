@@ -31,8 +31,8 @@ const Home: NextPage = () => {
         name: 'checked',
         type: 'Checkbox',
         value: false,
-        onValueChange: ({ value, setFieldState }) => {
-          setFieldState('foo', { disabled: value })
+        onValueChange: ({ value }) => {
+          form.setFieldState('foo', { disabled: value })
         },
       },
       {
@@ -40,11 +40,11 @@ const Home: NextPage = () => {
         name: 'foo',
         type: 'Input',
         value: 'fo',
-        // onValueChange: ({ setFieldState }) => {
-        //   setFieldState('bar', {
-        //     value: 'I am show if foo disabled',
-        //   })
-        // },
+        onValueChange: () => {
+          form.setFieldState('bar', {
+            value: 'I am show if foo disabled',
+          })
+        },
       },
       {
         label: 'Bar',

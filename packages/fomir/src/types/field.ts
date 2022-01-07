@@ -38,14 +38,6 @@ export interface FieldValidator {
   [key: string]: any
 }
 
-export interface OnFieldInitOptions extends FieldNode {
-  setFieldState: (name: string, fieldState: Partial<FieldNode>) => void
-}
-
-export interface OnValueChangeOptions extends FieldNode {
-  setFieldState: (name: string, fieldState: Partial<FieldNode>) => void
-}
-
 export interface FieldState {
   label: any
   props: any
@@ -91,18 +83,12 @@ export interface FieldHandler {
 
   transform<T>(value: T): T
 
-  onValueChange(options: OnValueChangeOptions): Promise<any> | any
+  onValueChange(fieldNode: FieldNode): Promise<any> | any
 
-  onFieldInit(options: OnFieldInitOptions): Promise<any> | any
+  onFieldInit(fieldNode: FieldNode): Promise<any> | any
 }
 
 export interface FieldNode extends Partial<FieldState>, Partial<FieldHandler> {
   type: string
   name: string
 }
-
-// export const Field = {
-//   isField(node: any): node is BaseFieldNode {
-//     return Reflect.has(node, 'name')
-//   },
-// }

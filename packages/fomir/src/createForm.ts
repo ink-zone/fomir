@@ -152,6 +152,10 @@ export function createForm(schema: FormSchema) {
       }
     }
 
+    for (const fn of Fomir.onFieldChangeCallbacks) {
+      fn(name, form)
+    }
+
     runFieldUpdaters(name)
   }
 

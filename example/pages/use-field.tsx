@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form } from 'fomir-react'
+import { Form, useField } from 'fomir-react'
 import { createForm } from 'fomir'
 import { useState } from 'react'
 
@@ -18,7 +18,15 @@ const Home: NextPage = () => {
         type: 'Input',
         value: '',
         component: function CustomInput({ value, handleChange }: any) {
-          return <input value={value} onChange={handleChange} />
+          const lastName = useField('lastName')
+          console.log('lastName:', lastName)
+          return (
+            <div>
+              <div>value: {value}</div>
+              <div>lastName: {lastName.value}</div>
+              <input value={value} onChange={handleChange} />
+            </div>
+          )
         },
       },
       {

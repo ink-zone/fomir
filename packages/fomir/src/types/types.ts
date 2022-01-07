@@ -1,3 +1,4 @@
+import type { Form } from '../createForm'
 import type { FormNode } from './form'
 import type { FieldNode } from './field'
 import type { Node } from './node'
@@ -28,6 +29,9 @@ export type ValidationRuleFn<T = any, K = any> = (
   options: FieldValidateOptions,
 ) => any | Promise<any>
 
+export type OnFormStateChange = (form: Form) => any
+export type OnFieldStateChange = (name: string, form: Form) => any
+
 export interface FomirPlugin {
   Fields?: {
     [key: string]: any
@@ -38,6 +42,9 @@ export interface FomirPlugin {
   validators?: {
     [key: string]: ValidationRuleFn
   }
+
+  onFormStateChange?: OnFormStateChange
+  onFieldChange?: OnFieldStateChange
 }
 
 export type FormSchema = Node | FormNode

@@ -30,11 +30,6 @@ export interface FormRegisterProps extends Form {}
 
 export interface FieldRegisterProps extends FieldNode, FieldHandlers {}
 
-export interface FieldSpyProps {
-  name: string | string[]
-  children: (...fieldStores: FieldNode[]) => ReactNode
-}
-
 export interface FormSpyRenderProps extends FormNode, Form {}
 
 export interface FormSpyProps {

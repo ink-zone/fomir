@@ -1,5 +1,5 @@
 import { FormNode } from './types/form'
-import { FomirPlugin } from './types/types'
+import { FomirPlugin, OnFormStateChange, OnFieldStateChange } from './types/types'
 
 export class Fomir {
   static Form: any = null
@@ -7,8 +7,11 @@ export class Fomir {
   static validatorRules: Record<string, any> = {}
   static forms: Record<string, FormNode> = {}
 
+  static onFormStateChangeCallbacks: OnFormStateChange[] = []
+  static onFieldChangeCallbacks: OnFieldStateChange[] = []
+
   static use = (plugin: FomirPlugin) => {
-    const { Form } = plugin
+    const { Form, onFormStateChange, onFieldChange } = plugin
     if (Form) Fomir.Form = Form
 
     Fomir.Fields = {
@@ -19,6 +22,14 @@ export class Fomir {
     Fomir.validatorRules = {
       ...Fomir.validatorRules,
       ...plugin.validators,
+    }
+
+    if (onFormStateChange) {
+      Fomir.onFormStateChangeCallbacks.push(onFormStateChange)
+    }
+
+    if (onFieldChange) {
+      Fomir.onFieldChangeCallbacks.push(onFieldChange)
     }
   }
 }

@@ -28,9 +28,7 @@ export interface FormProps extends HTMLAttributes<HTMLFormElement> {
 
 export interface FormRegisterProps extends Form {}
 
-export interface FieldRegisterProps extends FieldRenderProps {}
-
-export interface FieldRenderProps extends FieldNode, FieldHandlers {}
+export interface FieldRegisterProps extends FieldNode, FieldHandlers {}
 
 export interface FieldSpyProps {
   name: string | string[]
@@ -43,7 +41,6 @@ export interface FormSpyProps {
   children: (formSpyRenderProps: FormSpyRenderProps) => ReactNode
 }
 
-export interface FieldProps extends Partial<FieldNode> {
-  name: string
-  children?: (props: FieldRenderProps) => ReactNode
+export interface FieldProps {
+  fieldNode: FieldNode & { type: any }
 }

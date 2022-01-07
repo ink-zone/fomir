@@ -1,4 +1,4 @@
-// import { FieldNode } from './field'
+import { FieldNode } from './field'
 import { Node } from './node'
 import { Errors } from './types'
 
@@ -30,7 +30,7 @@ export interface FormNode<T = any> {
   /** form unique name, optional */
   name?: string
 
-  children: Node[]
+  children: (Node | FieldNode)[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 

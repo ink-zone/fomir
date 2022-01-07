@@ -47,6 +47,8 @@ export interface FieldState {
 
   description: any
 
+  component: any
+
   value: any
 
   error: string | undefined
@@ -89,6 +91,5 @@ export interface FieldHandler {
 }
 
 export interface FieldNode extends Partial<FieldState>, Partial<FieldHandler> {
-  type: string
   name: string
 }

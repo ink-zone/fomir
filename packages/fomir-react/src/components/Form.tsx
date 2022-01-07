@@ -13,7 +13,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
       if (Array.isArray(item?.children)) return renderElement(item?.children)
-      if (item.name) return <Field key={index} {...item} />
+      if (item.name) return <Field key={index} fieldNode={item} />
       return (
         <button key={index} type="submit">
           {item.text}

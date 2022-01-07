@@ -1,4 +1,3 @@
-// import { FieldNode } from './field'
 import { ExtendedType } from './custom-types'
 
 export interface BaseNode {

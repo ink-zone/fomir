@@ -16,6 +16,17 @@ export type ComponentType =
   // | Component
   | ((...args: any[]) => JSX.Element)
 
+export interface ArrayFieldNode {
+  type: 'array'
+  name: string
+  children: (Node | ArrayItemNode)[]
+}
+
+export interface ArrayItemNode {
+  type: 'arrayItem'
+  children: Node[]
+}
+
 export interface FormNode<T = any> {
   type: 'form'
   submitting?: boolean
@@ -30,7 +41,7 @@ export interface FormNode<T = any> {
   /** form unique name, optional */
   name?: string
 
-  children: (Node | FieldNode)[]
+  children: (Node | FieldNode | ArrayFieldNode | ArrayItemNode)[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 

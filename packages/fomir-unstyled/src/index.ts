@@ -8,15 +8,15 @@ import { CheckboxGroup } from './fields/CheckboxGroup'
 import { Select } from './fields/Select'
 
 export const FomirUnstyled: FomirPlugin = {
-  Fields: {
+  components: {
     Input,
     Textarea,
     Checkbox,
     RadioGroup,
     CheckboxGroup,
     Select,
+    form: Form,
   },
-  Form,
 }
 
 export default FomirUnstyled

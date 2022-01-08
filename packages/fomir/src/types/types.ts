@@ -1,7 +1,6 @@
 import type { Form } from '../createForm'
 import type { FormNode } from './form'
 import type { FieldNode } from './field'
-import type { Node } from './node'
 export type ForceUpdate = any
 
 export interface FieldUpdaters {
@@ -33,18 +32,12 @@ export type OnFormStateChange = (form: Form) => any
 export type OnFieldStateChange = (name: string, form: Form) => any
 
 export interface FomirPlugin {
-  Fields?: {
-    [key: string]: any
-  }
+  components?: Record<string, any>
 
-  Form?: any
-
-  validators?: {
-    [key: string]: ValidationRuleFn
-  }
+  validators?: Record<string, ValidationRuleFn>
 
   onFormStateChange?: OnFormStateChange
   onFieldChange?: OnFieldStateChange
 }
 
-export type FormSchema = Node | FormNode
+export type FormSchema = FormNode

@@ -11,7 +11,7 @@ function isComponent(cmp: any) {
 function getComponent(field: FieldNode) {
   const type = (field as any).type
   if (isComponent(field.component)) return field.component
-  if (Fomir.Fields[type]) return Fomir.Fields[type]
+  if (Fomir.compenents[type]) return Fomir.compenents[type]
   if (!type) return 'input'
   return type
 }

@@ -7,8 +7,8 @@ import { Field } from './Field'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
-  const { submitForm } = form
-  const { children = [] } = props.form.schema as any
+  const { submitForm, schema } = form
+  const { children = [] } = schema
 
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
@@ -23,11 +23,12 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   }
 
   function getNode() {
-    if (Fomir.Form)
+    const FomirForm = Fomir.compenents.form
+    if (FomirForm)
       return (
-        <Fomir.Form submitForm={submitForm} {...rest} ref={ref}>
+        <FomirForm submitForm={submitForm} {...rest} ref={ref}>
           {renderElement(children)}
-        </Fomir.Form>
+        </FomirForm>
       )
     if (isNative) return props.children
 

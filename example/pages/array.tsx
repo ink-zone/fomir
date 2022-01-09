@@ -19,7 +19,8 @@ const Home: NextPage = () => {
       },
       {
         type: 'array',
-        name: 'friends',
+        name: 'friend_array',
+        label: 'Friends',
         children: [
           {
             type: 'arrayItem',
@@ -28,7 +29,7 @@ const Home: NextPage = () => {
                 label: 'First Name',
                 name: 'friends[0].firstName',
                 type: 'Input',
-                value: '',
+                value: 'bill',
               },
               {
                 label: 'Last Name',
@@ -36,7 +37,42 @@ const Home: NextPage = () => {
                 type: 'Input',
                 value: '',
               },
+              {
+                type: 'Box',
+                component: function () {
+                  return <button type="button"> up </button>
+                },
+              },
             ],
+          },
+          {
+            type: 'arrayItem',
+            children: [
+              {
+                label: 'First Name',
+                name: 'friends[1].firstName',
+                type: 'Input',
+                value: 'bar',
+              },
+              {
+                label: 'Last Name',
+                name: 'friends[1].lastName',
+                type: 'Input',
+                value: '',
+              },
+              {
+                type: 'Box',
+                component: function () {
+                  return <button type="button"> up </button>
+                },
+              },
+            ],
+          },
+          {
+            type: 'Box',
+            component: function () {
+              return <button> + </button>
+            },
           },
         ],
       },

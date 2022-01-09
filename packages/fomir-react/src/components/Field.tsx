@@ -22,7 +22,7 @@ export function Field({ fieldNode: field }: FieldProps) {
   const form = useForm()
 
   useMemo(() => {
-    form.registerField(name, forceUpdate)
+    form.registerFieldUpdater(name, forceUpdate)
   }, [])
 
   useEffect(() => {

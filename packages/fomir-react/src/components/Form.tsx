@@ -1,4 +1,4 @@
-import React, { FC, forwardRef } from 'react'
+import React, { FC, forwardRef, useMemo, useState } from 'react'
 import { Fomir } from 'fomir'
 import { isNative } from '../utils'
 import { FormProps } from '../types'
@@ -9,11 +9,32 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
   const { submitForm, schema } = form
   const { children = [] } = schema
+  const [, forceUpdate] = useState({})
+
+  useMemo(() => {
+    form.registerFormUpdater(forceUpdate)
+  }, [])
 
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
-      if (Array.isArray(item?.children)) return renderElement(item?.children)
+      const Comp = Fomir.compenents[item.type] || item.component
+      if (item?.children?.length) {
+        if (Comp) {
+          return (
+            <Comp key={index} node={item}>
+              {renderElement(item?.children)}
+            </Comp>
+          )
+        }
+        return renderElement(item?.children)
+      }
+
       if (item.name) return <Field key={index} fieldNode={item} />
+
+      if (Comp) {
+        return <Comp key={index} node={item} />
+      }
+
       return (
         <button key={index} type="submit">
           {item.text}

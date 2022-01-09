@@ -51,6 +51,7 @@ export function createForm(schema: FormSchema) {
   // const initialSchema = cloneDeep(schema)
 
   const fieldUpdaters = {} as FieldUpdaters
+  const formUpdaters: any[] = []
 
   travelSchema(
     schema,
@@ -95,6 +96,12 @@ export function createForm(schema: FormSchema) {
     }
   }
 
+  function runFormUpdaters() {
+    for (const updater of formUpdaters) {
+      updater({}) // rerender form
+    }
+  }
+
   function getFormState() {
     return getNode({ schema, match: (n) => n.type === 'form' })
   }
@@ -123,6 +130,8 @@ export function createForm(schema: FormSchema) {
         onFormChangeCallbacks[k](schema[k], prevState[k])
       }
     }
+
+    runFormUpdaters()
   }
 
   function setFieldState(name: string, fieldState: Partial<FieldNode>) {
@@ -159,12 +168,17 @@ export function createForm(schema: FormSchema) {
     runFieldUpdaters(name)
   }
 
-  function getFieldCollection(type: keyof FieldNode, arr: any[], ignoreInvisible = true): any {
+  function getFieldCollection(
+    type: keyof FieldNode,
+    arr: any[],
+    ignoreInvisible = true,
+    result: any = {},
+  ): any {
     return arr.reduce<any>((acc, cur) => {
       if (Array.isArray(cur.children)) {
         return {
           ...acc,
-          ...getFieldCollection(type, cur.children),
+          ...getFieldCollection(type, cur.children, ignoreInvisible, acc),
         }
       }
 
@@ -184,7 +198,7 @@ export function createForm(schema: FormSchema) {
 
       setIn(acc, k, v)
       return acc
-    }, {})
+    }, result)
   }
 
   async function validateField(options: FieldValidateOptions): Promise<any> {
@@ -293,12 +307,16 @@ export function createForm(schema: FormSchema) {
     })
   }
 
-  function registerField(name: string, updater: any) {
+  function registerFieldUpdater(name: string, updater: any) {
     if (fieldUpdaters[name]) {
       fieldUpdaters[name].push(updater)
     } else {
       fieldUpdaters[name] = [updater]
     }
+  }
+
+  function registerFormUpdater(updater: any) {
+    formUpdaters.push(updater)
   }
 
   function getValues() {
@@ -381,7 +399,8 @@ export function createForm(schema: FormSchema) {
   const form = {
     schema,
     data: {} as any,
-    registerField,
+    registerFormUpdater,
+    registerFieldUpdater,
     getFieldCollection,
     getFieldState,
     setFieldState,

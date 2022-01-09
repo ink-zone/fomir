@@ -10,6 +10,7 @@ export interface BoxNode {
   type: 'Box'
   text?: string
   children?: Node[]
+  component?: any
 }
 
 declare module 'fomir' {

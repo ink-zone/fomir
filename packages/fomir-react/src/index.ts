@@ -1,4 +1,6 @@
 import { Fomir } from 'fomir'
+import { ArrayItem } from './components/ArrayItem'
+import { FieldArray } from './components/FieldArray'
 
 export * from './components/Form'
 export * from './components/FormSpy'
@@ -9,6 +11,10 @@ export * from './utils'
 export * from './types'
 
 Fomir.use({
+  components: {
+    array: FieldArray,
+    arrayItem: ArrayItem,
+  },
   onFieldChange(name, form) {
     const updaters: any[] = form.data[name] || []
     if (updaters.length) {

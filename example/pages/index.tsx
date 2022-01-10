@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form } from 'fomir-react'
+import { Form, useFormState } from 'fomir-react'
 import { createForm, Node } from 'fomir'
 
 const Home: NextPage = () => {
@@ -8,6 +8,9 @@ const Home: NextPage = () => {
     type: 'form',
     onSubmit(values) {
       console.log('values', values)
+      setTimeout(() => {
+        form.setSubmitting(false)
+      }, 3000)
     },
 
     // onFormChange: () => {
@@ -47,24 +50,18 @@ const Home: NextPage = () => {
         },
       },
       {
-        label: 'Bar',
-        name: 'bar',
-        type: 'Input',
-        value: '',
-        validator: {
-          required: 'required...',
-        },
-      },
-      {
         type: 'submit',
         text: 'submit',
+        component: function Submit() {
+          const { submitting } = useFormState()
+          return <button type="submit">{submitting ? 'submit...' : 'submit'}</button>
+        },
       },
     ],
   })
 
   return (
     <Box p-100>
-      <Box>Fomir</Box>
       <Form form={form} />
     </Box>
   )

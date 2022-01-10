@@ -7,6 +7,7 @@ export * from './components/FormSpy'
 export * from './components/Field'
 export * from './formContext'
 export * from './use-field'
+export * from './useFormState'
 export * from './utils'
 export * from './types'
 

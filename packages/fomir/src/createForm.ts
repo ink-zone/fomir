@@ -91,8 +91,9 @@ export function createForm(schema: FormSchema) {
 
   function runFieldUpdaters(name: string) {
     const updaters = fieldUpdaters[name]
+    if (!Array.isArray(updaters)) return
     for (const updater of updaters) {
-      updater({}) // rerender field
+      updater({})
     }
   }
 
@@ -102,8 +103,9 @@ export function createForm(schema: FormSchema) {
     }
   }
 
-  function getFormState() {
-    return getNode({ schema, match: (n) => n.type === 'form' })
+  function getFormState(): FormNode {
+    // return getNode({ schema, match: (n) => n.type === 'form' })
+    return schema
   }
 
   function getFieldState(name: string, schema?: FormSchema): FieldNode {
@@ -113,7 +115,11 @@ export function createForm(schema: FormSchema) {
   function setFormState(formPartialState: Partial<FormNode>) {
     const prevState = cloneDeep(schema)
 
-    setNode(formPartialState, { match: (n) => n.type === 'form' })
+    setNode(formPartialState, {
+      match: (n) => {
+        return n.type === 'form'
+      },
+    })
 
     /** on form change */
     for (const key of Object.keys(onFormChangeCallbacks)) {
@@ -362,6 +368,10 @@ export function createForm(schema: FormSchema) {
     function travel(nodes: any[]) {
       for (const item of nodes) {
         if (Array.isArray(item.children)) {
+          if (opt?.match?.(item)) {
+            node = item
+            break
+          }
           travel(item.children)
           continue
         }
@@ -381,6 +391,13 @@ export function createForm(schema: FormSchema) {
     function travel(nodes: any[]) {
       for (const item of nodes) {
         if (Array.isArray(item.children)) {
+          if (opt?.match?.(item)) {
+            for (const k in properties) {
+              item[k] = properties[k]
+            }
+            break
+          }
+
           travel(item.children)
           continue
         }
@@ -399,6 +416,8 @@ export function createForm(schema: FormSchema) {
   const form = {
     schema,
     data: {} as any,
+    fieldUpdaters,
+    formUpdaters,
     registerFormUpdater,
     registerFieldUpdater,
     getFieldCollection,

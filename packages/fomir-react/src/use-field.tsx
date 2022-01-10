@@ -13,7 +13,8 @@ export function useField(name: string) {
     data[name].push(forceUpdate)
 
     return () => {
-      //
+      const index = data[name].indexOf(forceUpdate)
+      data[name].splice(index, 1)
     }
   }, [])
 

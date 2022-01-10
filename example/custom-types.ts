@@ -4,6 +4,7 @@ import { UnstyledNode } from 'fomir-unstyled'
 export interface SubmitNode {
   type: 'submit'
   text: string
+  component?: any
 }
 
 export interface BoxNode {

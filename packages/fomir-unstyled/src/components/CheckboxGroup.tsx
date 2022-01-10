@@ -1,10 +1,11 @@
 import React from 'react'
-import { FieldRegisterProps } from 'fomir-react'
+import { NodeProps } from 'fomir-react'
 import { produce } from 'immer'
 import { Box } from '@fower/react'
+import { FieldNode } from 'fomir'
 
-export const CheckboxGroup = (props: FieldRegisterProps) => {
-  const { label, error, touched, options, loading, handleChange, value = [] } = props
+export const CheckboxGroup = ({ node, handler }: NodeProps<FieldNode>) => {
+  const { label, error, touched, options, loading, value = [] } = node
 
   if (value && !Array.isArray(value)) {
     throw new Error('Initial Value of CheckboxGroup should be an Array')
@@ -31,7 +32,7 @@ export const CheckboxGroup = (props: FieldRegisterProps) => {
                       draft.splice(index, 1)
                     }
                   })
-                  handleChange(nextValue)
+                  handler.handleChange(nextValue)
                 }}
               />
               <Box as="span" ml-4>

@@ -3,7 +3,7 @@ import { Fomir } from 'fomir'
 import { isNative } from '../utils'
 import { FormProps } from '../types'
 import { FormProvider } from '../formContext'
-import { Field } from './Field'
+import { NodeComponent } from './NodeComponent'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
@@ -17,24 +17,15 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
 
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
-      const Comp = item.component || Fomir.compenents[item.type]
       if (item?.children?.length) {
-        if (Comp) {
-          return (
-            <Comp key={index} node={item}>
-              {renderElement(item?.children)}
-            </Comp>
-          )
-        }
-        return renderElement(item?.children)
+        return (
+          <NodeComponent key={index} node={item}>
+            {renderElement(item?.children)}
+          </NodeComponent>
+        )
       }
 
-      if (item.name) return <Field key={index} node={item} />
-
-      if (Comp) {
-        return <Comp key={index} node={item} />
-      }
-      return null
+      return <NodeComponent key={index} node={item} />
     })
   }
 

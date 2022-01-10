@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
-import { FieldRegisterProps } from 'fomir-react'
+import { NodeProps } from 'fomir-react'
 import { Box } from '@fower/react'
+import { FieldNode } from 'fomir'
 
-export const Checkbox = (props: FieldRegisterProps) => {
-  const { label, error, touched, value, handleChange } = props
+export const Checkbox = ({ node, handler }: NodeProps<FieldNode>) => {
+  const { label, error, touched, value } = node
 
   const memoLabel = useMemo(() => label && <Box mr-8>{label}</Box>, [label])
   const memoError = useMemo(() => error && touched && <Box red50>{error}</Box>, [touched, error])
@@ -11,7 +12,7 @@ export const Checkbox = (props: FieldRegisterProps) => {
     <Box>
       <Box toLeft toCenterY>
         {memoLabel}
-        <input type="checkbox" value={value} onChange={handleChange} />
+        <input type="checkbox" value={value} onChange={handler.handleChange} />
       </Box>
       {memoError}
     </Box>

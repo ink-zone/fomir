@@ -16,7 +16,7 @@ function getComponent(field: FieldNode) {
   return type
 }
 
-export const Field: FC<NodeProps> = ({ node }) => {
+export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }) => {
   const { name } = node
   const [, forceUpdate] = useState({})
   const form = useForm()
@@ -34,9 +34,8 @@ export const Field: FC<NodeProps> = ({ node }) => {
 
   const handler = { handleChange, handleBlur }
 
-  if (!node.visible) return null
+  // if (!node.visible) return null
 
   const Cmp = getComponent(node)
-
-  return createElement(Cmp, { ...node, ...handler })
+  return createElement(Cmp, { node, handler, children })
 }

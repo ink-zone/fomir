@@ -1,13 +1,14 @@
 import React from 'react'
-import { FieldRegisterProps } from 'fomir-react'
+import { NodeProps } from 'fomir-react'
 import { Box } from '@fower/react'
+import { FieldNode } from 'fomir'
 
-export const Select = (props: FieldRegisterProps) => {
-  const { label, error, disabled, touched, options, value, handleChange } = props
+export const Select = ({ node, handler }: NodeProps<FieldNode>) => {
+  const { label, error, disabled, touched, options, value } = node
   return (
     <Box>
       {label && <Box>{label}</Box>}
-      <select disabled={disabled} value={value} onChange={handleChange}>
+      <select disabled={disabled} value={value} onChange={handler.handleChange}>
         {options?.map((item, i) => (
           <option key={i + item.value} value={item.value}>
             {item.label}

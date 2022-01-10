@@ -5,7 +5,7 @@ import { FieldArray } from './components/FieldArray'
 
 export * from './components/Form'
 export * from './components/FormSpy'
-export * from './components/Field'
+export * from './components/NodeComponent'
 export * from './hooks/useForm'
 export * from './hooks/useField'
 export * from './hooks/useFormState'

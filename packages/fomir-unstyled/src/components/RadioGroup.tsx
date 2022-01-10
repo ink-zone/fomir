@@ -1,9 +1,10 @@
 import React from 'react'
-import { FieldRegisterProps } from 'fomir-react'
+import { NodeProps } from 'fomir-react'
 import { Box } from '@fower/react'
+import { FieldNode } from 'fomir'
 
-export const RadioGroup = (props: FieldRegisterProps) => {
-  const { label, value, error, touched, options, handleChange } = props
+export const RadioGroup = ({ node, handler }: NodeProps<FieldNode>) => {
+  const { label, value, error, touched, options } = node
 
   return (
     <Box>
@@ -16,7 +17,7 @@ export const RadioGroup = (props: FieldRegisterProps) => {
               value={item.value}
               checked={value === item.value}
               onChange={() => {
-                handleChange(item.value)
+                handler.handleChange(item.value)
               }}
             />
             <Box as="span" ml-4>

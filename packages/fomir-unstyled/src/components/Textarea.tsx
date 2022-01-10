@@ -1,14 +1,14 @@
 import React from 'react'
 import { Box } from '@fower/react'
-import { FieldRegisterProps } from 'fomir-react'
+import { NodeProps } from 'fomir-react'
 
-export const Textarea = (props: FieldRegisterProps) => {
-  const { value = '', disabled, label, error, touched, handleChange } = props
+export const Textarea = ({ node, handler }: NodeProps) => {
+  const { value = '', disabled, label, error, touched } = node
 
   return (
     <div>
       {label && <Box>{label}</Box>}
-      <textarea disabled={disabled} value={value} onChange={handleChange}></textarea>
+      <textarea disabled={disabled} value={value} onChange={handler.handleChange}></textarea>
       {error && touched && <Box red50>{error}</Box>}
     </div>
   )

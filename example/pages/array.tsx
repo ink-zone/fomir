@@ -18,60 +18,62 @@ const Home: NextPage = () => {
         value: '',
       },
       {
-        type: 'array',
-        name: 'friend_array',
-        label: 'Friends',
+        label: 'arr',
+        name: 'arr',
+        type: 'Box',
+        value: '',
         children: [
           {
-            type: 'arrayItem',
-            children: [
-              {
-                label: 'First Name',
-                name: 'friends[0].firstName',
-                type: 'Input',
-                value: 'bill',
-              },
-              {
-                label: 'Last Name',
-                name: 'friends[0].lastName',
-                type: 'Input',
-                value: '',
-              },
-              {
-                type: 'Box',
-                component: function () {
-                  return <button type="button"> up </button>
+            type: 'FieldArray',
+            name: 'friend_array',
+            label: 'Friends',
+            children: [0, 1].map((i) => ({
+              type: 'FieldArrayItem',
+              children: [
+                {
+                  label: 'First Name',
+                  name: 'friends[0].firstName',
+                  type: 'Input',
+                  value: 'bill',
                 },
-              },
-            ],
-          },
-          {
-            type: 'arrayItem',
-            children: [
-              {
-                label: 'First Name',
-                name: 'friends[1].firstName',
-                type: 'Input',
-                value: 'bar',
-              },
-              {
-                label: 'Last Name',
-                name: 'friends[1].lastName',
-                type: 'Input',
-                value: '',
-              },
-              {
-                type: 'Box',
-                component: function () {
-                  return <button type="button"> up </button>
+                {
+                  label: 'Last Name',
+                  name: 'friends[0].lastName',
+                  type: 'Input',
+                  value: '',
                 },
-              },
-            ],
+                {
+                  type: 'Box',
+                  component: function () {
+                    return <button type="button"> up </button>
+                  },
+                },
+              ],
+            })),
           },
+
           {
             type: 'Box',
+            text: 'ao',
             component: function () {
-              return <button> + </button>
+              return (
+                <button
+                  type="button"
+                  onClick={() => {
+                    console.log('gogo....')
+                    form.setSchema((s) => {
+                      s.children.push({
+                        type: 'Box',
+                        component: function () {
+                          return <button type="button"> added </button>
+                        },
+                      })
+                    })
+                  }}
+                >
+                  +
+                </button>
+              )
             },
           },
         ],

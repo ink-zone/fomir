@@ -23,6 +23,7 @@ import { Fomir } from '.'
 export interface NodeOptions {
   schema?: FormSchema
   // at?: Location
+  // rerenderForm?: boolean
   match?: (node: any) => boolean
   // mode?: 'highest' | 'lowest'
 }
@@ -110,6 +111,11 @@ export function createForm(schema: FormSchema) {
 
   function getFieldState(name: string, schema?: FormSchema): FieldNode {
     return getNode({ schema, match: (n) => n.name === name })
+  }
+
+  function setSchema(fn: (shema: FormSchema) => any) {
+    fn(schema)
+    runFormUpdaters()
   }
 
   function setFormState(formPartialState: Partial<FormNode>) {
@@ -415,6 +421,7 @@ export function createForm(schema: FormSchema) {
 
   const form = {
     schema,
+    setSchema,
     data: {} as any,
     fieldUpdaters,
     formUpdaters,

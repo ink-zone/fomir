@@ -17,7 +17,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
 
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
-      const Comp = Fomir.compenents[item.type] || item.component
+      const Comp = item.component || Fomir.compenents[item.type]
       if (item?.children?.length) {
         if (Comp) {
           return (

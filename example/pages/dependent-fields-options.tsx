@@ -45,7 +45,7 @@ const Home: NextPage = () => {
         options: [],
       },
       {
-        type: 'submit',
+        type: 'Submit',
         text: 'submit',
       },
     ],

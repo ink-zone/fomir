@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form } from 'fomir-react'
-import { createForm } from 'fomir'
+import { createForm, nomalizeField } from 'fomir'
 
 const Home: NextPage = () => {
   const form = createForm({
@@ -27,20 +27,15 @@ const Home: NextPage = () => {
             type: 'FieldArray',
             name: 'friend_array',
             label: 'Friends',
-            children: [0, 1].map((i) => ({
+            id: 'foo',
+            children: [0].map((i) => ({
               type: 'FieldArrayItem',
               children: [
                 {
                   label: 'First Name',
-                  name: 'friends[0].firstName',
+                  name: `friends[${i}].firstName`,
                   type: 'Input',
                   value: 'bill',
-                },
-                {
-                  label: 'Last Name',
-                  name: 'friends[0].lastName',
-                  type: 'Input',
-                  value: '',
                 },
                 {
                   type: 'Box',
@@ -60,15 +55,32 @@ const Home: NextPage = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    console.log('gogo....')
-                    form.setSchema((s) => {
-                      s.children.push({
-                        type: 'Box',
-                        component: function () {
-                          return <button type="button"> added </button>
-                        },
-                      })
-                    })
+                    form.setNode(
+                      (node) => {
+                        console.log('node:', node)
+                        node.children.push({
+                          type: 'FieldArrayItem',
+                          children: [
+                            nomalizeField({
+                              label: 'First Name',
+                              name: 'gogo',
+                              type: 'Input',
+                              value: 'bill',
+                            }),
+
+                            {
+                              type: 'Box',
+                              component: function () {
+                                return <button type="button"> up.. </button>
+                              },
+                            },
+                          ],
+                        })
+                      },
+                      {
+                        match: (n) => n.id === 'foo',
+                      },
+                    )
                   }}
                 >
                   +
@@ -79,7 +91,7 @@ const Home: NextPage = () => {
         ],
       },
       {
-        type: 'submit',
+        type: 'Submit',
         text: 'submit',
       },
     ],

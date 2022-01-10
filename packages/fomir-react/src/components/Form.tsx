@@ -29,22 +29,17 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
         return renderElement(item?.children)
       }
 
-      if (item.name) return <Field key={index} fieldNode={item} />
+      if (item.name) return <Field key={index} node={item} />
 
       if (Comp) {
         return <Comp key={index} node={item} />
       }
-
-      return (
-        <button key={index} type="submit">
-          {item.text}
-        </button>
-      )
+      return null
     })
   }
 
   function getNode() {
-    const FomirForm = Fomir.compenents.form
+    const FomirForm = Fomir.compenents.Form
     if (FomirForm)
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>

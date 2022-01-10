@@ -1,7 +1,7 @@
-import { ChangeEvent, createElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, createElement, FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { FieldNode, Fomir } from 'fomir'
 import { useForm } from '../hooks/useForm'
-import { FieldProps } from '../types'
+import { NodeProps } from '../types'
 import { getValueFormEvent } from '../utils'
 
 function isComponent(cmp: any) {
@@ -16,8 +16,8 @@ function getComponent(field: FieldNode) {
   return type
 }
 
-export function Field({ fieldNode: field }: FieldProps) {
-  const { name } = field
+export const Field: FC<NodeProps> = ({ node }) => {
+  const { name } = node
   const [, forceUpdate] = useState({})
   const form = useForm()
 
@@ -34,9 +34,9 @@ export function Field({ fieldNode: field }: FieldProps) {
 
   const handler = { handleChange, handleBlur }
 
-  if (!field.visible) return null
+  if (!node.visible) return null
 
-  const Cmp = getComponent(field)
+  const Cmp = getComponent(node)
 
-  return createElement(Cmp, { ...field, ...handler })
+  return createElement(Cmp, { ...node, ...handler })
 }

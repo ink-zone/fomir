@@ -17,6 +17,17 @@ export type Errors<T = any> = {
     : string
 }
 
+export interface NodeOptions {
+  schema?: FormSchema
+  // at?: Location
+
+  rerender?: boolean
+  match?: (node: any) => boolean
+  // mode?: 'highest' | 'lowest'
+}
+
+export type SetNodeFunction<T> = (node: T) => any
+
 export interface FieldValidateOptions {
   fieldState: FieldNode
   values: any

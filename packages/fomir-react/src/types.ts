@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
-import { createForm, FieldNode, FormNode } from 'fomir'
+import { createForm, FieldNode, FormNode, Node } from 'fomir'
 
 type Form = ReturnType<typeof createForm>
 
@@ -36,6 +36,7 @@ export interface FormSpyProps {
   children: (formSpyRenderProps: FormSpyRenderProps) => ReactNode
 }
 
-export interface FieldProps {
-  fieldNode: FieldNode & { type: any }
+export interface NodeProps<T extends Node = any> {
+  node: T & { type: any }
+  children?: ReactNode
 }

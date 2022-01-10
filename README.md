@@ -1,6 +1,5 @@
 # Fomir
 
-
 ## Development
 
 - [Contributing Guide](/CONTRIBUTING.md)

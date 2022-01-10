@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         },
       },
       {
-        type: 'submit',
+        type: 'Submit',
         text: 'submit',
       },
     ],

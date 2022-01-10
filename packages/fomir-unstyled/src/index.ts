@@ -1,11 +1,12 @@
 import { FomirPlugin } from 'fomir'
-import { Form } from './Form'
-import { Input } from './fields/Input'
-import { Textarea } from './fields/Textarea'
-import { Checkbox } from './fields/Checkbox'
-import { RadioGroup } from './fields/RadioGroup'
-import { CheckboxGroup } from './fields/CheckboxGroup'
-import { Select } from './fields/Select'
+import { Form } from './components/Form'
+import { Input } from './components/Input'
+import { Textarea } from './components/Textarea'
+import { Checkbox } from './components/Checkbox'
+import { RadioGroup } from './components/RadioGroup'
+import { CheckboxGroup } from './components/CheckboxGroup'
+import { Select } from './components/Select'
+import { Submit } from './components/Submit'
 
 export const FomirUnstyled: FomirPlugin = {
   components: {
@@ -15,7 +16,8 @@ export const FomirUnstyled: FomirPlugin = {
     RadioGroup,
     CheckboxGroup,
     Select,
-    form: Form,
+    Form,
+    Submit,
   },
 }
 

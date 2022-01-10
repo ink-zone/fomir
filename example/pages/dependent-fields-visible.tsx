@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         value: '',
       },
       {
-        type: 'submit',
+        type: 'Submit',
         text: 'submit',
       },
     ],

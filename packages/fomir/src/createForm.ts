@@ -6,8 +6,10 @@ import { FieldUpdaters } from './types/types'
 import { isFormValid } from './isFormValid'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
+// import { Node } from './types/node'
 import { FormSchema, FieldValidateOptions } from './types/types'
-import { Fomir } from '.'
+import { NodeOptions, SetNodeFunction } from './types/types'
+import { Fomir } from './Fomir'
 
 // type Path =
 //   | 'values'
@@ -20,13 +22,6 @@ import { Fomir } from '.'
 //   | 'validating'
 //   | 'status'
 //   | '*'
-export interface NodeOptions {
-  schema?: FormSchema
-  // at?: Location
-  // rerenderForm?: boolean
-  match?: (node: any) => boolean
-  // mode?: 'highest' | 'lowest'
-}
 
 function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = false) {
   const schemaArr = [schema]
@@ -41,6 +36,31 @@ function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = fa
     }
   }
   travel(schemaArr)
+}
+
+const isField = (n: any) => Reflect.has(n, 'name')
+
+export function nomalizeField(node: any) {
+  if (isField(node)) {
+    node.visible = node.visible ?? true
+    node.label = node.label ?? null
+    node.showLabel = node.showLabel ?? true
+    node.required = node.required ?? false
+    node.description = node.description
+    node.focused = node.focused ?? false
+    node.type = node.type
+    node.componentProps = node.componentProps ?? {}
+    node.display = node.display ?? true
+    node.touched = node.touched ?? false
+    node.loading = node.loading ?? false
+    node.disabled = node.disabled ?? false
+    node.pending = node.pending ?? false
+    node.status = node.status ?? 'editable'
+    node.options = node.options ?? []
+    node.data = node.data ?? null
+    node.validator = node.validator ?? {}
+    return node
+  }
 }
 
 export type Form = ReturnType<typeof createForm>
@@ -67,25 +87,7 @@ export function createForm(schema: FormSchema) {
         item.status = 'editable'
       }
 
-      if (Reflect.has(item, 'name')) {
-        item.visible = item.visible ?? true
-        item.label = item.label ?? null
-        item.showLabel = item.showLabel ?? true
-        item.required = item.required ?? false
-        item.description = item.description
-        item.focused = item.focused ?? false
-        item.type = item.type
-        item.componentProps = item.componentProps ?? {}
-        item.display = item.display ?? true
-        item.touched = item.touched ?? false
-        item.loading = item.loading ?? false
-        item.disabled = item.disabled ?? false
-        item.pending = item.pending ?? false
-        item.status = item.status ?? 'editable'
-        item.options = item.options ?? []
-        item.data = item.data ?? null
-        item.validator = item.validator ?? {}
-      }
+      nomalizeField(item)
     },
     true,
   )
@@ -122,6 +124,7 @@ export function createForm(schema: FormSchema) {
     const prevState = cloneDeep(schema)
 
     setNode(formPartialState, {
+      rerender: false,
       match: (n) => {
         return n.type === 'form'
       },
@@ -149,7 +152,10 @@ export function createForm(schema: FormSchema) {
   function setFieldState(name: string, fieldState: Partial<FieldNode>) {
     const prevSchema = cloneDeep(schema)
 
-    setNode(fieldState, { match: (n) => Reflect.has(n, 'name') && n.name === name })
+    setNode(fieldState, {
+      rerender: false,
+      match: (n) => Reflect.has(n, 'name') && n.name === name,
+    })
 
     /** on field change */
     for (const key of Object.keys(onFieldChangeCallbacks)) {
@@ -392,15 +398,30 @@ export function createForm(schema: FormSchema) {
     return node
   }
 
-  function setNode(properties: any, opt: NodeOptions) {
+  function setNode<T = any>(propertiesOrSetter: T | SetNodeFunction<T>, opt: NodeOptions) {
     const nodes = [opt.schema || schema]
+
+    const updateNode = (node: any) => {
+      const rerender = typeof opt?.rerender === 'boolean' ? opt?.rerender : true
+
+      if (typeof propertiesOrSetter === 'function') {
+        if (rerender) runFormUpdaters()
+        return (propertiesOrSetter as any)(node)
+      }
+
+      for (const k in propertiesOrSetter) {
+        node[k] = propertiesOrSetter[k]
+      }
+
+      // rerender form
+      if (rerender) runFormUpdaters()
+    }
+
     function travel(nodes: any[]) {
       for (const item of nodes) {
         if (Array.isArray(item.children)) {
           if (opt?.match?.(item)) {
-            for (const k in properties) {
-              item[k] = properties[k]
-            }
+            updateNode(item)
             break
           }
 
@@ -409,15 +430,15 @@ export function createForm(schema: FormSchema) {
         }
 
         if (opt?.match?.(item)) {
-          for (const k in properties) {
-            item[k] = properties[k]
-          }
+          updateNode(item)
           break
         }
       }
     }
     travel(nodes)
   }
+
+  function getArrayHelpers() {}
 
   const form = {
     schema,
@@ -427,23 +448,34 @@ export function createForm(schema: FormSchema) {
     formUpdaters,
     registerFormUpdater,
     registerFieldUpdater,
+
+    /** getter */
     getFieldCollection,
     getFieldState,
-    setFieldState,
     getValues,
     getErrors,
-    setFieldErrors,
     getNode,
-    setNode,
-    touchAll,
-    getFormState,
-    setSubmitting,
+    getArrayHelpers,
+
+    /** setter */
     setFormState,
+    setFieldState,
+    setNode,
+    setFieldErrors,
+    setSubmitting,
+    touchAll,
+
+    /** handle form */
+    resetForm,
+    submitForm,
+
+    /** validate */
     validateForm,
     validateField,
-    resetForm,
+
+    getFormState,
     onFieldInit,
-    submitForm,
+
     blur,
     change,
   }

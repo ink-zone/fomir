@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     children: [
       ...nodes,
       {
-        type: 'submit',
+        type: 'Submit',
         text: 'submit',
       },
     ],

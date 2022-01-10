@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         type: 'Box',
         children: [
           {
-            type: 'submit',
+            type: 'Submit',
             text: 'submit',
           },
           {

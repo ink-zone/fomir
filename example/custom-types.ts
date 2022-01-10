@@ -2,7 +2,7 @@ import { Node } from 'fomir'
 import { UnstyledNode } from 'fomir-unstyled'
 
 export interface SubmitNode {
-  type: 'submit'
+  type: 'Submit'
   text: string
   component?: any
 }

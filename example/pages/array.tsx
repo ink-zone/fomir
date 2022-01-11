@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form } from 'fomir-react'
-import { createForm, nomalizeField } from 'fomir'
+import { createForm, nomalizeNode } from 'fomir'
 
 const Home: NextPage = () => {
   const form = createForm({
@@ -24,23 +24,36 @@ const Home: NextPage = () => {
         value: '',
         children: [
           {
-            type: 'FieldArray',
-            name: 'friend_array',
+            type: 'ArrayField',
+            name: 'friends',
             label: 'Friends',
-            id: 'foo',
-            children: [0].map((i) => ({
-              type: 'FieldArrayItem',
+            id: 'field-array',
+            children: ['Bill', 'job'].map((v, i) => ({
+              type: 'ArrayFieldItem',
               children: [
                 {
                   label: 'First Name',
                   name: `friends[${i}].firstName`,
                   type: 'Input',
-                  value: 'bill',
+                  value: v,
+                },
+
+                {
+                  label: 'Last Name',
+                  name: `friends[${i}].lastName`,
+                  type: 'Input',
+                  value: v,
                 },
                 {
                   type: 'Box',
                   component: function () {
                     return <button type="button"> up </button>
+                  },
+                },
+                {
+                  type: 'Box',
+                  component: function () {
+                    return <button type="button"> down </button>
                   },
                 },
               ],
@@ -59,9 +72,9 @@ const Home: NextPage = () => {
                       (node) => {
                         console.log('node:', node)
                         node.children.push({
-                          type: 'FieldArrayItem',
+                          type: 'ArrayFieldItem',
                           children: [
-                            nomalizeField({
+                            nomalizeNode({
                               label: 'First Name',
                               name: 'gogo',
                               type: 'Input',

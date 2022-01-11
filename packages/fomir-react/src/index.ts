@@ -1,7 +1,7 @@
 import { Fomir } from 'fomir'
-import { FieldArrayItem } from './components/FieldArrayItem'
+import { ArrayFieldItem } from './components/ArrayFieldItem'
 import { Box } from './components/Box'
-import { FieldArray } from './components/FieldArray'
+import { ArrayField } from './components/ArrayField'
 
 export * from './components/Form'
 export * from './components/FormSpy'
@@ -15,8 +15,8 @@ export * from './types'
 
 Fomir.use({
   components: {
-    FieldArray,
-    FieldArrayItem,
+    ArrayField,
+    ArrayFieldItem,
     Box,
   },
   onFieldChange(name, form) {

@@ -1,4 +1,4 @@
-import { ChangeEvent, createElement, FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, createElement, FC, useEffect, useMemo, useState } from 'react'
 import { FieldNode, Fomir } from 'fomir'
 import { useForm } from '../hooks/useForm'
 import { NodeProps } from '../types'
@@ -33,10 +33,10 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
     }
   }, [])
 
-  const handleBlur = useCallback(() => form.blur(name), [])
-  const handleChange = useCallback((e: ChangeEvent) => form.change(name, getValueFormEvent(e)), [])
-
-  const handler = { handleChange, handleBlur }
+  const handler = {
+    handleChange: (e: ChangeEvent) => form.change(name, getValueFormEvent(e)),
+    handleBlur: () => form.blur(name),
+  }
 
   if (!node.visible) return null
 

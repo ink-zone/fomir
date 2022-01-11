@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const FieldArray = ({ children, node }: any) => {
+export const ArrayField = ({ children, node }: any) => {
   return (
     <div>
       <div>{node.label}</div>

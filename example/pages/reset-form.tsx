@@ -15,13 +15,13 @@ const Home: NextPage = () => {
         label: 'First Name',
         name: 'firstName',
         type: 'Input',
-        value: '',
+        value: 'Curry',
       },
       {
         label: 'Last Name',
         name: 'lastName',
         type: 'Input',
-        value: '',
+        value: 'Steve',
       },
       {
         type: 'Box',
@@ -33,6 +33,13 @@ const Home: NextPage = () => {
           {
             type: 'Box',
             text: 'reset',
+            component: function Reset() {
+              return (
+                <button type="reset" onClick={() => form.resetForm()}>
+                  Reset
+                </button>
+              )
+            },
           },
         ],
       },

@@ -12,7 +12,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const [, forceUpdate] = useState({})
 
   useMemo(() => {
-    updaterMap.set(schema, forceUpdate)
+    updaterMap.set(form, forceUpdate)
   }, [])
 
   function renderElement(children: any[]): any {

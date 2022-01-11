@@ -57,13 +57,10 @@ export function nomalizeNode(node: any) {
 export type Form = ReturnType<typeof createForm>
 
 export function createForm(schema: FormSchema) {
-  const onFormChangeCallbacks = (schema as any)?.onFormChange?.() || {}
-  const onFieldChangeCallbacks = (schema as any)?.onFieldChange?.() || {}
-
-  // const initialSchema = cloneDeep(schema)
+  const onFormChangeCallbacks = schema?.onFormChange?.() || {}
+  const onFieldChangeCallbacks = schema?.onFieldChange?.() || {}
 
   const formUpdaters: any[] = []
-
   const updaterMap = new Map()
 
   travelSchema(
@@ -83,6 +80,8 @@ export function createForm(schema: FormSchema) {
     },
     true,
   )
+
+  const initialSchema = cloneDeep(schema)
 
   function runFormUpdaters() {
     for (const updater of formUpdaters) {
@@ -280,7 +279,7 @@ export function createForm(schema: FormSchema) {
   async function blur(name: string) {
     const fieldNode = getFieldState(name)
     const values = getValues()
-    if ((schema as any).validationMode !== 'onSubmit') {
+    if (schema.validationMode !== 'onSubmit') {
       const error = await validateField({ fieldState: fieldNode, values })
       if (error) setFieldState(name, { touched: true, error })
     }
@@ -300,16 +299,16 @@ export function createForm(schema: FormSchema) {
 
     if (valid) {
       setSubmitting(true)
-      ;(schema as any)?.onSubmit?.(values, form)
+      schema?.onSubmit?.(values, form)
     } else {
       setFieldErrors(errors)
-      ;(schema as any)?.onError?.(errors, form)
+      schema?.onError?.(errors, form)
     }
 
     setFormState({
       valid,
       dirty: true,
-      submitCount: (schema as any).submitCount! + 1,
+      submitCount: schema.submitCount! + 1,
     })
   }
 
@@ -341,8 +340,10 @@ export function createForm(schema: FormSchema) {
   }
 
   function resetForm() {
-    // form.formState = initialFormState
-    // ema?.onReset?.(form)
+    schema = initialSchema
+    form.schema = initialSchema
+    rerenderNode(form)
+    form.schema?.onReset?.(form)
   }
 
   function onFieldInit(name: string) {
@@ -423,7 +424,7 @@ export function createForm(schema: FormSchema) {
   const form = {
     schema,
     setSchema,
-    updaterMap,
+    updaterMap: updaterMap,
     data: {} as any,
     formUpdaters,
 

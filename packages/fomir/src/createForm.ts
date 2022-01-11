@@ -171,7 +171,7 @@ export function createForm(schema: FormSchema) {
   }
 
   function rerenderNode(node: any) {
-    updaterMap.get(node)({})
+    if (node) updaterMap.get(node)?.({})
   }
 
   function getFieldCollection(
@@ -383,7 +383,7 @@ export function createForm(schema: FormSchema) {
       const rerender = typeof opt?.rerender === 'boolean' ? opt?.rerender : true
 
       if (typeof propertiesOrSetter === 'function') {
-        if (rerender) runFormUpdaters()
+        if (rerender) rerenderNode(matchedNode)
         return (propertiesOrSetter as any)(node)
       }
 
@@ -392,7 +392,7 @@ export function createForm(schema: FormSchema) {
       }
 
       // rerender form
-      if (rerender) runFormUpdaters()
+      if (rerender) rerenderNode(matchedNode)
     }
 
     function travel(nodes: any[]) {

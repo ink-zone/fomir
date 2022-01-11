@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const ArrayField = ({ children, node }: any) => {
+export const ArrayField = ({ node }: any) => {
   return (
     <div>
       <div>{node.label}</div>
-      {children}
+      {node.renderElement(node.children)}
     </div>
   )
 }

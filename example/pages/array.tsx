@@ -71,6 +71,7 @@ const Home: NextPage = () => {
                     form.setNode(
                       (node) => {
                         console.log('node:', node)
+
                         node.children.push({
                           type: 'ArrayFieldItem',
                           children: [
@@ -91,7 +92,8 @@ const Home: NextPage = () => {
                         })
                       },
                       {
-                        match: (n) => n.id === 'foo',
+                        rerender: true,
+                        match: (n) => n.id === 'field-array',
                       },
                     )
                   }}

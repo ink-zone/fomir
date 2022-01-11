@@ -18,6 +18,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   function renderElement(children: any[]): any {
     return children.map((item, index) => {
       if (item?.children?.length) {
+        item.renderElement = renderElement
         return (
           <NodeComponent key={index} node={item}>
             {renderElement(item?.children)}

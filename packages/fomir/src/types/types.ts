@@ -17,6 +17,7 @@ export interface NodeOptions {
   schema?: FormSchema
   // at?: Location
 
+  /** is rerender current node */
   rerender?: boolean
   match?: (node: any) => boolean
   // mode?: 'highest' | 'lowest'

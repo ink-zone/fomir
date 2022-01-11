@@ -2,7 +2,6 @@ import isEqual from 'react-fast-compare'
 import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn } from 'fomir-utils'
-import { FieldUpdaters } from './types/types'
 import { isFormValid } from './isFormValid'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
@@ -38,29 +37,21 @@ function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = fa
   travel(schemaArr)
 }
 
-const isField = (n: any) => Reflect.has(n, 'name')
+export function nomalizeNode(node: any) {
+  const falsyProps = ['required', 'focused', 'touched', 'loading', 'disabled', 'pending']
+  const truthyProps = ['showLabel', 'visible', 'display']
 
-export function nomalizeField(node: any) {
-  if (isField(node)) {
-    node.visible = node.visible ?? true
-    node.label = node.label ?? null
-    node.showLabel = node.showLabel ?? true
-    node.required = node.required ?? false
-    node.description = node.description
-    node.focused = node.focused ?? false
-    node.type = node.type
-    node.componentProps = node.componentProps ?? {}
-    node.display = node.display ?? true
-    node.touched = node.touched ?? false
-    node.loading = node.loading ?? false
-    node.disabled = node.disabled ?? false
-    node.pending = node.pending ?? false
-    node.status = node.status ?? 'editable'
-    node.options = node.options ?? []
-    node.data = node.data ?? null
-    node.validator = node.validator ?? {}
-    return node
-  }
+  falsyProps.forEach((k) => (node[k] = false))
+  truthyProps.forEach((k) => (node[k] = true))
+
+  node.status = node.status ?? 'editable'
+  node.label = node.label ?? null
+  node.data = node.data ?? null
+  node.options = node.options ?? []
+  node.validator = node.validator ?? {}
+  node.componentProps = node.componentProps ?? {}
+  node.description = node.description
+  return node
 }
 
 export type Form = ReturnType<typeof createForm>
@@ -71,8 +62,9 @@ export function createForm(schema: FormSchema) {
 
   // const initialSchema = cloneDeep(schema)
 
-  const fieldUpdaters = {} as FieldUpdaters
   const formUpdaters: any[] = []
+
+  const updaterMap = new Map()
 
   travelSchema(
     schema,
@@ -87,18 +79,10 @@ export function createForm(schema: FormSchema) {
         item.status = 'editable'
       }
 
-      nomalizeField(item)
+      nomalizeNode(item)
     },
     true,
   )
-
-  function runFieldUpdaters(name: string) {
-    const updaters = fieldUpdaters[name]
-    if (!Array.isArray(updaters)) return
-    for (const updater of updaters) {
-      updater({})
-    }
-  }
 
   function runFormUpdaters() {
     for (const updater of formUpdaters) {
@@ -152,7 +136,7 @@ export function createForm(schema: FormSchema) {
   function setFieldState(name: string, fieldState: Partial<FieldNode>) {
     const prevSchema = cloneDeep(schema)
 
-    setNode(fieldState, {
+    const matchedNode = setNode(fieldState, {
       rerender: false,
       match: (n) => Reflect.has(n, 'name') && n.name === name,
     })
@@ -183,7 +167,11 @@ export function createForm(schema: FormSchema) {
       fn(name, form)
     }
 
-    runFieldUpdaters(name)
+    rerenderNode(matchedNode)
+  }
+
+  function rerenderNode(node: any) {
+    updaterMap.get(node)({})
   }
 
   function getFieldCollection(
@@ -325,18 +313,6 @@ export function createForm(schema: FormSchema) {
     })
   }
 
-  function registerFieldUpdater(name: string, updater: any) {
-    if (fieldUpdaters[name]) {
-      fieldUpdaters[name].push(updater)
-    } else {
-      fieldUpdaters[name] = [updater]
-    }
-  }
-
-  function registerFormUpdater(updater: any) {
-    formUpdaters.push(updater)
-  }
-
   function getValues() {
     return getFieldCollection('value', [schema])
   }
@@ -399,9 +375,11 @@ export function createForm(schema: FormSchema) {
   }
 
   function setNode<T = any>(propertiesOrSetter: T | SetNodeFunction<T>, opt: NodeOptions) {
+    let matchedNode: any
     const nodes = [opt.schema || schema]
 
     const updateNode = (node: any) => {
+      matchedNode = node
       const rerender = typeof opt?.rerender === 'boolean' ? opt?.rerender : true
 
       if (typeof propertiesOrSetter === 'function') {
@@ -436,6 +414,8 @@ export function createForm(schema: FormSchema) {
       }
     }
     travel(nodes)
+
+    return matchedNode
   }
 
   function getArrayHelpers() {}
@@ -443,18 +423,17 @@ export function createForm(schema: FormSchema) {
   const form = {
     schema,
     setSchema,
+    updaterMap,
     data: {} as any,
-    fieldUpdaters,
     formUpdaters,
-    registerFormUpdater,
-    registerFieldUpdater,
 
     /** getter */
-    getFieldCollection,
     getFieldState,
+    getFormState,
     getValues,
     getErrors,
     getNode,
+    getFieldCollection,
     getArrayHelpers,
 
     /** setter */
@@ -473,8 +452,9 @@ export function createForm(schema: FormSchema) {
     validateForm,
     validateField,
 
-    getFormState,
     onFieldInit,
+
+    rerenderNode,
 
     blur,
     change,

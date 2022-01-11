@@ -2,6 +2,8 @@ import { ExtendedType } from './custom-types'
 
 export interface BaseNode {
   // children?: (Node | FieldNode)[]
+
+  updaters: ((...args: any[]) => void)[]
   component?: any
 }
 

@@ -3,10 +3,6 @@ import type { FormNode } from './form'
 import type { FieldNode } from './field'
 export type ForceUpdate = any
 
-export interface FieldUpdaters {
-  [key: string]: ForceUpdate[]
-}
-
 export type Errors<T = any> = {
   [K in keyof T]?: T[K] extends any[]
     ? T[K][number] extends object

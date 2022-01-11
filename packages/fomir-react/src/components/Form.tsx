@@ -7,12 +7,12 @@ import { NodeComponent } from './NodeComponent'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
-  const { submitForm, schema } = form
+  const { submitForm, schema, updaterMap } = form
   const { children = [] } = schema
   const [, forceUpdate] = useState({})
 
   useMemo(() => {
-    form.registerFormUpdater(forceUpdate)
+    updaterMap.set(schema, forceUpdate)
   }, [])
 
   function renderElement(children: any[]): any {

@@ -20,13 +20,17 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
   const { name } = node
   const [, forceUpdate] = useState({})
   const form = useForm()
+  const { updaterMap } = form
 
   useMemo(() => {
-    form.registerFieldUpdater(name, forceUpdate)
+    updaterMap.set(node, forceUpdate)
   }, [])
 
   useEffect(() => {
     form.onFieldInit(name)
+    return () => {
+      updaterMap.delete(node)
+    }
   }, [])
 
   const handleBlur = useCallback(() => form.blur(name), [])
@@ -34,7 +38,7 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
 
   const handler = { handleChange, handleBlur }
 
-  // if (!node.visible) return null
+  if (!node.visible) return null
 
   const Cmp = getComponent(node)
   return createElement(Cmp, { node, handler, children })

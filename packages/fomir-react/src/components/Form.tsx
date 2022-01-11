@@ -8,26 +8,28 @@ import { NodeComponent } from './NodeComponent'
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, ...rest } = props
   const { submitForm, schema, updaterMap } = form
-  const { children = [] } = schema
   const [, forceUpdate] = useState({})
 
   useMemo(() => {
     updaterMap.set(form, forceUpdate)
   }, [])
 
-  function renderElement(children: any[]): any {
-    return children.map((item, index) => {
-      if (item?.children?.length) {
+  function renderElement(node: any): any {
+    if (node.children) {
+      return node.children.map((item: any, index: number) => {
+        form.NODE_TO_INDEX.set(item, index)
+        form.NODE_TO_PARENT.set(item, node)
+
         item.renderElement = renderElement
         return (
           <NodeComponent key={index} node={item}>
-            {renderElement(item?.children)}
+            {renderElement(item)}
           </NodeComponent>
         )
-      }
+      })
+    }
 
-      return <NodeComponent key={index} node={item} />
-    })
+    return <NodeComponent node={node} />
   }
 
   function getNode() {
@@ -35,7 +37,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
     if (FomirForm)
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
-          {renderElement(children)}
+          {renderElement(schema)}
         </FomirForm>
       )
     if (isNative) return props.children

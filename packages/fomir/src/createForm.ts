@@ -63,6 +63,10 @@ export function createForm(schema: FormSchema) {
   const formUpdaters: any[] = []
   const updaterMap = new Map()
 
+  const NODE_TO_INDEX = new WeakMap()
+  const NODE_TO_PARENT = new WeakMap()
+  const NAME_TO_NODE = new Map()
+
   travelSchema(
     schema,
     (item) => {
@@ -132,12 +136,14 @@ export function createForm(schema: FormSchema) {
     runFormUpdaters()
   }
 
-  function setFieldState(name: string, fieldState: Partial<FieldNode>) {
+  function setFieldState(namePath: string, fieldState: Partial<FieldNode>) {
     const prevSchema = cloneDeep(schema)
+    let fieldNode = form.NAME_TO_NODE.get(namePath)
 
+    // TODO: need refactor
     const matchedNode = setNode(fieldState, {
       rerender: false,
-      match: (n) => Reflect.has(n, 'name') && n.name === name,
+      match: (n) => n === fieldNode,
     })
 
     /** on field change */
@@ -163,7 +169,7 @@ export function createForm(schema: FormSchema) {
     }
 
     for (const fn of Fomir.onFieldChangeCallbacks) {
-      fn(name, form)
+      fn(namePath, form)
     }
 
     rerenderNode(matchedNode)
@@ -256,7 +262,8 @@ export function createForm(schema: FormSchema) {
   }
 
   async function change(name: string, value: any) {
-    let fieldNode = getFieldState(name)
+    // let fieldNode = getFieldState(name)
+    let fieldNode = form.NAME_TO_NODE.get(name)
     let nextValue = value
     if (typeof fieldNode.intercept === 'function') {
       nextValue = fieldNode.intercept(value, fieldNode)
@@ -435,7 +442,6 @@ export function createForm(schema: FormSchema) {
           for (const c of item.children) {
             delete c.value
           }
-          console.log('item.children', item)
           node.children.push(item)
         }
         rerenderNode(node)
@@ -451,12 +457,69 @@ export function createForm(schema: FormSchema) {
     }
   }
 
+  function getNodeName(node: any) {
+    let name: string = node.name || ''
+    let child = node
+
+    while (true) {
+      const parent = NODE_TO_PARENT.get(child)
+
+      if (parent == null) {
+        break
+      }
+
+      const i = NODE_TO_INDEX.get(child)
+
+      if (parent.name) {
+        if (parent.type === 'ArrayField' && name) {
+          name = parent.name + `[${i}].` + name
+        } else {
+          name = parent.name + name
+        }
+      }
+
+      child = parent
+    }
+
+    return name
+  }
+
+  function findPath(node: any) {
+    const path: number[] = []
+    let child = node
+
+    while (true) {
+      const parent = NODE_TO_PARENT.get(child)
+
+      if (parent == null) {
+        break
+      }
+
+      const i = NODE_TO_INDEX.get(child)
+
+      if (i == null) {
+        break
+      }
+
+      path.unshift(i)
+      child = parent
+    }
+
+    return path
+  }
+
   const form = {
     schema,
     setSchema,
     updaterMap: updaterMap,
     data: {} as any,
     formUpdaters,
+    NODE_TO_INDEX,
+    NODE_TO_PARENT,
+    NAME_TO_NODE,
+
+    findPath,
+    getNodeName,
 
     /** getter */
     getFieldState,

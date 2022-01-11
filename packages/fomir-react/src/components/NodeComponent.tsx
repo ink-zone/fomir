@@ -17,10 +17,10 @@ function getComponent(field: FieldNode) {
 }
 
 export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }) => {
-  const { name } = node
   const [, forceUpdate] = useState({})
   const form = useForm()
   const { updaterMap } = form
+  const { name } = node
 
   useMemo(() => {
     updaterMap.set(node, forceUpdate)
@@ -33,8 +33,13 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
     }
   }, [])
 
+  const nodeName = form.getNodeName(node)
+  if (nodeName) {
+    form.NAME_TO_NODE.set(nodeName, node)
+  }
+
   const handler = {
-    handleChange: (e: ChangeEvent) => form.change(name, getValueFormEvent(e)),
+    handleChange: (e: ChangeEvent) => form.change(nodeName, getValueFormEvent(e)),
     handleBlur: () => form.blur(name),
   }
 

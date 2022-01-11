@@ -19,7 +19,6 @@ const Home: NextPage = () => {
       },
       {
         label: 'arr',
-        name: 'arr',
         type: 'Box',
         value: '',
         children: [
@@ -33,14 +32,16 @@ const Home: NextPage = () => {
               children: [
                 {
                   label: 'First Name',
-                  name: `friends[${i}].firstName`,
+                  // name: `friends[${i}].firstName`,
+                  name: `firstName`,
                   type: 'Input',
                   value: v,
                 },
 
                 {
                   label: 'Last Name',
-                  name: `friends[${i}].lastName`,
+                  // name: `friends[${i}].lastName`,
+                  name: `lastName`,
                   type: 'Input',
                   value: v,
                 },

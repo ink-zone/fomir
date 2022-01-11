@@ -38,11 +38,11 @@ function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = fa
 }
 
 export function nomalizeNode(node: any) {
-  const falsyProps = ['required', 'focused', 'touched', 'loading', 'disabled', 'pending']
+  const falsyProps = ['required', 'focused', 'touched', 'loading', 'disabled']
   const truthyProps = ['showLabel', 'visible', 'display']
 
-  falsyProps.forEach((k) => (node[k] = false))
-  truthyProps.forEach((k) => (node[k] = true))
+  falsyProps.forEach((k) => (node[k] = node[k] ?? false))
+  truthyProps.forEach((k) => (node[k] = node[k] ?? true))
 
   node.status = node.status ?? 'editable'
   node.label = node.label ?? null

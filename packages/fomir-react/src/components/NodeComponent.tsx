@@ -38,7 +38,7 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
     handleBlur: () => form.blur(name),
   }
 
-  // if (!node.visible) return null
+  if (typeof node.visible === 'boolean' && !node.visible) return null
 
   const Cmp = getComponent(node)
   return createElement(Cmp, { node, handler, children })

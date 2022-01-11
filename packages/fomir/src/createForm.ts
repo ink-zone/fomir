@@ -419,7 +419,37 @@ export function createForm(schema: FormSchema) {
     return matchedNode
   }
 
-  function getArrayHelpers() {}
+  // TODO:
+  function getArrayHelpers(name: string) {
+    const node = getNode({ match: (n) => n.name === name })
+    return {
+      isFirst(index: number) {
+        return index === 0
+      },
+      isLast(index: number) {
+        return index + 1 === node?.children?.length
+      },
+      push<T = any>(value: T) {
+        if (node.children[0]) {
+          const item = cloneDeep(node.children[0])
+          for (const c of item.children) {
+            delete c.value
+          }
+          console.log('item.children', item)
+          node.children.push(item)
+        }
+        rerenderNode(node)
+        if (value) {
+          // TODO:
+        }
+      },
+      // unshift,
+      // remove,
+      // move,
+      // swap: move,
+      // insert,
+    }
+  }
 
   const form = {
     schema,

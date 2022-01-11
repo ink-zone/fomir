@@ -68,34 +68,9 @@ const Home: NextPage = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    form.setNode(
-                      (node) => {
-                        console.log('node:', node)
-
-                        node.children.push({
-                          type: 'ArrayFieldItem',
-                          children: [
-                            nomalizeNode({
-                              label: 'First Name',
-                              name: 'gogo',
-                              type: 'Input',
-                              value: 'bill',
-                            }),
-
-                            {
-                              type: 'Box',
-                              component: function () {
-                                return <button type="button"> up.. </button>
-                              },
-                            },
-                          ],
-                        })
-                      },
-                      {
-                        rerender: true,
-                        match: (n) => n.id === 'field-array',
-                      },
-                    )
+                    //
+                    const helper = form.getArrayHelpers('friends')
+                    helper.push({})
                   }}
                 >
                   +

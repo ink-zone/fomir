@@ -1,6 +1,6 @@
 export * from './Fomir'
 export * from './createForm'
-export * from './isFormValid'
+export * from './utils'
 export * from './builtinPlugin'
 export * from './types/form'
 export * from './types/field'

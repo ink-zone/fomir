@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "fomir": "^0.0.0",
-    "fomir-utils": "^0.0.0",
     "is-promise": "^4.0.0"
   }
 }

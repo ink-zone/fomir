@@ -36,6 +36,7 @@ export const NodeComponent: FC<Omit<NodeProps, 'handler'>> = ({ node, children }
   const nodeName = form.getNodeName(node)
   if (nodeName) {
     form.NAME_TO_NODE.set(nodeName, node)
+    form.NODE_TO_NAME.set(node, nodeName)
   }
 
   const handler = {

@@ -27,11 +27,12 @@ const Home: NextPage = () => {
             name: 'friends',
             label: 'Friends',
             id: 'field-array',
+            initialValues: [{ firstName: '', lastName: '' }],
             children: ['Bill', 'job'].map((v, i) => ({
               type: 'ArrayFieldItem',
               children: [
                 {
-                  label: 'First Name',
+                  label: 'First Name' + i,
                   // name: `friends[${i}].firstName`,
                   name: `firstName`,
                   type: 'Input',
@@ -47,14 +48,38 @@ const Home: NextPage = () => {
                 },
                 {
                   type: 'Box',
-                  component: function () {
-                    return <button type="button"> up </button>
+                  component: function ({ node }: any) {
+                    const index = form.getNodeIndex(form.getParent(node))
+                    const helper = form.getArrayHelpers('friends')
+                    return (
+                      <button type="button" onClick={() => helper.swap(index, index - 1)}>
+                        up
+                      </button>
+                    )
                   },
                 },
                 {
                   type: 'Box',
-                  component: function () {
-                    return <button type="button"> down </button>
+                  component: function ({ node }: any) {
+                    const index = form.getNodeIndex(form.getParent(node))
+                    const helper = form.getArrayHelpers('friends')
+                    return (
+                      <button type="button" onClick={() => helper.swap(index, index + 1)}>
+                        down
+                      </button>
+                    )
+                  },
+                },
+                {
+                  type: 'Box',
+                  component: function ({ node }: any) {
+                    const index = form.getNodeIndex(form.getParent(node))
+                    const helper = form.getArrayHelpers('friends')
+                    return (
+                      <button type="button" onClick={() => helper.remove(index)}>
+                        delete
+                      </button>
+                    )
                   },
                 },
               ],
@@ -69,7 +94,6 @@ const Home: NextPage = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    //
                     const helper = form.getArrayHelpers('friends')
                     helper.push({})
                   }}

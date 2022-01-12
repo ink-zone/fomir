@@ -1,4 +1,5 @@
 import isEqual from 'react-fast-compare'
+import arrayMove from 'array-move'
 import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn } from 'fomir-utils'
@@ -66,6 +67,7 @@ export function createForm(schema: FormSchema) {
   const NODE_TO_INDEX = new WeakMap()
   const NODE_TO_PARENT = new WeakMap()
   const NAME_TO_NODE = new Map()
+  const NODE_TO_NAME = new WeakMap()
 
   travelSchema(
     schema,
@@ -193,13 +195,14 @@ export function createForm(schema: FormSchema) {
         }
       }
 
+      // must have a name
       if (!Reflect.has(cur, 'name')) return acc
 
       // skip invisible field
       if (ignoreInvisible && !cur.visible) return acc
 
       let v: any
-      const k = cur.name
+      const k = NODE_TO_NAME.get(cur)
       if (type === 'value') {
         const { value, transform } = cur
         v = transform && typeof transform === 'function' ? transform(value) : value
@@ -261,14 +264,14 @@ export function createForm(schema: FormSchema) {
     return errors
   }
 
-  async function change(name: string, value: any) {
+  async function change(namePath: string, value: any) {
     // let fieldNode = getFieldState(name)
-    let fieldNode = form.NAME_TO_NODE.get(name)
+    let fieldNode = form.NAME_TO_NODE.get(namePath)
     let nextValue = value
     if (typeof fieldNode.intercept === 'function') {
       nextValue = fieldNode.intercept(value, fieldNode)
     }
-    setFieldState(name, { value: nextValue }) // sync value
+    setFieldState(namePath, { value: nextValue }) // sync value
 
     fieldNode = { ...fieldNode, value: nextValue }
 
@@ -277,18 +280,18 @@ export function createForm(schema: FormSchema) {
     const prevError = fieldNode.error
     const error = fieldError || undefined
 
-    if (prevError !== error) setFieldState(name, { error })
+    if (prevError !== error) setFieldState(namePath, { error })
 
     /** field change callback, for Dependent fields  */
     fieldNode?.onValueChange?.(fieldNode)
   }
 
-  async function blur(name: string) {
-    const fieldNode = getFieldState(name)
+  async function blur(namePath: string) {
+    let fieldNode = form.NAME_TO_NODE.get(namePath)
     const values = getValues()
     if (schema.validationMode !== 'onSubmit') {
       const error = await validateField({ fieldState: fieldNode, values })
-      if (error) setFieldState(name, { touched: true, error })
+      if (error) setFieldState(namePath, { touched: true, error })
     }
   }
 
@@ -429,6 +432,18 @@ export function createForm(schema: FormSchema) {
   // TODO:
   function getArrayHelpers(name: string) {
     const node = getNode({ match: (n) => n.name === name })
+    const fields = node.children
+
+    const isValidIndex = (...args: number[]) => {
+      return !args.some((i) => i < 0 || i > fields.length)
+    }
+
+    function move(from: number, to: number) {
+      if (!isValidIndex(from, to)) return
+
+      node.children = arrayMove(fields, from, to)
+      rerenderNode(node)
+    }
     return {
       isFirst(index: number) {
         return index === 0
@@ -450,9 +465,12 @@ export function createForm(schema: FormSchema) {
         }
       },
       // unshift,
-      // remove,
-      // move,
-      // swap: move,
+      remove(index: number) {
+        node.children.splice(index, 1)
+        rerenderNode(node)
+      },
+      move,
+      swap: move,
       // insert,
     }
   }
@@ -508,6 +526,14 @@ export function createForm(schema: FormSchema) {
     return path
   }
 
+  function getParent(node: any) {
+    return NODE_TO_PARENT.get(node)
+  }
+
+  function getNodeIndex(node: any) {
+    return NODE_TO_INDEX.get(node)
+  }
+
   const form = {
     schema,
     setSchema,
@@ -517,6 +543,10 @@ export function createForm(schema: FormSchema) {
     NODE_TO_INDEX,
     NODE_TO_PARENT,
     NAME_TO_NODE,
+    NODE_TO_NAME,
+
+    getParent,
+    getNodeIndex,
 
     findPath,
     getNodeName,

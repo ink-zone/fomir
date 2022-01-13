@@ -37,7 +37,7 @@ function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = fa
   travel(schemaArr)
 }
 
-export function nomalizeNode(node: any) {
+export function normalizeNode(node: any) {
   const falsyProps = ['required', 'focused', 'touched', 'loading', 'disabled']
   const truthyProps = ['showLabel', 'visible', 'display']
 
@@ -81,7 +81,7 @@ export function createForm(schema: FormSchema) {
         item.status = 'editable'
       }
 
-      nomalizeNode(item)
+      normalizeNode(item)
     },
     true,
   )
@@ -357,7 +357,7 @@ export function createForm(schema: FormSchema) {
 
   function onFieldInit(name: string) {
     const fieldNode = getFieldState(name)
-    fieldNode.onFieldInit?.(fieldNode)
+    fieldNode?.onFieldInit?.(fieldNode)
   }
 
   function getNode<T = any>(opt: NodeOptions) {
@@ -543,6 +543,8 @@ export function createForm(schema: FormSchema) {
     NODE_TO_PARENT,
     NAME_TO_NODE,
     NODE_TO_NAME,
+
+    normalizeNode,
 
     getParent,
     getNodeIndex,

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form } from 'fomir-react'
-import { createForm, nomalizeNode } from 'fomir'
+import { createForm, normalizeNode } from 'fomir'
 
 const Home: NextPage = () => {
   const form = createForm({

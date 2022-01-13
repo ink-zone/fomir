@@ -6,7 +6,7 @@ import { FormProvider } from '../formContext'
 import { NodeComponent } from './NodeComponent'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
-  const { form, ...rest } = props
+  const { form, children, ...rest } = props
   const { submitForm, schema, updaterMap } = form
   const [, forceUpdate] = useState({})
 
@@ -38,11 +38,16 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
           {renderElement(schema)}
+          {children}
         </FomirForm>
       )
     if (isNative) return props.children
 
-    return React.createElement('form', { onSubmit: submitForm, ...rest, ref })
+    return React.createElement('form', {
+      onSubmit: submitForm,
+      ...rest,
+      ref,
+    })
   }
 
   return <FormProvider value={form}>{getNode()}</FormProvider>

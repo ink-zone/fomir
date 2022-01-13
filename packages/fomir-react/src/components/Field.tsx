@@ -1,16 +1,25 @@
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { FieldNode } from 'fomir'
-import { NodeComponent } from './NodeComponent'
 import { useForm } from '../hooks/useForm'
+import { useNodeComponent } from '../hooks/useNodeComponent'
 
 export const Field: FC<FieldNode & { type: string }> = ({ children, ...props }) => {
   const { schema, normalizeNode } = useForm()
+  const { current: node } = useRef(normalizeNode(props))
 
   // register field
   useEffect(() => {
     if (!Array.isArray(schema.children)) schema.children = []
-    schema.children.push(normalizeNode(props))
+    if (schema.children.indexOf(node) < 0) {
+      schema.children.push(node)
+    }
+
+    return () => {
+      const index = schema.children!.indexOf(node)
+      schema.children?.slice(index, 1)
+    }
   }, [])
 
-  return <NodeComponent node={props} />
+  const componentNode = useNodeComponent({ node, children })
+  return componentNode
 }

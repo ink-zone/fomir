@@ -5,7 +5,6 @@ import { createForm, Node } from 'fomir'
 
 const Home: NextPage = () => {
   const form = createForm({
-    type: 'form',
     onSubmit(values) {
       console.log('values', values)
       setTimeout(() => {

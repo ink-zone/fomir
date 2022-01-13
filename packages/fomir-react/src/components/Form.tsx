@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, useMemo, useState } from 'react'
+import React, { FC, forwardRef, useEffect, useMemo, useState } from 'react'
 import { Fomir } from 'fomir'
 import { isNative } from '../utils'
 import { FormProps } from '../types'
@@ -11,6 +11,10 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const [, forceUpdate] = useState({})
 
   useMemo(() => {
+    if (children) schema.children = []
+  }, [])
+
+  useEffect(() => {
     updaterMap.set(form, forceUpdate)
   }, [])
 
@@ -29,16 +33,19 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
       })
     }
 
+    // if is root node, render null
+    if (form.isSchema(node)) return null
+
     return <NodeComponent node={node} />
   }
 
   function getNode() {
     const FomirForm = Fomir.compenents.Form
+
     if (FomirForm)
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
-          {renderElement(schema)}
-          {children}
+          {children ? children : renderElement(schema)}
         </FomirForm>
       )
     if (isNative) return props.children

@@ -28,7 +28,6 @@ export interface ArrayFieldItemNode {
 }
 
 export interface FormNode<T = any> {
-  type: 'form'
   submitting?: boolean
   submitted?: boolean
   submitCount?: number
@@ -41,7 +40,7 @@ export interface FormNode<T = any> {
   /** form unique name, optional */
   name?: string
 
-  children: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
+  children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 

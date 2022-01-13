@@ -270,6 +270,7 @@ export function createForm(schema: FormSchema) {
     if (typeof fieldNode.intercept === 'function') {
       nextValue = fieldNode.intercept(value, fieldNode)
     }
+
     setFieldState(namePath, { value: nextValue }) // sync value
 
     fieldNode = { ...fieldNode, value: nextValue }
@@ -295,7 +296,7 @@ export function createForm(schema: FormSchema) {
   }
 
   async function submitForm(e?: any) {
-    e && e.preventDefault()
+    e && e?.preventDefault()
 
     let valid: boolean = true
     const values = getValues()
@@ -576,6 +577,10 @@ export function createForm(schema: FormSchema) {
     /** validate */
     validateForm,
     validateField,
+
+    isSchema: (node: any) => {
+      return node === schema
+    },
 
     onFieldInit,
 

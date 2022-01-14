@@ -12,26 +12,31 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   const [, forceUpdate] = useState({})
   const form = useForm()
   const { updaterMap } = form
-  const { name } = node
 
   useEffect(() => {
     updaterMap.set(node, forceUpdate)
-    form.onFieldInit(name)
-
-    const nodeName = form.getNodeName(node)
-    if (nodeName) {
-      form.NAME_TO_NODE.set(nodeName, node)
-      form.NODE_TO_NAME.set(node, nodeName)
-    }
+    setTimeout(() => {
+      const nodeName = form.getNodeName(node)
+      form.onFieldInit(nodeName)
+      if (nodeName) {
+        form.NAME_TO_NODE.set(nodeName, node)
+        form.NODE_TO_NAME.set(node, nodeName)
+      }
+    }, 0)
     return () => {
       updaterMap.delete(node)
     }
-  }, [])
+  })
 
-  const nodeName = form.getNodeName(node)
   const handler = {
-    handleChange: (e: ChangeEvent) => form.change(nodeName, getValueFormEvent(e)),
-    handleBlur: () => form.blur(name),
+    handleChange: (e: ChangeEvent) => {
+      const nodeName = form.getNodeName(node)
+      form.change(nodeName, getValueFormEvent(e))
+    },
+    handleBlur: () => {
+      const nodeName = form.getNodeName(node)
+      form.blur(nodeName)
+    },
   }
 
   if (typeof node.visible === 'boolean' && !node.visible) return null

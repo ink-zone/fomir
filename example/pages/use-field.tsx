@@ -1,12 +1,9 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useField } from 'fomir-react'
-import { createForm } from 'fomir'
-import { useState } from 'react'
+import { Form, useField, useForm } from 'fomir-react'
 
 const Home: NextPage = () => {
-  const form = createForm({
-    type: 'form',
+  const form = useForm({
     onSubmit(values) {
       console.log('values', values)
     },

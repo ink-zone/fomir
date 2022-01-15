@@ -432,18 +432,16 @@ export function createForm(schema: FormSchema) {
   // TODO:
   function getArrayHelpers(name: string, arrayNode?: any) {
     const node = arrayNode || getNode({ match: (n) => n.name === name })
+    const fields = node.children
 
     const isValidIndex = (...args: number[]) => {
-      return !args.some((i) => i < 0 || i > node.children.length)
+      return !args.some((i) => i < 0 || i > fields.length)
     }
 
     function move(from: number, to: number) {
       if (!isValidIndex(from, to)) return
 
-      node.children = arrayMove(node.children, from, to)
-      console.log('node.children:', node.children)
-
-      node.fields = arrayMove(node.fields, from, to)
+      node.children = arrayMove(fields, from, to)
       rerenderNode(node)
     }
     return {
@@ -454,7 +452,13 @@ export function createForm(schema: FormSchema) {
         return index + 1 === node?.children?.length
       },
       push<T = any>(value: T) {
-        node.fields.push('')
+        if (node.children[0]) {
+          const item = cloneDeep(node.children[0])
+          for (const c of item.children) {
+            delete c.value
+          }
+          node.children.push(item)
+        }
         rerenderNode(node)
         if (value) {
           // TODO:
@@ -462,33 +466,11 @@ export function createForm(schema: FormSchema) {
       },
       // unshift,
       remove(index: number) {
-        console.log('index', index)
-        const removedNode = node.children[index]
-        // console.log('removedNode:', removedNode)
-
-        // const nodeName = form.getNodeName(removedNode)
-        // console.log('nodeName before:', nodeName)
-        form.NODE_TO_INDEX.delete(removedNode)
-        form.NODE_TO_NAME.delete(removedNode)
-        form.NAME_TO_NODE.delete(removedNode)
-        // form.NODE_TO_PARENT.delete(node)
-
         node.children.splice(index, 1)
-        node.fields?.splice?.(index, 1)
-
-        // node.children.forEach((n: any, i: any) => {
-        // form.NODE_TO_INDEX.set(n, i)
-        // const nodeName = form.getNodeName(n)
-        // console.log('nodeName:', nodeName)
-        // })
-
         rerenderNode(node)
       },
-      swap: move,
       move,
-      // moveUp(index:number) {
-
-      // }
+      swap: move,
       // insert,
     }
   }

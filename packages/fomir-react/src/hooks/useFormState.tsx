@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useForm } from './useForm'
+import { useFormContext } from './useFormContext'
 
 export function useFormState() {
   const [, forceUpdate] = useState({})
-  const form = useForm()
+  const form = useFormContext()
   const formState = form.getFormState()
 
   useEffect(() => {

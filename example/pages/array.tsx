@@ -51,6 +51,7 @@ const Home: NextPage = () => {
                   component: function ({ node }: any) {
                     const index = form.getNodeIndex(form.getParent(node))
                     const helper = form.getArrayHelpers('friends')
+                    console.log('====================================index:', index)
                     return (
                       <button type="button" onClick={() => helper.swap(index, index - 1)}>
                         up

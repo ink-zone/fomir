@@ -1,6 +1,6 @@
 import { ChangeEvent, createElement, useEffect, useState } from 'react'
 import { getNodeComponent, getValueFormEvent, NodeProps } from '..'
-import { useForm } from './useForm'
+import { useFormContext } from './useFormContext'
 
 /**
  * To get the NodeComponet to render
@@ -10,7 +10,7 @@ import { useForm } from './useForm'
 export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   const { node, children } = opt
   const [, forceUpdate] = useState({})
-  const form = useForm()
+  const form = useFormContext()
   const { updaterMap } = form
 
   useEffect(() => {

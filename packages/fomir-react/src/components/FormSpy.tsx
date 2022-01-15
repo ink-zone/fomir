@@ -1,10 +1,10 @@
 import React, { FC, Fragment, useEffect, useState } from 'react'
 import { FormSpyProps, FormSpyRenderProps } from '../types'
-import { useForm } from '../hooks/useForm'
+import { useFormContext } from '../hooks/useFormContext'
 
 export const FormSpy: FC<FormSpyProps> = ({ children }) => {
   const [, forceUpdate] = useState({})
-  const form = useForm()
+  const form = useFormContext()
   const formState = form.schema
   const renderProps: FormSpyRenderProps = { ...formState, ...form } as any
 

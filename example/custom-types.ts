@@ -1,21 +1,22 @@
-import { Node } from 'fomir'
+import { BaseNode, Node } from 'fomir'
 import { UnstyledNode } from 'fomir-unstyled'
 
-export interface SubmitNode {
+export interface SubmitNode extends BaseNode {
   type: 'Submit'
   text: string
-  component?: any
 }
 
-export interface BoxNode {
+export interface BoxNode extends BaseNode {
   type: 'Box'
   text?: string
   children?: Node[]
-  component?: any
 }
 
 declare module 'fomir' {
   interface CustomTypes {
     Node: SubmitNode | UnstyledNode | BoxNode
+  }
+  interface BaseValidator {
+    min?: string
   }
 }

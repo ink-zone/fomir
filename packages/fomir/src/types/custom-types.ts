@@ -1,8 +1,7 @@
 /**
  * Extendable Custom Types Interface
  */
-
-type ExtendableTypes = 'Node' 
+type ExtendableTypes = 'Node' | 'Validator'
 
 export interface CustomTypes {
   [key: string]: unknown

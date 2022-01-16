@@ -23,4 +23,4 @@ export const FomirUnstyled: FomirPlugin = {
 
 export default FomirUnstyled
 
-export * from './ustyled-node'
+export * from './unstyled-node'

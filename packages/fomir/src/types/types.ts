@@ -1,6 +1,8 @@
 import type { Form } from '../createForm'
 import type { FormNode } from './form'
 import type { FieldNode } from './field'
+import type { ExtendedType } from './custom-types'
+
 export type ForceUpdate = any
 
 export type Errors<T = any> = {
@@ -14,7 +16,7 @@ export type Errors<T = any> = {
 }
 
 export interface NodeOptions {
-  schema?: FormSchema
+  schema?: FormNode
   // at?: Location
 
   /** is rerender current node */
@@ -39,13 +41,15 @@ export type ValidationRuleFn<T = any, K = any> = (
 export type OnFormStateChange = (form: Form) => any
 export type OnFieldStateChange = (name: string, form: Form) => any
 
+export interface BaseValidator {
+  message: string
+}
+
+export type Validator = ExtendedType<'Validator', BaseValidator>
+
 export interface FomirPlugin {
   components?: Record<string, any>
-
   validators?: Record<string, ValidationRuleFn>
-
   onFormStateChange?: OnFormStateChange
   onFieldChange?: OnFieldStateChange
 }
-
-export type FormSchema = FormNode

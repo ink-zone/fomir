@@ -1,6 +1,7 @@
 import React from 'react'
+import { NodeProps } from '../types'
 
-export const ArrayField = ({ node }: any) => {
+export const ArrayField = ({ node }: NodeProps) => {
   return (
     <div>
       <div>{node.label}</div>

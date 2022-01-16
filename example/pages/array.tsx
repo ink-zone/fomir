@@ -32,7 +32,6 @@ const Home: NextPage = () => {
               children: [
                 {
                   label: 'First Name' + i,
-                  // name: `friends[${i}].firstName`,
                   name: `firstName`,
                   type: 'Input',
                   value: v,
@@ -40,17 +39,15 @@ const Home: NextPage = () => {
 
                 {
                   label: 'Last Name',
-                  // name: `friends[${i}].lastName`,
                   name: `lastName`,
                   type: 'Input',
                   value: v,
                 },
                 {
                   type: 'Box',
-                  component: function ({ node }: any) {
+                  component: function ({ node }) {
                     const index = form.getNodeIndex(form.getParent(node))
                     const helper = form.getArrayHelpers('friends')
-                    console.log('====================================index:', index)
                     return (
                       <button type="button" onClick={() => helper.swap(index, index - 1)}>
                         up

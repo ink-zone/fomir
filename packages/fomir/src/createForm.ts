@@ -6,7 +6,7 @@ import { getIn, setIn, isFormValid } from './utils'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
 // import { Node } from './types/node'
-import { FormSchema, FieldValidateOptions } from './types/types'
+import { FieldValidateOptions } from './types/types'
 import { NodeOptions, SetNodeFunction } from './types/types'
 import { Fomir } from './Fomir'
 
@@ -22,7 +22,7 @@ import { Fomir } from './Fomir'
 //   | 'status'
 //   | '*'
 
-function travelSchema(schema: FormSchema, fn: (n: any) => any, travelParent = false) {
+function travelSchema(schema: FormNode, fn: (n: any) => any, travelParent = false) {
   const schemaArr = [schema]
   function travel(nodes: any[]) {
     for (const item of nodes) {
@@ -56,7 +56,7 @@ export function normalizeNode(node: any) {
 
 export type Form = ReturnType<typeof createForm>
 
-export function createForm(schema: FormSchema) {
+export function createForm<T>(schema: FormNode<T>) {
   const onFormChangeCallbacks = schema?.onFormChange?.() || {}
   const onFieldChangeCallbacks = schema?.onFieldChange?.() || {}
 
@@ -99,11 +99,11 @@ export function createForm(schema: FormSchema) {
     return schema
   }
 
-  function getFieldState(name: string, schema?: FormSchema): FieldNode {
+  function getFieldState(name: string, schema?: FormNode): FieldNode {
     return getNode({ schema, match: (n) => n.name === name })
   }
 
-  function setSchema(fn: (shema: FormSchema) => any) {
+  function setSchema(fn: (shema: FormNode) => any) {
     fn(schema)
     runFormUpdaters()
   }
@@ -120,7 +120,7 @@ export function createForm(schema: FormSchema) {
 
     /** on form change */
     for (const key of Object.keys(onFormChangeCallbacks)) {
-      const k = key as keyof FormSchema
+      const k = key as keyof FormNode
 
       if (key === '*') {
         if (isEqual(prevState, schema)) continue

@@ -1,20 +1,7 @@
 import { FieldNode } from './field'
 import { Node } from './node'
 import { Errors } from './types'
-
-export type ComponentType =
-  | 'Input'
-  | 'InputNumber'
-  | 'Checkbox'
-  | 'CheckboxGroup'
-  | 'RadioGroup'
-  | 'Select'
-  | 'Textarea'
-  | 'Switch'
-  | ({} & string)
-  // | FunctionComponent
-  // | Component
-  | ((...args: any[]) => JSX.Element)
+import type { Form } from '../createForm'
 
 export interface ArrayFieldNode {
   type: 'ArrayField'
@@ -48,18 +35,18 @@ export interface FormNode<T = any> {
    * callback when form submit
    * @param values current values
    */
-  onSubmit?(values: T, formApi: any): Promise<any> | any
+  onSubmit?(values: T, form: Form): Promise<any> | any
 
   /**
    * callback when form error
    * @param errors current errors
    */
-  onError?(errors: Errors<T>, formApi: any): Promise<any> | any
+  onError?(errors: Errors<T>, form: Form): Promise<any> | any
 
   /**
    * callback when reset form
    */
-  onReset?(formApi: any): Promise<any> | any
+  onReset?(form: Form): Promise<any> | any
 
   onFormChange?: any
 

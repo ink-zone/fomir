@@ -5,7 +5,7 @@ export const ArrayField = ({ node }: NodeProps) => {
   return (
     <div>
       <div>{node.label}</div>
-      {node.renderElement(node)}
+      {node.renderNode(node)}
     </div>
   )
 }

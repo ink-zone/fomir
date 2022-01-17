@@ -1,7 +1,6 @@
 import { FieldNode } from './field'
 import { Node } from './node'
 import { Errors } from './types'
-import type { Form } from '../createForm'
 
 export interface ArrayFieldNode {
   type: 'ArrayField'
@@ -14,6 +13,8 @@ export interface ArrayFieldItemNode {
   children: Node[]
 }
 
+type Status = 'editable' | 'disabled' | 'preview' | ({} & string)
+
 export interface FormNode<T = any> {
   submitting?: boolean
   submitted?: boolean
@@ -22,7 +23,7 @@ export interface FormNode<T = any> {
   validating?: boolean
   dirty?: boolean
   valid?: boolean
-  // status: Status
+  status: Status
 
   /** form unique name, optional */
   name?: string
@@ -31,24 +32,24 @@ export interface FormNode<T = any> {
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 
+  watch: {
+    [key: string]: <T extends FieldNode = any>(nextData: T, prevData: T) => any
+  }
+
   /**
    * callback when form submit
    * @param values current values
    */
-  onSubmit?(values: T, form: Form): Promise<any> | any
+  onSubmit?(values: T): Promise<any> | any
 
   /**
    * callback when form error
    * @param errors current errors
    */
-  onError?(errors: Errors<T>, form: Form): Promise<any> | any
+  onError?(errors: Errors<T>): Promise<any> | any
 
   /**
    * callback when reset form
    */
-  onReset?(form: Form): Promise<any> | any
-
-  onFormChange?: any
-
-  onFieldChange?: any
+  onReset?(): Promise<any> | any
 }

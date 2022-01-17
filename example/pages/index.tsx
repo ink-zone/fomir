@@ -11,22 +11,6 @@ const Home: NextPage = () => {
       }, 3000)
     },
 
-    // onFormChange: () => {
-    //   return {
-    //     '*': (data) => {
-    //       console.log('* change', data)
-    //     },
-    //   }
-    // },
-
-    onFieldChange: () => {
-      return {
-        'foo.value': (data) => {
-          console.log('first name', data, form.schema)
-        },
-      }
-    },
-
     children: [
       {
         label: 'Checked?',

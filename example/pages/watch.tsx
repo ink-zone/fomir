@@ -8,12 +8,36 @@ const Home: NextPage = () => {
       console.log('values', values)
     },
 
+    watch: {
+      '$.submitCount': (count, prevCount) => {
+        console.log('submitCount', count, prevCount)
+      },
+      'firstName.value': (data, prev) => {
+        console.log('firstName change', data, prev)
+      },
+
+      'firstName.error': (data, prev) => {
+        console.log('firstName error change', data, prev)
+      },
+
+      '*.value': (data, prev) => {
+        console.log('values---', data, prev)
+      },
+
+      '*.error': (data, prev) => {
+        console.log('error---', data, prev)
+      },
+    },
+
     children: [
       {
         label: 'First Name',
         name: 'firstName',
         type: 'Input',
         value: '',
+        validator: {
+          // required: 'gogo',
+        },
       },
       {
         label: 'Last Name',

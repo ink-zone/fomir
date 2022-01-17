@@ -11,8 +11,6 @@ import { NodeOptions, SetNodeFunction } from './types/types'
 import { Fomir } from './Fomir'
 
 // type Path =
-//   | 'values'
-//   | 'errors'
 //   | 'dirty'
 //   | 'valid'
 //   | 'submitCount'
@@ -22,8 +20,7 @@ import { Fomir } from './Fomir'
 //   | 'status'
 //   | '*'
 
-function travelSchema(schema: FormNode, fn: (n: any) => any, travelParent = false) {
-  const schemaArr = [schema]
+function travelNodes(nodes: any[] = [], fn: (n: any) => any, travelParent = false) {
   function travel(nodes: any[]) {
     for (const item of nodes) {
       if (Array.isArray(item.children)) {
@@ -34,7 +31,7 @@ function travelSchema(schema: FormNode, fn: (n: any) => any, travelParent = fals
       fn(item)
     }
   }
-  travel(schemaArr)
+  travel(nodes)
 }
 
 export function normalizeNode(node: any) {
@@ -57,9 +54,6 @@ export function normalizeNode(node: any) {
 export type Form = ReturnType<typeof createForm>
 
 export function createForm<T>(schema: FormNode<T>) {
-  const onFormChangeCallbacks = schema?.onFormChange?.() || {}
-  const onFieldChangeCallbacks = schema?.onFieldChange?.() || {}
-
   const formUpdaters: any[] = []
   const updaterMap = new Map()
 
@@ -68,19 +62,18 @@ export function createForm<T>(schema: FormNode<T>) {
   const NAME_TO_NODE = new Map()
   const NODE_TO_NAME = new WeakMap()
 
-  travelSchema(
-    schema,
-    (item) => {
-      if (item.type === 'form') {
-        item.dirty = false
-        item.valid = true
-        item.submitCount = 0
-        item.submitting = false
-        item.submitted = false
-        item.validating = false
-        item.status = 'editable'
-      }
+  // For form node
+  schema.dirty = false
+  schema.valid = true
+  schema.submitCount = 0
+  schema.submitting = false
+  schema.submitted = false
+  schema.validating = false
+  schema.status = 'editable'
 
+  travelNodes(
+    schema.children,
+    (item) => {
       normalizeNode(item)
     },
     true,
@@ -109,28 +102,21 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function setFormState(formPartialState: Partial<FormNode>) {
-    const prevState = cloneDeep(schema)
+    const prevSchema = cloneDeep(schema)
+    const { watch = {} } = form.schema
 
-    setNode(formPartialState, {
-      rerender: false,
-      match: (n) => {
-        return n.type === 'form'
-      },
-    })
+    for (const key in formPartialState) {
+      ;(schema as any)[key] = formPartialState[key as keyof FormNode]
+    }
 
     /** on form change */
-    for (const key of Object.keys(onFormChangeCallbacks)) {
-      const k = key as keyof FormNode
-
-      if (key === '*') {
-        if (isEqual(prevState, schema)) continue
-        onFormChangeCallbacks[k](schema, prevState)
-        continue
-      }
+    for (const key of Object.keys(watch)) {
+      if (!key.startsWith('$.')) continue
+      let k = key.replace(/^\$\./, '') as keyof FormNode
 
       if (Reflect.has(schema, k)) {
-        if (isEqual(prevState[k], schema[k])) continue
-        onFormChangeCallbacks[k](schema[k], prevState[k])
+        if (isEqual(prevSchema[k], schema[k])) continue
+        watch[key](schema[k] as any, prevSchema[k])
       }
     }
 
@@ -138,8 +124,17 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function setFieldState(namePath: string, fieldState: Partial<FieldNode>) {
-    const prevSchema = cloneDeep(schema)
+    const { watch = {} } = form.schema
     let fieldNode = form.NAME_TO_NODE.get(namePath)
+
+    /** Put values,errors... to a map */
+    const prevMap = Object.keys(watch)
+      .filter((k) => k.startsWith('*.'))
+      .map((k) => k.replace(/^\*\./, ''))
+      .reduce((acc, cur) => {
+        acc[cur] = getFieldCollection(cur as keyof FieldNode, [schema])
+        return acc
+      }, {} as any)
 
     // TODO: need refactor
     const matchedNode = setNode(fieldState, {
@@ -148,24 +143,27 @@ export function createForm<T>(schema: FormNode<T>) {
     })
 
     /** on field change */
-    for (const key of Object.keys(onFieldChangeCallbacks)) {
+    for (const key of Object.keys(watch)) {
       if (key.startsWith('*.')) {
         const type = key.replace(/^\*\./, '') as keyof FieldNode
-        const prev = getFieldCollection(type, [prevSchema])
-        const next = getFieldCollection(type, [prevSchema])
+        const prev = prevMap[type]
+        const next = getFieldCollection(type, [schema])
         if (!isEqual(prev, next)) {
-          onFieldChangeCallbacks[key](next, prev)
+          watch[key](next, prev)
         }
 
         continue
       }
 
-      // TODO:
-      const [name, k] = key.split('.')
-      const prev = getIn(getFieldState(name, prevSchema), k)
-      const next = getIn(getFieldState(name, schema), k)
+      /** for single field */
+      const arr = key.split('.')
+      const type = arr[arr.length - 1]
+      const name = arr.slice(0, -1).join('.')
+      const prevSchema = cloneDeep(schema)
+      const prev = getIn(getFieldState(name, prevSchema), type)
+      const next = getIn(getFieldState(name, schema), type)
       if (!isEqual(prev, next)) {
-        onFieldChangeCallbacks[key](next, prev)
+        watch[key](next, prev)
       }
     }
 
@@ -202,6 +200,7 @@ export function createForm<T>(schema: FormNode<T>) {
 
       let v: any
       const k = NODE_TO_NAME.get(cur)
+
       if (type === 'value') {
         const { value, transform } = cur
         v = transform && typeof transform === 'function' ? transform(value) : value
@@ -309,10 +308,10 @@ export function createForm<T>(schema: FormNode<T>) {
 
     if (valid) {
       setSubmitting(true)
-      schema?.onSubmit?.(values, form)
+      schema?.onSubmit?.(values)
     } else {
       setFieldErrors(errors)
-      schema?.onError?.(errors, form)
+      schema?.onError?.(errors)
     }
 
     setFormState({
@@ -338,7 +337,7 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function touchAll() {
-    travelSchema(schema, (item) => {
+    travelNodes(schema.children, (item) => {
       if (Reflect.has(item, 'name')) {
         item.touched = true
       }
@@ -353,7 +352,7 @@ export function createForm<T>(schema: FormNode<T>) {
     schema = initialSchema
     form.schema = initialSchema
     rerenderNode(form)
-    form.schema?.onReset?.(form)
+    form.schema?.onReset?.()
   }
 
   function onFieldInit(namePath: string) {

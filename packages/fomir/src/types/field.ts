@@ -10,30 +10,26 @@ export type Option = {
 
 export type Options = Option[]
 
-export interface FieldValidator {
-  /**
-   * @example 
-   ```jsx
-    <Field name="email" validator={{required: "Email is Require"}}/>
-   ```
-   */
-  required?: string
+export interface Validator {
+  required?: boolean
 
-  min?: [number, string]
+  min?: number
 
-  max?: [number, string]
+  max?: number
 
-  minLength?: [number, string]
+  minLength?: number
 
-  maxLength?: [number, string]
+  maxLength?: number
 
-  pattern?: [RegExp, string] | [RegExp, string][]
+  pattern?: RegExp
 
-  arrayNotEmpty?: string
+  arrayNotEmpty?: boolean
 
-  equalTo?: [string, string]
+  equalTo?: string
 
-  // validate?: any
+  trigger?: string
+
+  message: string
 
   [key: string]: any
 }
@@ -75,8 +71,7 @@ export interface FieldState {
 
   data: any
 
-  validator: FieldValidator
-  validators: any[]
+  validators: Validator[]
 }
 
 export interface FieldHandler {

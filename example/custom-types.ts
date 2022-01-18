@@ -16,7 +16,7 @@ declare module 'fomir' {
   interface CustomTypes {
     Node: SubmitNode | UnstyledNode | BoxNode
   }
-  interface BaseValidator {
-    min?: string
+  interface Validator {
+    foo?: 'string'
   }
 }

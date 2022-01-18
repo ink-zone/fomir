@@ -1,7 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
-import { createForm, FormNode, Node } from 'fomir'
-
-type Form = ReturnType<typeof createForm>
+import { FormNode, Node, Form } from 'fomir'
 
 export type FieldElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 

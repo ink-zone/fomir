@@ -1,10 +1,8 @@
-import { FormNode } from './types/form'
 import { FomirPlugin, OnFormStateChange, OnFieldStateChange } from './types/types'
 
 export class Fomir {
   static compenents: Record<string, any> = {}
-  static validatorRules: Record<string, any> = {}
-  static forms: Record<string, FormNode> = {}
+  static validators: Record<string, any> = {}
 
   static onFormStateChangeCallbacks: OnFormStateChange[] = []
   static onFieldChangeCallbacks: OnFieldStateChange[] = []
@@ -17,8 +15,8 @@ export class Fomir {
       ...plugin.components,
     }
 
-    Fomir.validatorRules = {
-      ...Fomir.validatorRules,
+    Fomir.validators = {
+      ...Fomir.validators,
       ...plugin.validators,
     }
 

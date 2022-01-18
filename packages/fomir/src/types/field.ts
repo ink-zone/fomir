@@ -75,9 +75,8 @@ export interface FieldState {
 
   data: any
 
-  // validate: FieldValidator<T>
-
   validator: FieldValidator
+  validators: any[]
 }
 
 export interface FieldHandler {
@@ -92,4 +91,5 @@ export interface FieldHandler {
 
 export interface FieldNode extends Partial<FieldState>, Partial<FieldHandler> {
   name: string
+  [key: string]: any
 }

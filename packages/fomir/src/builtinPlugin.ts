@@ -2,10 +2,8 @@ import { FomirPlugin } from './types/types'
 
 export const builtinPlugin: FomirPlugin = {
   validators: {
-    required(value, msg) {
-      // TODO: need improve
-      if (value === 0) return undefined
-      return !value ? msg : undefined
+    required(value: any) {
+      return !!value
     },
 
     arrayNotEmpty(value: any[], msg) {
@@ -24,17 +22,18 @@ export const builtinPlugin: FomirPlugin = {
       return value <= base ? undefined : msg
     },
 
-    minLength(value, [len, msg]) {
-      return value?.length >= len ? undefined : msg
+    minLength(value, len) {
+      return value?.length >= len
     },
 
-    maxLength(value, [len, msg]) {
-      return value?.length <= len ? undefined : msg
+    maxLength(value, len) {
+      console.log('---x')
+      return value?.length <= len
     },
 
-    equalTo(value, validator, { values }) {
+    equalTo(value, validator, { form }) {
       const [prop, msg] = validator
-      return values?.[prop] === value ? undefined : msg
+      return form.getValues()?.[prop] === value ? undefined : msg
     },
   },
 }

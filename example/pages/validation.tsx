@@ -14,11 +14,11 @@ const Home: NextPage = () => {
         name: 'firstName',
         type: 'Input',
         value: '',
-        validator: {
-          required: 'Username is required',
-          // maxLength: [4, 'max'],
-          // pinCode: 'pin code',
-        },
+        validators: [
+          { required: true, message: 'Username is required' },
+          { maxLength: 4, message: 'max len' },
+          { pinCode: true, message: 'should be pin code' },
+        ],
       },
       {
         label: 'Last Name',

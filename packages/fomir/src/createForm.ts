@@ -5,20 +5,9 @@ import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn, isFormValid } from './utils'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
-// import { Node } from './types/node'
-import { FieldValidateOptions } from './types/types'
+import { ValidatorOptions } from './types/types'
 import { NodeOptions, SetNodeFunction } from './types/types'
 import { Fomir } from './Fomir'
-
-// type Path =
-//   | 'dirty'
-//   | 'valid'
-//   | 'submitCount'
-//   | 'submitting'
-//   | 'submitted'
-//   | 'validating'
-//   | 'status'
-//   | '*'
 
 function travelNodes(nodes: any[] = [], fn: (n: any) => any, travelParent = false) {
   function travel(nodes: any[]) {
@@ -213,19 +202,26 @@ export function createForm<T>(schema: FormNode<T>) {
     }, result)
   }
 
-  async function validateField(options: FieldValidateOptions): Promise<any> {
-    let error: any = undefined
-    const { validator = {} } = options.fieldState
+  async function validateField(options: ValidatorOptions): Promise<any> {
+    let error = ''
+    const { validators = [] } = options.fieldState
 
-    for (const validatorRule in validator) {
-      if (!Fomir.validatorRules[validatorRule]) continue
+    for (const validator of validators) {
+      const { message, trigger, ...rules } = validator
+      let isValid: any = true
+      for (const validatorName of Object.keys(rules)) {
+        if (!Fomir.validators[validatorName]) continue
+        const { value } = options.fieldState
+        isValid = Fomir.validators[validatorName](value, rules[validatorName], options)
 
-      const { value } = options.fieldState
-      const result = Fomir.validatorRules[validatorRule](value, validator[validatorRule], options)
+        if (isPromise(isValid)) isValid = await isValid
 
-      error = isPromise(result) ? await result : result
-
-      if (error) break
+        if (!isValid) {
+          error = message
+          break
+        }
+      }
+      if (!isValid) break
     }
 
     return error
@@ -237,7 +233,6 @@ export function createForm<T>(schema: FormNode<T>) {
 
   async function validateAllFields(): Promise<any> {
     let errors: any = {}
-    const values = {}
 
     async function getErrors(arr: any[]) {
       for (const item of arr) {
@@ -247,7 +242,7 @@ export function createForm<T>(schema: FormNode<T>) {
         }
         if (Reflect.has(item, 'name')) {
           if (!item.visible) continue
-          const error = await validateField({ fieldState: item, values })
+          const error = await validateField({ fieldState: item, form })
 
           // if (error && error !== state.error) {
           if (error) {
@@ -273,9 +268,7 @@ export function createForm<T>(schema: FormNode<T>) {
     setFieldState(namePath, { value: nextValue }) // sync value
 
     fieldNode = { ...fieldNode, value: nextValue }
-
-    const values = getValues()
-    const fieldError = await validateField({ fieldState: fieldNode, values })
+    const fieldError = await validateField({ fieldState: fieldNode, form })
     const prevError = fieldNode.error
     const error = fieldError || undefined
 
@@ -287,9 +280,8 @@ export function createForm<T>(schema: FormNode<T>) {
 
   async function blur(namePath: string) {
     let fieldNode = form.NAME_TO_NODE.get(namePath)
-    const values = getValues()
     if (schema.validationMode !== 'onSubmit') {
-      const error = await validateField({ fieldState: fieldNode, values })
+      const error = await validateField({ fieldState: fieldNode, form })
       if (error) setFieldState(namePath, { touched: true, error })
     }
   }
@@ -489,7 +481,7 @@ export function createForm<T>(schema: FormNode<T>) {
 
       if (parent.name) {
         // TODO:
-        if (['FieldArray', 'ArrayField'].includes(parent.type) && name) {
+        if (['ArrayField'].includes(parent.type) && name) {
           name = parent.name + `[${i}].` + name
         } else {
           name = parent.name + name

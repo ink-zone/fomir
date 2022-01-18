@@ -27,15 +27,15 @@ export interface NodeOptions {
 
 export type SetNodeFunction<T> = (node: T) => any
 
-export interface FieldValidateOptions {
+export interface ValidatorOptions {
   fieldState: FieldNode
-  values: any
+  form: Form
 }
 
 export type ValidationRuleFn<T = any, K = any> = (
   value: T,
-  validateValue: K,
-  options: FieldValidateOptions,
+  validatorValue: K,
+  options: ValidatorOptions,
 ) => any | Promise<any>
 
 export type OnFormStateChange = (form: Form) => any
@@ -49,7 +49,10 @@ export type Validator = ExtendedType<'Validator', BaseValidator>
 
 export interface FomirPlugin {
   components?: Record<string, any>
+
   validators?: Record<string, ValidationRuleFn>
+
   onFormStateChange?: OnFormStateChange
+
   onFieldChange?: OnFieldStateChange
 }

@@ -23,16 +23,13 @@ export interface FormNode<T = any> {
   validating?: boolean
   dirty?: boolean
   valid?: boolean
-  status: Status
-
-  /** form unique name, optional */
-  name?: string
+  status?: Status
 
   children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 
-  watch: {
+  watch?: {
     [key: string]: <T extends FieldNode = any>(nextData: T, prevData: T) => any
   }
 

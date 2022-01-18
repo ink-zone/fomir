@@ -25,6 +25,8 @@ export interface FormNode<T = any> {
   valid?: boolean
   status?: Status
 
+  lableWidth?: number | string
+
   children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'

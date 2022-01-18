@@ -34,7 +34,7 @@ export function normalizeNode(node: any) {
   node.label = node.label ?? null
   node.data = node.data ?? null
   node.options = node.options ?? []
-  node.validator = node.validator ?? {}
+  node.validators = node.validators ?? {}
   node.componentProps = node.componentProps ?? {}
   node.description = node.description
   return node
@@ -203,25 +203,18 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   async function validateField(options: ValidatorOptions): Promise<any> {
-    let error = ''
-    const { validators = [] } = options.fieldState
+    let error: any = undefined
+    const { validators = {} } = options.fieldState
 
-    for (const validator of validators) {
-      const { message, trigger, ...rules } = validator
-      let isValid: any = true
-      for (const validatorName of Object.keys(rules)) {
-        if (!Fomir.validators[validatorName]) continue
-        const { value } = options.fieldState
-        isValid = Fomir.validators[validatorName](value, rules[validatorName], options)
+    for (const v in validators) {
+      if (!Fomir.validators[v]) continue
 
-        if (isPromise(isValid)) isValid = await isValid
+      const { value } = options.fieldState
+      const result = Fomir.validators[v](value, validators[v], options)
 
-        if (!isValid) {
-          error = message
-          break
-        }
-      }
-      if (!isValid) break
+      error = isPromise(result) ? await result : result
+
+      if (error) break
     }
 
     return error

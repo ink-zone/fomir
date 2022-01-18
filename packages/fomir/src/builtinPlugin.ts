@@ -2,38 +2,39 @@ import { FomirPlugin } from './types/types'
 
 export const builtinPlugin: FomirPlugin = {
   validators: {
-    required(value: any, validatorValue) {
-      if (!validatorValue) return false
-      return !!value
+    required(value, msg) {
+      // TODO: need improve
+      if (value === 0) return ''
+      return !value ? msg : ''
     },
 
-    arrayNotEmpty(value: any[], validatorValue) {
-      if (!validatorValue) return false
-      return value.length > 0
+    arrayNotEmpty(value: any[], msg) {
+      return value.length > 0 ? '' : msg
     },
 
-    pattern(value, regex: RegExp) {
-      return regex.test(value)
+    pattern(value, [regex, msg]: [RegExp, string]) {
+      return regex.test(value) ? '' : msg
     },
 
-    min(value, base) {
-      return value >= base
+    min(value, [base, msg]) {
+      return value >= base ? '' : msg
     },
 
-    max(value, base) {
-      return value <= base
+    max(value, [base, msg]) {
+      return value <= base ? '' : msg
     },
 
-    minLength(value, len) {
-      return value?.length >= len
+    minLength(value, [len, msg]) {
+      return value?.length >= len ? '' : msg
     },
 
-    maxLength(value, len) {
-      return value?.length <= len
+    maxLength(value, [len, msg]) {
+      return value?.length <= len ? '' : msg
     },
 
-    equalTo(value, prop, { form }) {
-      return form.getValues()?.[prop] === value
+    equalTo(value, validator, { form }) {
+      const [prop, msg] = validator
+      return form.getValues()?.[prop] === value ? '' : msg
     },
   },
 }

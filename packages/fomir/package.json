@@ -1,6 +1,6 @@
 {
   "name": "fomir",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "forsigner",
   "module": "dist/core.esm.js",
   "main": "dist/index.js",
@@ -21,7 +21,6 @@
     "test:cov": "tsdx test --coverage",
     "lint": "tsdx lint"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/forsigner/fomir.git"

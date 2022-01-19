@@ -1,6 +1,6 @@
 {
   "name": "fomir-unstyled",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,9 +26,9 @@
     "tsdx": "^0.14.1"
   },
   "dependencies": {
-    "fomir": "^0.1.0",
-    "fomir-react": "^0.1.0",
     "@fower/react": "^1.65.0",
+    "fomir": "^0.2.0",
+    "fomir-react": "^0.2.0",
     "immer": "^9.0.12"
   }
 }

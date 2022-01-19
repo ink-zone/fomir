@@ -26,7 +26,7 @@
     "tsdx": "^0.14.1"
   },
   "dependencies": {
-    "fomir": "^0.0.0",
+    "fomir": "^0.1.0",
     "is-promise": "^4.0.0"
   }
 }

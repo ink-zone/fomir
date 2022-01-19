@@ -1,6 +1,6 @@
 {
-  "version": "0.0.0",
   "name": "fomir-react",
+  "version": "0.1.0",
   "author": "forsigner",
   "module": "dist/react.esm.js",
   "main": "dist/index.js",

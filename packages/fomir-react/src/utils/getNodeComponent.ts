@@ -1,7 +1,6 @@
+import { Fomir, Node } from 'fomir'
 
-import { FieldNode, Fomir } from 'fomir'
-
-export function getNodeComponent(field: FieldNode) {
+export function getNodeComponent(field: Node) {
   const type = (field as any).type
   if (typeof field.component === 'function') return field.component
   if (Fomir.compenents[type]) return Fomir.compenents[type]

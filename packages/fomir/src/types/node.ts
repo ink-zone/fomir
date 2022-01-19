@@ -70,6 +70,8 @@ export interface BaseNode {
   updaters?: ((...args: any[]) => void)[]
 
   component?: FC<NodeProps>
+
+  renderChildren?: (node: any) => any
 }
 
 export type Node = ExtendedType<'Node', BaseNode>

@@ -1,9 +1,8 @@
 import React from 'react'
 import { NodeProps } from 'fomir-react'
 import { Box } from '@fower/react'
-import { FieldNode } from 'fomir'
 
-export const Input = ({ node, handler }: NodeProps<FieldNode>) => {
+export const Input = ({ node, handler }: NodeProps) => {
   const { value = '', disabled, label, error, touched } = node
   return (
     <Box>

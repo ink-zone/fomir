@@ -17,10 +17,10 @@ export interface Validators {
 
   equalTo?: [string, string]
 
-  [key: string]: unknown
+  [key: string]: any
 }
 
-export interface FieldState extends Node {
+export interface FieldState extends Required<Node> {
   validators: Validators
 }
 

@@ -2,9 +2,8 @@ import React from 'react'
 import { NodeProps } from 'fomir-react'
 import { produce } from 'immer'
 import { Box } from '@fower/react'
-import { FieldNode } from 'fomir'
 
-export const CheckboxGroup = ({ node, handler }: NodeProps<FieldNode>) => {
+export const CheckboxGroup = ({ node, handler }: NodeProps) => {
   const { label, error, touched, options, loading, value = [] } = node
 
   if (value && !Array.isArray(value)) {

@@ -12,7 +12,7 @@ interface FieldHandlers {
     | Promise<any>
 }
 
-interface NodeProps<T extends Node = any> {
+interface NodeProps<T extends Node = Node> {
   node: T & { type: any }
   handler: FieldHandlers
   children?: ReactNode
@@ -31,41 +31,41 @@ export type Option = {
 export type Options = Option[]
 
 export interface BaseNode {
-  label: any
+  label?: any
 
-  showLabel: boolean
+  showLabel?: boolean
 
-  required: boolean
+  required?: boolean
 
-  description: any
+  description?: any
 
-  componentProps: any
+  componentProps?: any
 
-  value: any
+  value?: any
 
-  error: string
+  error?: string
 
-  warning: string
+  warning?: string
 
-  loading: boolean
+  loading?: boolean
 
-  pending: boolean
+  pending?: boolean
 
-  touched: boolean
+  touched?: boolean
 
-  disabled: boolean
+  disabled?: boolean
 
-  focused: boolean
+  focused?: boolean
 
-  display: boolean
+  display?: boolean
 
-  visible: boolean
+  visible?: boolean
 
-  status: Status
+  status?: Status
 
-  options: Options
+  options?: Options
 
-  data: any
+  data?: any
 
   updaters?: ((...args: any[]) => void)[]
 

@@ -32,7 +32,7 @@ export interface FormSpyProps {
   children: (formSpyRenderProps: FormSpyRenderProps) => ReactNode
 }
 
-export interface NodeProps<T extends Node = any> {
+export interface NodeProps<T extends Node = Node> {
   node: T & { type: any }
   handler: FieldHandlers
   children?: ReactNode

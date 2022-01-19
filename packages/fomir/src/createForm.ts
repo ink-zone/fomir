@@ -5,8 +5,7 @@ import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn, isFormValid } from './utils'
 import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
-import { ValidatorOptions } from './types/types'
-import { NodeOptions, SetNodeFunction } from './types/types'
+import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types/types'
 import { Fomir } from './Fomir'
 
 function travelNodes(nodes: any[] = [], fn: (n: any) => any, travelParent = false) {

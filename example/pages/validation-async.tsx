@@ -14,18 +14,19 @@ const Home: NextPage = () => {
 
     children: [
       {
-        label: 'Password',
+        label: 'async',
         name: 'password',
         type: 'Input',
         value: '',
-        validators: [{ required: true, message: 'should be required' }],
-      },
-      {
-        label: 'Password confirm',
-        name: 'passwordConfirm',
-        type: 'Input',
-        value: '',
-        validators: [{ equalTo: 'password', message: 'password should be same' }],
+        validators: {
+          async av(value: any) {
+            return new Promise((resove) => {
+              setTimeout(() => {
+                resove('error....')
+              }, 2000)
+            })
+          },
+        },
       },
       {
         type: 'Submit',

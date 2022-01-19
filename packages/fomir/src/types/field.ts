@@ -1,22 +1,6 @@
-export type Status = 'editable' | 'disabled' | 'preview' | ({} & string)
-
-export type Option = {
-  value: any
-  label: any
-  disabled?: boolean
-  data?: any
-  [key: string]: any
-}
-
-export type Options = Option[]
+import { Node } from './node'
 
 export interface Validators {
-  /**
-   * @example 
-   ```jsx
-    <Field name="email" validator={{required: "Email is Require"}}/>
-   ```
-   */
   required?: string
 
   min?: [number, string]
@@ -33,50 +17,10 @@ export interface Validators {
 
   equalTo?: [string, string]
 
-  validate?: (...args: any[]) => any
-
-  [key: string]: any
+  [key: string]: unknown
 }
 
-export interface FieldState {
-  label: any
-
-  props: any
-
-  showLabel: boolean
-
-  required: boolean
-
-  description: any
-
-  component: any
-
-  value: any
-
-  error: string | undefined
-
-  warning: string | undefined
-
-  loading: boolean
-
-  touched: boolean
-
-  disabled: boolean
-
-  focused: boolean
-
-  display: boolean
-
-  visible: boolean
-
-  status: Status
-
-  pending: boolean
-
-  options: Options
-
-  data: any
-
+export interface FieldState extends Node {
   validators: Validators
 }
 

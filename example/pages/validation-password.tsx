@@ -20,6 +20,9 @@ const Home: NextPage = () => {
         value: '',
         validators: {
           required: 'should be required',
+          // isNumber(value) {
+          //   if (!/^\d+$/.test(value)) return 'should be number'
+          // },
         },
       },
       {

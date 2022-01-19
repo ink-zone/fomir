@@ -18,10 +18,57 @@ interface NodeProps<T extends Node = any> {
   children?: ReactNode
 }
 
+type Status = 'editable' | 'disabled' | 'preview' | ({} & string)
+
+export type Option = {
+  value: any
+  label: any
+  disabled?: boolean
+  data?: any
+  [key: string]: any
+}
+
+export type Options = Option[]
+
 export interface BaseNode {
-  // children?: (Node | FieldNode)[]
+  label: any
+
+  showLabel: boolean
+
+  required: boolean
+
+  description: any
+
+  componentProps: any
+
+  value: any
+
+  error: string
+
+  warning: string
+
+  loading: boolean
+
+  pending: boolean
+
+  touched: boolean
+
+  disabled: boolean
+
+  focused: boolean
+
+  display: boolean
+
+  visible: boolean
+
+  status: Status
+
+  options: Options
+
+  data: any
 
   updaters?: ((...args: any[]) => void)[]
+
   component?: FC<NodeProps>
 }
 

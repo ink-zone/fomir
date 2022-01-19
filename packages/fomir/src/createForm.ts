@@ -205,12 +205,16 @@ export function createForm<T>(schema: FormNode<T>) {
   async function validateField(options: ValidatorOptions): Promise<any> {
     let error: any = undefined
     const { validators = {} } = options.fieldState
+    const { value } = options.fieldState
 
     for (const v in validators) {
-      if (!Fomir.validators[v]) continue
-
-      const { value } = options.fieldState
-      const result = Fomir.validators[v](value, validators[v], options)
+      let result: any
+      if (typeof validators[v] === 'function') {
+        result = validators[v](value, options)
+      } else {
+        if (!Fomir.validators[v]) continue
+        result = Fomir.validators[v](value, validators[v], options)
+      }
 
       error = isPromise(result) ? await result : result
 

@@ -7,11 +7,11 @@ import { NodeComponent } from './NodeComponent'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, children, ...rest } = props
-  const { submitForm, schema, updaterMap } = form
+  const { submitForm, schema, NODE_TO_UPDATER } = form
   const [, forceUpdate] = useState({})
 
   useEffect(() => {
-    updaterMap.set(form, forceUpdate)
+    NODE_TO_UPDATER.set(form, forceUpdate)
   }, [])
 
   function renderNode(node: any): any {

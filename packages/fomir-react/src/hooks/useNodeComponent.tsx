@@ -11,10 +11,10 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   const { node, children } = opt
   const [, forceUpdate] = useState({})
   const form = useFormContext()
-  const { updaterMap } = form
+  const { NODE_TO_UPDATER } = form
 
   useEffect(() => {
-    updaterMap.set(node, forceUpdate)
+    NODE_TO_UPDATER.set(node, forceUpdate)
     setTimeout(() => {
       const nodeName = form.getNodeName(node)
       form.onFieldInit(nodeName)
@@ -24,7 +24,7 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
       }
     }, 0)
     return () => {
-      updaterMap.delete(node)
+      NODE_TO_UPDATER.delete(node)
     }
   })
 

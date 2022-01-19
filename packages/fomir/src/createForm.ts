@@ -43,8 +43,7 @@ export type Form = ReturnType<typeof createForm>
 
 export function createForm<T>(schema: FormNode<T>) {
   const formUpdaters: any[] = []
-  const updaterMap = new Map()
-
+  const NODE_TO_UPDATER = new WeakMap()
   const NODE_TO_INDEX = new WeakMap()
   const NODE_TO_PARENT = new WeakMap()
   const NAME_TO_NODE = new Map()
@@ -163,7 +162,7 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function rerenderNode(node: any) {
-    if (node) updaterMap.get(node)?.({})
+    if (node) NODE_TO_UPDATER.get(node)?.({})
   }
 
   function getFieldCollection(
@@ -525,9 +524,9 @@ export function createForm<T>(schema: FormNode<T>) {
   const form = {
     schema,
     setSchema,
-    updaterMap: updaterMap,
     data: {} as any,
     formUpdaters,
+    NODE_TO_UPDATER,
     NODE_TO_INDEX,
     NODE_TO_PARENT,
     NAME_TO_NODE,

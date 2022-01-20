@@ -1,4 +1,4 @@
-import { Node } from './node'
+import { BaseNode } from '..'
 
 export interface Validators {
   required?: string
@@ -20,10 +20,6 @@ export interface Validators {
   [key: string]: any
 }
 
-export interface FieldState extends Required<Node> {
-  validators: Validators
-}
-
 export interface FieldHandler {
   intercept<T>(value: T, fieldState: Omit<FieldNode, 'intercept'>): T
 
@@ -34,7 +30,7 @@ export interface FieldHandler {
   onFieldInit(fieldNode: FieldNode): Promise<any> | any
 }
 
-export interface FieldNode extends Partial<FieldState>, Partial<FieldHandler> {
+export interface FieldNode extends BaseNode, Partial<FieldHandler> {
   name: string
-  [key: string]: any
+  validators?: Validators
 }

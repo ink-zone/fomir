@@ -2,6 +2,7 @@ import { FieldNode } from './field'
 import { Node } from './node'
 import { Errors } from './types'
 
+
 export interface ArrayFieldNode {
   type: 'ArrayField'
   name: string
@@ -25,9 +26,10 @@ export interface FormNode<T = any> {
   valid?: boolean
   status?: Status
 
-  lableWidth?: number | string
+  labelWidth?: number | string
 
-  children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
+  // children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
+  children: Node[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 
@@ -51,4 +53,6 @@ export interface FormNode<T = any> {
    * callback when reset form
    */
   onReset?(): Promise<any> | any
+
+  [key: string]: any
 }

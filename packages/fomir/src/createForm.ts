@@ -75,7 +75,6 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function getFormState(): FormNode {
-    // return getNode({ schema, match: (n) => n.type === 'form' })
     return schema
   }
 

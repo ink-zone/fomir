@@ -19,7 +19,7 @@ test('checkbox change event', () => {
     target: {
       value: 'Hi',
       checked: true,
-      type: 'checkbox',
+      component: 'Checkbox',
     },
   } as ChangeEvent<HTMLInputElement>
   expect(getValueFormEvent(e)).toEqual(true)

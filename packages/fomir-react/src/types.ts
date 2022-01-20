@@ -33,7 +33,7 @@ export interface FormSpyProps {
 }
 
 export interface NodeProps<T extends Node = Required<BaseNode>> {
-  node: T & { type: any }
+  node: T
   handler: FieldHandlers
   children?: ReactNode
 }

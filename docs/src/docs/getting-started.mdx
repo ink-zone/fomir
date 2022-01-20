@@ -1,0 +1,54 @@
+---
+title: 'Getting started'
+description: Learn how to get started with Rocket Docs.
+---
+
+## Installation
+
+#### Using Yarn:
+
+```bash
+yarn add fomir fomir-react
+```
+
+#### Using NPM:
+
+```bash
+npm i fomir fomir-react
+```
+
+## Basic usage
+
+```jsx live=true
+const BasicForm = () => {
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        type: 'Input',
+        value: '',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        type: 'Input',
+        value: '',
+      },
+      {
+        type: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+
+render(<BasicForm />)
+```

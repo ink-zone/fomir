@@ -1,44 +1,30 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useFormState, useForm } from 'fomir-react'
+import { Form, useForm } from 'fomir-react'
 
-const Home: NextPage = () => {
+const BasicForm: NextPage = () => {
   const form = useForm({
     onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
       console.log('values', values)
-      setTimeout(() => {
-        form.setSubmitting(false)
-      }, 3000)
     },
 
     children: [
       {
-        label: 'Checked?',
-        name: 'checked',
-        type: 'Checkbox',
-        value: false,
-        onValueChange: ({ value }) => {
-          form.setFieldState('foo', { disabled: value })
-        },
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
       },
       {
-        label: 'Foo',
-        name: 'foo',
-        type: 'Input',
-        value: 'fo',
-        onValueChange: () => {
-          form.setFieldState('bar', {
-            value: 'I am show if foo disabled',
-          })
-        },
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: '',
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
-        component: function Submit() {
-          const { submitting } = useFormState()
-          return <button type="submit">{submitting ? 'submit...' : 'submit'}</button>
-        },
       },
     ],
   })
@@ -50,4 +36,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default BasicForm

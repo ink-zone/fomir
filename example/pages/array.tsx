@@ -13,12 +13,12 @@ const Home: NextPage = () => {
       {
         label: 'foo',
         name: 'foo',
-        type: 'Input',
+        component: 'Input',
         value: '',
       },
       {
         label: 'arr',
-        type: 'Box',
+        component: 'Box',
         value: '',
         children: [
           {
@@ -33,18 +33,18 @@ const Home: NextPage = () => {
                 {
                   label: 'First Name' + i,
                   name: `firstName`,
-                  type: 'Input',
+                  component: 'Input',
                   value: v,
                 },
 
                 {
                   label: 'Last Name',
                   name: `lastName`,
-                  type: 'Input',
+                  component: 'Input',
                   value: v,
                 },
                 {
-                  type: 'Box',
+                  component: 'Box',
                   component: function ({ node }) {
                     const index = form.getNodeIndex(form.getParent(node))
                     const helper = form.getArrayHelpers('friends')
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                   },
                 },
                 {
-                  type: 'Box',
+                  component: 'Box',
                   component: function ({ node }: any) {
                     const index = form.getNodeIndex(form.getParent(node))
                     const helper = form.getArrayHelpers('friends')
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                   },
                 },
                 {
-                  type: 'Box',
+                  component: 'Box',
                   component: function ({ node }: any) {
                     const index = form.getNodeIndex(form.getParent(node))
                     const helper = form.getArrayHelpers('friends')
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
           },
 
           {
-            type: 'Box',
+            component: 'Box',
             text: 'ao',
             component: function () {
               return (
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
         ],
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

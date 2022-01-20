@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       {
         label: 'async',
         name: 'password',
-        type: 'Input',
+        component: 'Input',
         value: '',
         validators: {
           async av(value: any) {
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         },
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

@@ -10,9 +10,9 @@ const Home: NextPage = () => {
 
     children: [
       {
+        component: 'Input',
         label: 'First Name',
         name: 'firstName',
-        type: 'Input',
         value: '',
         validators: {
           required: 'Username is required',
@@ -22,14 +22,14 @@ const Home: NextPage = () => {
       {
         label: 'Last Name',
         name: 'lastName',
-        type: 'Input',
+        component: 'Input',
         value: '',
         validators: {
           pattern: [/foo/, 'should contain foo'],
         },
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

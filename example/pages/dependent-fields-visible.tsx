@@ -12,21 +12,23 @@ const Home: NextPage = () => {
       {
         label: 'Have some advice?',
         name: 'advice',
-        type: 'Checkbox',
+        component: 'Checkbox',
         value: false,
         onValueChange: ({ value }) => {
-          form.setFieldState('myAdvice', { visible: !!value })
+          form.setFieldState('myAdvice', {
+            visible: !!value,
+          })
         },
       },
       {
         label: 'My advice',
         name: 'myAdvice',
-        type: 'Textarea',
+        component: 'Textarea',
         visible: false,
         value: '',
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

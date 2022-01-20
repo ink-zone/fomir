@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       {
         label: 'First Name',
         name: 'firstName',
-        type: 'Input',
+        component: 'Input',
         value: '',
         validator: {
           // required: 'gogo',
@@ -42,11 +42,11 @@ const Home: NextPage = () => {
       {
         label: 'Last Name',
         name: 'lastName',
-        type: 'Input',
+        component: 'Input',
         value: '',
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

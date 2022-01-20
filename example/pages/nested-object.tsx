@@ -12,17 +12,17 @@ const Home: NextPage = () => {
       {
         label: 'First Name',
         name: 'profile.firstName',
-        type: 'Input',
+        component: 'Input',
         value: '',
       },
       {
         label: 'Last Name',
         name: 'profile.lastName',
-        type: 'Input',
+        component: 'Input',
         value: '',
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

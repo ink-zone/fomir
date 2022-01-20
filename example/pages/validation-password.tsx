@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       {
         label: 'Password',
         name: 'password',
-        type: 'Input',
+        component: 'Input',
         value: '',
         validators: {
           required: 'should be required',
@@ -28,14 +28,14 @@ const Home: NextPage = () => {
       {
         label: 'Password confirm',
         name: 'passwordConfirm',
-        type: 'Input',
+        component: 'Input',
         value: '',
         validators: {
           equalTo: ['password', 'password should be same'],
         },
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

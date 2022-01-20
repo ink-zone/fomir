@@ -12,24 +12,24 @@ const Home: NextPage = () => {
       {
         label: 'First Name',
         name: 'firstName',
-        type: 'Input',
+        component: 'Input',
         value: 'Curry',
       },
       {
         label: 'Last Name',
         name: 'lastName',
-        type: 'Input',
+        component: 'Input',
         value: 'Steve',
       },
       {
-        type: 'Box',
+        component: 'Box',
         children: [
           {
-            type: 'Submit',
+            component: 'Submit',
             text: 'submit',
           },
           {
-            type: 'Box',
+            component: 'Box',
             text: 'reset',
             component: function Reset() {
               return (

@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       {
         label: 'First Name',
         name: 'firstName',
-        type: 'Input',
+        component: 'Input',
         value: '',
         onValueChange: ({ value }) => {
           form.setFieldState('firstName', {
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         },
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

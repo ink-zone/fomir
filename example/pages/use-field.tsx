@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       {
         label: 'First Name',
         name: 'firstName',
-        // type: 'Input',
+        // component: 'Input',
         value: '',
         component: function CustomInput({ value, handleChange }: any) {
           const lastName = useField('lastName')
@@ -28,11 +28,11 @@ const Home: NextPage = () => {
       {
         label: 'Last Name',
         name: 'lastName',
-        type: 'Input',
+        component: 'Input',
         value: '',
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const nodes = list.map<Node>((_, i) => ({
     label: `field_${i}`,
     name: `field_${i}`,
-    type: 'Input',
+    component: 'Input',
     value: '',
   }))
 
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     children: [
       ...nodes,
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

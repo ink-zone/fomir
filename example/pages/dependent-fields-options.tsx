@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         options: [],
       },
       {
-        type: 'Submit',
+        component: 'Submit',
         text: 'submit',
       },
     ],

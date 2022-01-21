@@ -2,7 +2,6 @@ import { FieldNode } from './field'
 import { Node } from './node'
 import { Errors } from './types'
 
-
 export interface ArrayFieldNode {
   type: 'ArrayField'
   name: string
@@ -27,6 +26,8 @@ export interface FormNode<T = any> {
   status?: Status
 
   labelWidth?: number | string
+
+  components?: Record<string, any>
 
   // children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
   children: Node[]

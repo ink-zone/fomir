@@ -36,7 +36,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
   }
 
   function getNode() {
-    const FomirForm = Fomir.compenents.Form
+    const FomirForm = form.schema.components?.Form
 
     if (FomirForm)
       return (

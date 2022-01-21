@@ -7,6 +7,7 @@ import { FieldNode } from './types/field'
 import { FormNode } from './types/form'
 import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types/types'
 import { Fomir } from './Fomir'
+import { Node } from '.'
 
 function travelNodes(nodes: any[] = [], fn: (n: any) => any, travelParent = false) {
   function travel(nodes: any[]) {
@@ -57,6 +58,11 @@ export function createForm<T>(schema: FormNode<T>) {
   schema.submitted = false
   schema.validating = false
   schema.status = 'editable'
+
+  schema.components = {
+    ...Fomir.compenents,
+    ...schema.components,
+  }
 
   travelNodes(
     schema.children,
@@ -520,6 +526,13 @@ export function createForm<T>(schema: FormNode<T>) {
     return NODE_TO_INDEX.get(node)
   }
 
+  function getNodeComponent(node: Node) {
+    const { component } = node
+    const { components } = schema
+    if (components?.[component]) return components[component]
+    return null
+  }
+
   const form = {
     schema,
     setSchema,
@@ -538,6 +551,7 @@ export function createForm<T>(schema: FormNode<T>) {
 
     findPath,
     getNodeName,
+    getNodeComponent,
 
     /** getter */
     getFieldState,

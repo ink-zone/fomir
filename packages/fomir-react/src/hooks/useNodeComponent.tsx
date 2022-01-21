@@ -1,5 +1,6 @@
 import { ChangeEvent, createElement, useEffect, useState } from 'react'
-import { getNodeComponent, getValueFormEvent, NodeProps } from '..'
+import { NodeProps } from '../types'
+import { getValueFormEvent } from '../utils/getValueFormEvent'
 import { useFormContext } from './useFormContext'
 
 /**
@@ -41,6 +42,7 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
 
   if (typeof node.visible === 'boolean' && !node.visible) return null
 
-  const Cmp = getNodeComponent(node)
+  const Cmp = form.getNodeComponent(node)
+  if (!Cmp) return 'No matched component'
   return createElement(Cmp, { node, handler, children })
 }

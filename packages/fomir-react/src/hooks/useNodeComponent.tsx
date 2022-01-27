@@ -43,6 +43,6 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   if (typeof node.visible === 'boolean' && !node.visible) return null
 
   const Cmp = form.getNodeComponent(node)
-  if (!Cmp) return 'No matched component'
+  if (!Cmp) return null
   return createElement(Cmp, { node, handler, children })
 }

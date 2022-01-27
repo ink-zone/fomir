@@ -2,9 +2,9 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Fomir } from 'fomir'
 
-import { FomirUnstyled } from 'fomir-unstyled'
+import { FomirSimpleUI } from 'fomir-simple-ui'
 
-Fomir.use(FomirUnstyled)
+Fomir.use(FomirSimpleUI)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />

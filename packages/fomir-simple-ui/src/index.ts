@@ -8,7 +8,7 @@ import { CheckboxGroup } from './components/CheckboxGroup'
 import { Select } from './components/Select'
 import { Submit } from './components/Submit'
 
-export const FomirUnstyled: FomirPlugin = {
+export const FomirSimpleUI: FomirPlugin = {
   components: {
     Input,
     Textarea,
@@ -21,6 +21,6 @@ export const FomirUnstyled: FomirPlugin = {
   },
 }
 
-export default FomirUnstyled
+export default FomirSimpleUI
 
 export * from './unstyled-node'

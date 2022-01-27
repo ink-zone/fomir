@@ -2,9 +2,9 @@ import { Box } from '@fower/react'
 import { mdx } from '@mdx-js/react'
 import { Fomir } from 'fomir'
 import { Form, useField, useForm, useFormContext, useFormState } from 'fomir-react'
-import { FomirUnstyled } from 'fomir-unstyled'
+import { FomirSimpleUI } from 'fomir-simple-ui'
 
-Fomir.use(FomirUnstyled)
+Fomir.use(FomirSimpleUI)
 
 export default {
   Fomir,

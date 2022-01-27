@@ -1,5 +1,4 @@
 import React, { FC, forwardRef, useEffect, useState } from 'react'
-import { Fomir } from 'fomir'
 import { isNative } from '../utils'
 import { FormProps } from '../types'
 import { FormProvider } from '../formContext'

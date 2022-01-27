@@ -1,5 +1,5 @@
 import { BaseNode, Node } from 'fomir'
-import { UnstyledNode } from 'fomir-unstyled'
+import { UnstyledNode } from 'fomir-simple-ui'
 
 export interface SubmitNode extends BaseNode {
   component: 'Submit'

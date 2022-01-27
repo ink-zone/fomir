@@ -341,8 +341,8 @@ export function createForm<T>(schema: FormNode<T>) {
   }
 
   function resetForm() {
-    schema = initialSchema
-    form.schema = initialSchema
+    schema = cloneDeep(initialSchema)
+    form.schema = schema
     rerenderNode(form)
     form.schema?.onReset?.()
   }

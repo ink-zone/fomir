@@ -4,7 +4,6 @@ import { useFormContext } from './useFormContext'
 export function useFormState() {
   const [, forceUpdate] = useState({})
   const form = useFormContext()
-  const formState = form.getFormState()
 
   useEffect(() => {
     form.formUpdaters.push(forceUpdate)
@@ -14,5 +13,5 @@ export function useFormState() {
     }
   }, [])
 
-  return formState
+  return form.schema
 }

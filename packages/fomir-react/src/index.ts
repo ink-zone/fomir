@@ -1,7 +1,6 @@
 import { Fomir } from 'fomir'
 
 import { ArrayFieldItem } from './components/ArrayFieldItem'
-import { Box } from './components/Box'
 import { ArrayField } from './components/ArrayField'
 
 export * from './components/Form'
@@ -20,7 +19,6 @@ Fomir.use({
   components: {
     ArrayField,
     ArrayFieldItem,
-    Box,
   },
   onFieldChange(name, form) {
     const updaters: any[] = form.data[name] || []

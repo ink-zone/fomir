@@ -1,4 +1,4 @@
-import { FieldNode } from 'fomir'
+import { FieldNode, BaseNode, Node } from 'fomir'
 import { InputHTMLAttributes } from 'react'
 
 export interface InputNode extends FieldNode {
@@ -28,10 +28,30 @@ export interface TextareaNode extends FieldNode {
   component: 'Textarea'
 }
 
-export type UnstyledNode =
+export interface ResetNode extends BaseNode {
+  component: 'Reset'
+  text: string
+}
+
+export interface SubmitNode extends BaseNode {
+  component: 'Submit'
+  text: string
+}
+
+export interface BoxNode extends BaseNode {
+  component: 'Box'
+  css?: string
+  text?: string
+  children?: Node[]
+}
+
+export type SimpleUINode =
   | InputNode
   | SelectNode
   | CheckboxNode
   | CheckboxGroupNode
   | RadioGroupNode
   | TextareaNode
+  | ResetNode
+  | SubmitNode
+  | BoxNode

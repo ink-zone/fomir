@@ -7,6 +7,8 @@ import { RadioGroup } from './components/RadioGroup'
 import { CheckboxGroup } from './components/CheckboxGroup'
 import { Select } from './components/Select'
 import { Submit } from './components/Submit'
+import { Reset } from './components/Reset'
+import { Box } from './components/Box'
 
 export const FomirSimpleUI: FomirPlugin = {
   components: {
@@ -18,9 +20,11 @@ export const FomirSimpleUI: FomirPlugin = {
     Select,
     Form,
     Submit,
+    Reset,
+    Box,
   },
 }
 
 export default FomirSimpleUI
 
-export * from './unstyled-node'
+export * from './simple-ui-node'

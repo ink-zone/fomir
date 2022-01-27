@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         name: 'firstName',
         component: 'Input',
         value: '',
-        validator: {
+        validators: {
           // required: 'gogo',
         },
       },

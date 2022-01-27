@@ -1,0 +1,71 @@
+---
+title: 'Custom component'
+description: Learn how to get started with Rocket Docs.
+---
+
+## How to Custom yourseft component
+
+To custom a field component:
+
+```jsx
+import { NodeProps } from 'fomir-react'
+
+const MyInput = ({ node, handler }: NodeProps) => {
+  const { value = '', label } = node
+  return (
+    <div>
+      {label && <div>{label}</div>}
+      <input value={value} onChange={handler.handleChange} />
+    </div>
+  )
+}
+```
+
+To custom a common component:
+
+```jsx
+import { NodeProps } from 'fomir-react'
+
+const MyFlexbox = ({ children }: NodeProps) => {
+  return <div style={{ display: 'flex' }}>{children}</div>
+}
+```
+
+## Use components
+
+Two way to use these customized components.
+
+Register components in plugin, and make it globally:
+
+```jsx
+Fomir.use({
+  components: {
+    MyInput,
+    MyFlexbox,
+  },
+})
+```
+
+Register components in schema:
+
+```jsx
+const form = useForm({
+  components: {
+    MyInput,
+    MyFlexbox,
+  },
+
+  children: [
+    {
+      label: 'First Name',
+      name: 'firstName',
+      component: 'MyInput',
+      value: '',
+    },
+    {
+      label: 'Box example',
+      component: 'MyFlexbox',
+    },
+  ],
+})
+```

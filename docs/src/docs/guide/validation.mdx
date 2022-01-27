@@ -1,38 +1,7 @@
 ---
-title: 'Getting started'
+title: 'Validation'
 description: Learn how to get started with Rocket Docs.
 ---
-
-## Installation
-
-#### Using Yarn:
-
-```bash
-yarn add fomir fomir-react
-```
-
-#### Using NPM:
-
-```bash
-npm i fomir fomir-react
-```
-
-## Basic usage
-
-By default, fomir does not have any built-in ui library, here we use `fomir-unstyled` plugin:
-
-```bash
-npm i fomir-unstyled
-```
-
-```js
-import { Fomir } from 'fomir'
-import { FomirUnstyled } from 'fomir-unstyled'
-
-Fomir.use(FomirUnstyled)
-```
-
-Then, use `useForm` api to create a form:
 
 ```jsx live=true
 const BasicForm = () => {
@@ -47,12 +16,19 @@ const BasicForm = () => {
         label: 'First Name',
         name: 'firstName',
         component: 'Input',
+        validators: {
+          required: 'First name is required',
+        },
         value: '',
       },
       {
         label: 'Last Name',
         name: 'lastName',
         component: 'Input',
+        validators: {
+          required: 'Last name is required',
+          minLength: [6, 'min length is 6'],
+        },
         value: '',
       },
       {

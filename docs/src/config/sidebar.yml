@@ -2,16 +2,33 @@
 
 - label: 'Introduction'
   link: '/'
-- label: 'Getting started'
-  link: '/getting-started'
-- label: Usage
+- label: Walkthrough
   items:
-    - label: 'Creating docs'
-      link: '/usage/creating-docs'
-    - label: 'Navigation'
-      link: '/usage/navigation'
-    - label: 'Shadowing'
-      link: '/usage/shadowing'
+    - label: 'Installation'
+      link: '/walkthrough/installation'
+    - label: 'Basic usage'
+      link: '/walkthrough/basic-usage'
+    - label: 'Use plugin'
+      link: '/walkthrough/use-plugin'
+    - label: 'Validation'
+      link: '/walkthrough/validation'
+- label: Guide
+  items:
+    - label: 'Custom component'
+      link: '/guide/custom-component'
+    - label: 'Custom validator'
+      link: '/guide/custom-validator'
+
+- label: Api
+  items:
+    - label: 'useForm'
+      link: '/api/use-form'
+    - label: 'useField'
+      link: '/api/use-field'
+    - label: 'useFormContext'
+      link: '/api/use-form-context'
+    - label: 'useFormState'
+      link: '/api/use-form-state'
 - label: More
   items:
     - label: FAQ

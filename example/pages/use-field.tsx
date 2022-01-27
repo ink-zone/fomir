@@ -1,29 +1,34 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useField, useForm } from 'fomir-react'
+import { Form, NodeProps, useField, useForm } from 'fomir-react'
+
+const FirstName = (props: NodeProps) => {
+  const { value } = props.node
+  const lastName = useField('lastName')
+  return (
+    <div>
+      <div>value: {value}</div>
+      <div>lastName: {lastName.value}</div>
+      <input value={value} onChange={props.handler.handleChange} />
+    </div>
+  )
+}
 
 const Home: NextPage = () => {
   const form = useForm({
     onSubmit(values) {
       console.log('values', values)
     },
+    components: {
+      FirstName,
+    },
 
     children: [
       {
         label: 'First Name',
         name: 'firstName',
-        // component: 'Input',
+        component: 'FirstName',
         value: '',
-        component: function CustomInput({ value, handleChange }: any) {
-          const lastName = useField('lastName')
-          return (
-            <div>
-              <div>value: {value}</div>
-              <div>lastName: {lastName.value}</div>
-              <input value={value} onChange={handleChange} />
-            </div>
-          )
-        },
       },
       {
         label: 'Last Name',

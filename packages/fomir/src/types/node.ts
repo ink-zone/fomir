@@ -47,6 +47,8 @@ export interface BaseNode {
 
   status?: Status
 
+  text?: string
+
   options?: Options
 
   data?: any

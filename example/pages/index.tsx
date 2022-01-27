@@ -1,12 +1,30 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useForm } from 'fomir-react'
+import { Form, NodeProps, useForm } from 'fomir-react'
 
 const BasicForm: NextPage = () => {
+  const Input = ({ node, handler }: NodeProps) => {
+    const { value, label } = node
+    return (
+      <div>
+        <div>{label}</div>
+        <input value={value} onChange={handler.handleChange} />
+      </div>
+    )
+  }
+
+  const Submit = ({ node }: NodeProps) => {
+    return <button>{node.text}</button>
+  }
+
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
       console.log('values', values)
+    },
+    components: {
+      Input, // register a component for this form
+      Submit,
     },
 
     children: [

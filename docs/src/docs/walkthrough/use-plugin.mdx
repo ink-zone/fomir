@@ -1,38 +1,49 @@
 ---
-title: 'Getting started'
+title: 'Use plugin'
 description: Learn how to get started with Rocket Docs.
 ---
 
-## Installation
-
-#### Using Yarn:
-
-```bash
-yarn add fomir fomir-react
-```
-
-#### Using NPM:
-
-```bash
-npm i fomir fomir-react
-```
-
-## Basic usage
-
-By default, fomir does not have any built-in ui library, here we use `fomir-unstyled` plugin:
-
-```bash
-npm i fomir-unstyled
-```
-
-```js
+```jsx
 import { Fomir } from 'fomir'
-import { FomirUnstyled } from 'fomir-unstyled'
-
-Fomir.use(FomirUnstyled)
+import { Form, useForm } from 'fomir-react'
 ```
 
-Then, use `useForm` api to create a form:
+## Create a plugin
+
+```jsx
+const Input = ({ node, handler }) => {
+  const { value = '', label } = node
+  return (
+    <div>
+      {label && <div>{label}</div>}
+      <input value={value} onChange={handler.handleChange} />
+    </div>
+  )
+}
+
+const Submit = ({ node }) => {
+  return <button type="submit">{node.text}</button>
+}
+
+const myPlugin = {
+  components: {
+    Input,
+    Submit,
+  },
+}
+```
+
+## Use a plugin
+
+Use a plugin, and register components globally:
+
+```jsx
+Fomir.use(myPlugin)
+```
+
+## Use components
+
+Use `useForm` api to create a form:
 
 ```jsx live=true
 const BasicForm = () => {
@@ -41,7 +52,6 @@ const BasicForm = () => {
       alert(JSON.stringify(values, null, 2))
       console.log('values', values)
     },
-
     children: [
       {
         label: 'First Name',

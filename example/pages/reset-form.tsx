@@ -23,21 +23,15 @@ const Home: NextPage = () => {
       },
       {
         component: 'Box',
+        css: 'spaceX2 toCenterY',
         children: [
           {
             component: 'Submit',
-            text: 'submit',
+            text: 'Submit',
           },
           {
-            component: 'Box',
-            text: 'reset',
-            component: function Reset() {
-              return (
-                <button type="reset" onClick={() => form.resetForm()}>
-                  Reset
-                </button>
-              )
-            },
+            component: 'Reset',
+            text: 'Reset',
           },
         ],
       },

@@ -1,20 +1,8 @@
-import { BaseNode, Node } from 'fomir'
-import { UnstyledNode } from 'fomir-simple-ui'
-
-export interface SubmitNode extends BaseNode {
-  component: 'Submit'
-  text: string
-}
-
-export interface BoxNode extends BaseNode {
-  component: 'Box'
-  text?: string
-  children?: Node[]
-}
+import { SimpleUINode } from 'fomir-simple-ui'
 
 declare module 'fomir' {
   interface CustomTypes {
-    Node: SubmitNode | BoxNode | UnstyledNode
+    Node: SimpleUINode
   }
   // interface Validator {
   //   foo?: 'string'

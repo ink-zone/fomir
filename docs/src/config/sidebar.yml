@@ -18,6 +18,8 @@
       link: '/guide/custom-component'
     - label: 'Custom validator'
       link: '/guide/custom-validator'
+    - label: 'Reset form'
+      link: '/guide/reset-form'
 
 - label: Api
   items:

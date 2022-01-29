@@ -2,14 +2,14 @@ import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form, NodeProps, useField, useForm } from 'fomir-react'
 
-const FirstName = (props: NodeProps) => {
-  const { value } = props.node
+const FirstName = ({ node, handler }: NodeProps) => {
+  const { value } = node
   const lastName = useField('lastName')
   return (
     <div>
       <div>value: {value}</div>
       <div>lastName: {lastName.value}</div>
-      <input value={value} onChange={props.handler.handleChange} />
+      <input value={value} onChange={handler.handleChange} />
     </div>
   )
 }

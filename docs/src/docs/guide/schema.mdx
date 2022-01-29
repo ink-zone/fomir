@@ -7,20 +7,99 @@ Schema is the most concept of **Fomir**.
 
 ## Shape of schema
 
-```jsx
-const schema = {
-  onSubmit(values) {
-    //..
-  },
-  components: {
-    //...
-  },
+```ts
+interface FormSchema<T = any> {
+  submitting?: boolean
+  submitted?: boolean
+  submitCount?: number
 
-  children: [
-    // nodes
-    //...
-  ],
+  validating?: boolean
+  dirty?: boolean
+  valid?: boolean
+  status?: Status
+
+  labelWidth?: number | string
+
+  components?: Record<string, any>
+
+  // children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
+  children: Node[]
+
+  validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
+
+  watch?: {
+    [key: string]: <T extends FieldNode = any>(nextData: T, prevData: T) => any
+  }
+
+  /**
+   * callback when form submit
+   * @param values current values
+   */
+  onSubmit?(values: T): Promise<any> | any
+
+  /**
+   * callback when form error
+   * @param errors current errors
+   */
+  onError?(errors: Errors<T>): Promise<any> | any
+
+  /**
+   * callback when reset form
+   */
+  onReset?(): Promise<any> | any
+
+  [key: string]: any
 }
 ```
 
 The root node of schema is an object. it has a `children` property, `children` value is the node list.
+
+## Shape of node
+
+```ts
+interface BaseNode {
+  component: string
+
+  label?: any
+
+  showLabel?: boolean
+
+  required?: boolean
+
+  description?: any
+
+  componentProps?: any
+
+  value?: any
+
+  error?: string
+
+  warning?: string
+
+  loading?: boolean
+
+  pending?: boolean
+
+  touched?: boolean
+
+  disabled?: boolean
+
+  focused?: boolean
+
+  display?: boolean
+
+  visible?: boolean
+
+  status?: Status
+
+  text?: string
+
+  options?: Options
+
+  data?: any
+
+  updaters?: ((...args: any[]) => void)[]
+
+  renderChildren?: (node: any) => any
+}
+```

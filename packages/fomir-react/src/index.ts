@@ -8,7 +8,7 @@ export * from './components/FormSpy'
 export * from './components/NodeComponent'
 
 export * from './hooks/useFormContext'
-export * from './hooks/useField'
+export * from './hooks/useFieldState'
 export * from './hooks/useFormState'
 export * from './hooks/useForm'
 export * from './formContext'

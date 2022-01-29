@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useFormContext } from './useFormContext'
 
-export function useField(name: string) {
+export function useFieldState(name: string) {
   const [, forceUpdate] = useState({})
   const form = useFormContext()
   const field = form.getFieldState(name)

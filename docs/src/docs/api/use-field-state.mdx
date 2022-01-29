@@ -1,0 +1,49 @@
+---
+title: 'use-field'
+description: Learn how to get started with Rocket Docs.
+---
+
+Use `useForm` api to create a form:
+
+```jsx
+import { Form, useForm } from 'fomir-react'
+```
+
+```jsx live=true
+const NameValue = () => {
+  const { value } = useFieldState('userName')
+  return <div>Name: {value}</div>
+}
+
+const BasicForm = () => {
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    // register component
+    components: {
+      NameValue,
+    },
+
+    children: [
+      {
+        component: 'NameValue',
+      },
+      {
+        name: 'userName',
+        component: 'Input',
+        value: 'Bill',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+
+render(<BasicForm />)
+```

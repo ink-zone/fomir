@@ -1,24 +1,87 @@
 ---
-title: Navigation
-description: How to use the sidebar.yml file from Rocket Docs.
+title: 'useFormContext'
+description: Learn how to get started with Rocket Docs.
 ---
 
-To add items on the sidebar, it's necessary you create a `sidebar.yml` file under the config folder. Example:
+`useFormContext` is a react hooks to get form instance.
 
-```yaml title=sidebar.yml
-# Just a simple item
-- label: 'Home'
-  link: '/'
-# With a list of items
-- label: 'With subitems'
-  items:
-    - label: 'My Example'
-      link: '/my-example'
+You can import it from `fomir-react`:
+
+```jsx
+import { useFormContext } from 'fomir-react'
 ```
 
-If necessary, you can also add external links:
+## Example usage
 
-```yaml
-- label: 'GitHub'
-  link: 'https://github.com/jpedroschmitz'
+This is an example usage to create `Reset` component:
+
+```jsx
+import React from 'react'
+import { Box } from '@fower/react'
+import { NodeProps, useFormContext } from 'fomir-react'
+
+export const Reset = (props: NodeProps) => {
+  const form = useFormContext()
+  return (
+    <Box
+      as="button"
+      type="reset"
+      bgBrand500
+      white
+      px4
+      py2
+      rounded
+      cursorPointer
+      onClick={() => form.resetForm()}
+    >
+      {props.node.text}
+    </Box>
+  )
+}
+```
+
+Use `Reset` component in form:
+
+```jsx live=true
+const ResetForm = () => {
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: 'Curry',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'Box',
+        css: 'spaceX2 toCenterY',
+        children: [
+          {
+            component: 'Submit',
+            text: 'Submit',
+          },
+          {
+            component: 'Reset',
+            text: 'Reset',
+          },
+        ],
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+
+render(<ResetForm />)
 ```

@@ -1,10 +1,8 @@
 import React from 'react'
 import { Box } from '@fower/react'
-import { NodeProps, useFormContext, useFormState } from 'fomir-react'
-import { ResetNode } from '../simple-ui-node'
+import { NodeProps, useFormContext } from 'fomir-react'
 
-export const Reset = (props: NodeProps<ResetNode>) => {
-  const { labelWidth } = useFormState()
+export const Reset = (props: NodeProps) => {
   const form = useFormContext()
   return (
     <Box
@@ -16,7 +14,6 @@ export const Reset = (props: NodeProps<ResetNode>) => {
       py2
       rounded
       cursorPointer
-      ml={labelWidth || 0}
       onClick={() => form.resetForm()}
     >
       {props.node.text}

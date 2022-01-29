@@ -4,7 +4,7 @@ import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
 import { getIn, setIn, isFormValid } from './utils'
 import { FieldNode } from './types/field'
-import { FormNode } from './types/form'
+import { FormSchema } from './types/form'
 import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types/types'
 import { Fomir } from './Fomir'
 import { Node } from '.'
@@ -42,7 +42,7 @@ export function normalizeNode(node: any) {
 
 export type Form = ReturnType<typeof createForm>
 
-export function createForm<T>(schema: FormNode<T>) {
+export function createForm<T>(schema: FormSchema<T>) {
   const formUpdaters: any[] = []
   const NODE_TO_UPDATER = new WeakMap()
   const NODE_TO_INDEX = new WeakMap()
@@ -80,31 +80,31 @@ export function createForm<T>(schema: FormNode<T>) {
     }
   }
 
-  function getFormState(): FormNode {
+  function getFormState(): FormSchema {
     return schema
   }
 
-  function getFieldState(name: string, schema?: FormNode): FieldNode {
+  function getFieldState(name: string, schema?: FormSchema): FieldNode {
     return getNode({ schema, match: (n) => n.name === name })
   }
 
-  function setSchema(fn: (shema: FormNode) => any) {
+  function setSchema(fn: (shema: FormSchema) => any) {
     fn(schema)
     runFormUpdaters()
   }
 
-  function setFormState(formPartialState: Partial<FormNode>) {
+  function setFormState(formPartialState: Partial<FormSchema>) {
     const prevSchema = cloneDeep(schema)
     const { watch = {} } = form.schema
 
     for (const key in formPartialState) {
-      ;(schema as any)[key] = formPartialState[key as keyof FormNode]
+      ;(schema as any)[key] = formPartialState[key as keyof FormSchema]
     }
 
     /** on form change */
     for (const key of Object.keys(watch)) {
       if (!key.startsWith('$.')) continue
-      let k = key.replace(/^\$\./, '') as keyof FormNode
+      let k = key.replace(/^\$\./, '') as keyof FormSchema
 
       if (Reflect.has(schema, k)) {
         if (isEqual(prevSchema[k], schema[k])) continue
@@ -327,6 +327,8 @@ export function createForm<T>(schema: FormNode<T>) {
       setFieldState(key, { error: errors[key] })
     }
   }
+
+  18
 
   function touchAll() {
     travelNodes(schema.children, (item) => {

@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
-import { FormNode, Node, Form, BaseNode } from 'fomir'
+import { FormSchema, Node, Form, BaseNode } from 'fomir'
 
 export type FieldElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
@@ -26,7 +26,7 @@ export interface FormProps extends HTMLAttributes<HTMLFormElement> {
 
 export interface FormRegisterProps extends Form {}
 
-export interface FormSpyRenderProps extends FormNode, Form {}
+export interface FormSpyRenderProps extends FormSchema, Form {}
 
 export interface FormSpyProps {
   children: (formSpyRenderProps: FormSpyRenderProps) => ReactNode

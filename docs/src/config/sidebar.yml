@@ -14,8 +14,10 @@
       link: '/walkthrough/validation'
 - label: Guide
   items:
-    - label: 'Custom component'
-      link: '/guide/custom-component'
+    - label: 'Schema'
+      link: '/guide/schema'
+    - label: 'Custom field'
+      link: '/guide/custom-field'
     - label: 'Custom validator'
       link: '/guide/custom-validator'
     - label: 'Reset form'

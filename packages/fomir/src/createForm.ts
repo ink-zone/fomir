@@ -40,9 +40,11 @@ export function normalizeNode(node: any) {
   return node
 }
 
-export type Form = ReturnType<typeof createForm>
+export type Form<T> = Omit<ReturnType<typeof createForm>, 'setValues'> & {
+  setValues(values: T): T
+}
 
-export function createForm<T>(schema: FormSchema<T>) {
+export function createForm<T = any>(schema: FormSchema<T>) {
   const formUpdaters: any[] = []
   const NODE_TO_UPDATER = new WeakMap()
   const NODE_TO_INDEX = new WeakMap()
@@ -313,7 +315,7 @@ export function createForm<T>(schema: FormSchema<T>) {
     })
   }
 
-  function getValues() {
+  function getValues(): T {
     return getFieldCollection('value', [schema])
   }
 
@@ -328,14 +330,22 @@ export function createForm<T>(schema: FormSchema<T>) {
     }
   }
 
-  18
-
   function touchAll() {
     travelNodes(schema.children, (item) => {
       if (Reflect.has(item, 'name')) {
         item.touched = true
       }
     })
+  }
+
+  function setValues(values: T) {
+    travelNodes(schema.children, (item) => {
+      const nodeName = NODE_TO_NAME.get(item)
+      if (nodeName) item.value = getIn(values, nodeName)
+    })
+
+    rerenderNode(form)
+    return getValues()
   }
 
   function setSubmitting(submitting: boolean) {
@@ -571,6 +581,7 @@ export function createForm<T>(schema: FormSchema<T>) {
     setFieldErrors,
     setSubmitting,
     touchAll,
+    setValues,
 
     /** handle form */
     resetForm,

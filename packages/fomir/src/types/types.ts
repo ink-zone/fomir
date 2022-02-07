@@ -1,5 +1,5 @@
 import type { Form } from '../createForm'
-import type { FormNode } from './form'
+import type { FormSchema } from './form'
 import type { FieldNode } from './field'
 import type { ExtendedType } from './custom-types'
 
@@ -16,7 +16,7 @@ export type Errors<T = any> = {
 }
 
 export interface NodeOptions {
-  schema?: FormNode
+  schema?: FormSchema
   // at?: Location
 
   /** is rerender current node */

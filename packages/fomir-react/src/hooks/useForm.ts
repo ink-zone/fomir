@@ -1,7 +1,7 @@
-import { createForm, FormSchema } from 'fomir'
+import { createForm, FormSchema, Form } from 'fomir'
 import { useRef } from 'react'
 
-export function useForm<T = any>(schema: FormSchema<T>) {
+export function useForm<T = any>(schema: FormSchema<T>): Form<T> {
   const { current } = useRef(createForm<T>(schema))
-  return current
+  return current as Form<T>
 }

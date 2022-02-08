@@ -22,6 +22,35 @@
       link: '/guide/custom-validator'
     - label: 'Reset form'
       link: '/guide/reset-form'
+    - label: 'Initialize values'
+      link: '/guide/initialize-values'
+
+- label: use-form
+  items:
+    - label: 'setValues'
+      link: '/use-form/setValues'
+    - label: 'resetForm'
+      link: '/use-form/resetForm'
+    - label: 'setSubmitting'
+      link: '/use-form/setSubmitting'
+    - label: 'getErrors'
+      link: '/use-form/getErrors'
+    - label: 'getFieldState'
+      link: '/use-form/getFieldState'
+    - label: 'getFormState'
+      link: '/use-form/getFormState'
+    - label: 'getValues'
+      link: '/use-form/getValues'
+    - label: 'setFieldState'
+      link: '/use-form/setFieldState'
+    - label: 'setFormState'
+      link: '/use-form/setFormState'
+    - label: 'submitForm'
+      link: '/use-form/submitForm'
+    - label: 'validateField'
+      link: '/use-form/validateField'
+    - label: 'validateForm'
+      link: '/use-form/validateForm'
 
 - label: Api
   items:
@@ -38,4 +67,4 @@
     - label: FAQ
       link: /faq
     - label: 'Github'
-      link: https://github.com/jpedroschmitz/rocketdocs
+      link: https://github.com/forsigner/fomir

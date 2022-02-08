@@ -315,8 +315,9 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     })
   }
 
-  function getValues(): T {
-    return getFieldCollection('value', [schema])
+  function getValues<V = T>(name?: string): V {
+    const values = getFieldCollection('value', [schema])
+    return name ? getIn(values, name) : values
   }
 
   function getErrors() {

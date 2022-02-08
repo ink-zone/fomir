@@ -18,7 +18,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        repositoryUrl: `https://github.com/jpedroschmitz/rocketdocs`,
+        repositoryUrl: `https://github.com/forsigner/fomir`,
         baseDir: `examples/gatsby-theme-docs`,
       },
     },
@@ -49,4 +49,4 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
   ],
-};
+}

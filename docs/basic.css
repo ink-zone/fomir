@@ -6,9 +6,11 @@ input {
   border-radius: 4px;
 }
 
-button[type="submit"] {
+
+button {
+  display: block;
   padding: 8px 12px;
   background: sandybrown;
   border-radius: 4px;
-
+  margin-bottom: 12px;
 }

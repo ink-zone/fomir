@@ -1,0 +1,59 @@
+---
+title: 'getValues'
+---
+
+> getValues: (name?: string) => T
+
+A helper function for reading form values, your can get form values anywhere, even outside of the form.
+
+## Two usage
+
+- `getValues()`: get all values of form
+- `getValues(name)`: get value by name path
+
+Here is the live demo:
+
+```jsx live
+function BasicForm() {
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: 'Jobs',
+      },
+    ],
+  })
+
+  return (
+    <div>
+      <Form form={form} />
+      <button
+        onClick={() => {
+          alert(JSON.stringify(form.getValues(), null, 2))
+        }}
+      >
+        Get All Values
+      </button>
+      <button
+        onClick={() => {
+          alert(form.getValues('firstName'))
+        }}
+      >
+        Get First Name
+      </button>
+    </div>
+  )
+}
+```

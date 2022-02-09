@@ -1,0 +1,56 @@
+---
+title: 'setSubmitting'
+---
+
+A helper function to change the `submitting` state of the form.
+
+It's useful to improve user-experience for form, for example, you can disable the submit button when the form is submitting.
+
+Here is the live demo:
+
+```jsx live
+function FormDemo() {
+  const Submit = ({ node }) => {
+    const { submitting } = useFormState()
+    return (
+      <button disabled={submitting}>
+        {node.text}
+        {submitting ? '...' : ''}
+      </button>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      setTimeout(() => {
+        console.log('values', values)
+        form.setSubmitting(false)
+      }, 3000)
+    },
+    components: {
+      Submit,
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: 'Jobs',
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

@@ -1,0 +1,57 @@
+---
+title: 'submitForm'
+---
+
+Trigger a form submission. If form validation fails, `onError` will be called, if form submit successfully, `onSubmit` will be called.
+
+Your can submit form anywhere, even outside of the form.
+
+Most of the time, Creating a custom component is a more better way to submit a form.
+
+Here is the live demo:
+
+```jsx live
+function BasicForm() {
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
+        validators: {
+          required: 'Username is required',
+          maxLength: [4, 'max len is 4'],
+        },
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: '',
+        validators: {
+          pattern: [/foo/, 'Should contain foo'],
+        },
+      },
+    ],
+  })
+
+  return (
+    <div>
+      <Form form={form} />
+      <button
+        onClick={() => {
+          form.submitForm()
+        }}
+      >
+        Submit Form
+      </button>
+    </div>
+  )
+}
+```

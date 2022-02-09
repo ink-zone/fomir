@@ -1,0 +1,44 @@
+---
+title: 'setValues'
+---
+
+A helper function for setting form values, your can set form values async.
+
+Most of the time, you may use `setValues` to initialize the form values.
+
+Here is the live demo:
+
+```jsx live
+function BasicForm() {
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  useEffect(() => {
+    setTimeout(() => {
+      form.setValues({ firstName: 'Steve', lastName: 'Jobs' })
+    }, 2000)
+  }, [form])
+
+  return <Form form={form} />
+}
+```

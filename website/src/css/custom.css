@@ -6,14 +6,16 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
+
+  --ifm-scrollbar-track-background-color: transparent;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -36,4 +38,30 @@ html[data-theme='dark'] {
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.navbar--fixed-top {
+  border-bottom: 1px solid rgb(235, 235, 235);
+  box-shadow: none !important;
+}
+
+.menu__link__custom {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.menu__list {
+  padding-left: 0 !important;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  height: var(--ifm-scrollbar-size);
+  width: var(--ifm-scrollbar-size);
+}
+
+.theme-doc-sidebar-container {
+  border-right: none !important;
+}
+.menu {
+  padding-left: 0 !important;
 }

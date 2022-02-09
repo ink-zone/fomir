@@ -7,13 +7,13 @@ description: Learn how to get started with Rocket Docs.
 import { useFieldState } from 'fomir-react'
 ```
 
-```jsx live=true
-const NameValue = () => {
-  const { value } = useFieldState('userName')
-  return <div>Name: {value}</div>
-}
+```jsx live
+function BasicForm() {
+  const NameValue = () => {
+    const { value } = useFieldState('userName')
+    return <div>Name: {value}</div>
+  }
 
-const BasicForm = () => {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -42,6 +42,4 @@ const BasicForm = () => {
 
   return <Form form={form} />
 }
-
-render(<BasicForm />)
 ```

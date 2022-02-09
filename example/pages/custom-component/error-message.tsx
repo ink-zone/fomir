@@ -1,35 +1,32 @@
----
-title: 'Validation'
-description: Learn how to get started with Rocket Docs.
----
+import type { NextPage } from 'next'
+import { Box } from '@fower/react'
+import { Form, useForm } from 'fomir-react'
 
-```jsx live
-const BasicForm = () => {
+const Home: NextPage = () => {
   const form = useForm({
     onSubmit(values) {
-      alert(JSON.stringify(values, null, 2))
       console.log('values', values)
     },
 
     children: [
       {
+        component: 'Input',
         label: 'First Name',
         name: 'firstName',
-        component: 'Input',
-        validators: {
-          required: 'First name is required',
-        },
         value: '',
+        validators: {
+          required: 'Username is required',
+          maxLength: [4, 'max len'],
+        },
       },
       {
         label: 'Last Name',
         name: 'lastName',
         component: 'Input',
-        validators: {
-          required: 'Last name is required',
-          minLength: [6, 'min length is 6'],
-        },
         value: '',
+        validators: {
+          pattern: [/foo/, 'should contain foo'],
+        },
       },
       {
         component: 'Submit',
@@ -38,8 +35,11 @@ const BasicForm = () => {
     ],
   })
 
-  return <Form form={form} />
+  return (
+    <Box p-100>
+      <Form form={form} />
+    </Box>
+  )
 }
 
-render(<BasicForm />)
-```
+export default Home

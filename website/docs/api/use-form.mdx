@@ -11,8 +11,8 @@ import { useForm } from 'fomir-react'
 
 ## Example
 
-```jsx live=true
-const BasicForm = () => {
+```jsx live
+function BasicForm() {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -41,6 +41,4 @@ const BasicForm = () => {
 
   return <Form form={form} />
 }
-
-render(<BasicForm />)
 ```

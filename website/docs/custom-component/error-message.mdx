@@ -1,0 +1,44 @@
+---
+title: 'Error message'
+---
+
+Most of the time, We have a label in the form field, we can get label from the `node` props:
+
+```jsx live
+function BasicForm() {
+  const InputWithLabel = ({ node, handler }) => {
+    const { value, label } = node
+    return (
+      <div>
+        <div>{label}</div>
+        <input value={value} onChange={handler.handleChange} />
+      </div>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      InputWithLabel,
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'InputWithLabel',
+        value: 'Steve',
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

@@ -1,0 +1,40 @@
+---
+title: 'Basic usage'
+---
+
+How to customize a most basic usage form field? It's simple, just bind the `value` and `onChange` props.
+
+Here we create a `BasicInput` component and register it into the local scope:
+
+```jsx live
+function BasicForm() {
+  const BasicInput = ({ node, handler }) => {
+    const { value } = node
+    return <input value={value} onChange={handler.handleChange} />
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      BasicInput,
+    },
+
+    children: [
+      {
+        name: 'firstName',
+        component: 'BasicInput',
+        value: 'Steve',
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

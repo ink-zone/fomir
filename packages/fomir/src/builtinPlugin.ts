@@ -34,7 +34,7 @@ export const builtinPlugin: FomirPlugin = {
 
     equalTo(value, validator, { form }) {
       const [prop, msg] = validator
-      return form.getValues()?.[prop] === value ? '' : msg
+      return form.getValues<any>()?.[prop] === value ? '' : msg
     },
   },
 }

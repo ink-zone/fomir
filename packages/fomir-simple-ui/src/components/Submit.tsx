@@ -1,22 +1,10 @@
 import React from 'react'
 import { Box } from '@fower/react'
-import { NodeProps, useFormState } from 'fomir-react'
-import { SubmitNode } from '../simple-ui-node'
+import { NodeProps } from 'fomir-react'
 
-export const Submit = (props: NodeProps<SubmitNode>) => {
-  const { labelWidth } = useFormState()
+export const Submit = (props: NodeProps) => {
   return (
-    <Box
-      as="button"
-      type="submit"
-      bgBrand500
-      white
-      px4
-      py2
-      rounded
-      cursorPointer
-      ml={labelWidth || 0}
-    >
+    <Box as="button" type="submit" bgBrand500 white px4 py2 rounded cursorPointer>
       {props.node.text}
     </Box>
   )

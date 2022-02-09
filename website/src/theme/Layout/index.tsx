@@ -43,7 +43,7 @@ function Layout(props: Props): JSX.Element {
         )}>
         <ErrorBoundary fallback={ErrorPageContent}>
       <Box
-        w-1360--md
+        w-1366--md
         style={{
           margin: '0 auto',
         }}

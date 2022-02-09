@@ -82,3 +82,8 @@ button {
   border-radius: 4px;
   margin-bottom: 12px;
 }
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}

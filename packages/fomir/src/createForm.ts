@@ -40,7 +40,7 @@ export function normalizeNode(node: any) {
   return node
 }
 
-export type Form<T> = Omit<ReturnType<typeof createForm>, 'setValues'> & {
+export type Form<T = any> = Omit<ReturnType<typeof createForm>, 'setValues'> & {
   setValues(values: T): T
 }
 

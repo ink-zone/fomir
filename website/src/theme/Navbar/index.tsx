@@ -238,7 +238,7 @@ function Navbar(): JSX.Element {
       <div
         className="navbar__inner"
         style={{
-          maxWidth: '1360px',
+          maxWidth: '1366px',
           margin: '0 auto',
         }}
       >

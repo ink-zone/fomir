@@ -1,0 +1,134 @@
+---
+title: 'Submit button'
+sidebar_position: 5
+---
+
+You can customize your own submit button.
+
+## Default submit button
+
+You can use the submit button (button with `type="submit"` property):
+
+```jsx live
+function FormDemo() {
+  const SubmitButton = (props) => {
+    return <button type="submit">{props.node.text}</button>
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      SubmitButton,
+    },
+
+    children: [
+      {
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'SubmitButton',
+        text: 'My Submit Button',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Any element as submit button
+
+You can make any element to become submit button, the key is binding `submitForm()` to onClick props.
+
+```jsx live
+function FormDemo() {
+  const SubmitDiv = (props) => {
+    const form = useFormContext()
+    return (
+      <div
+        style={{
+          background: '#ddd',
+          padding: '8px',
+          display: 'inline-block',
+        }}
+        onClick={() => form.submitForm()}
+      >
+        {props.node.text}
+      </div>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      SubmitDiv,
+    },
+
+    children: [
+      {
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'SubmitDiv',
+        text: 'Submit with Div',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Submitting status
+
+Use submitting status in submit button.
+
+```jsx live
+function FormDemo() {
+  const SubmitButton = (props) => {
+    const { submitting } = useFormState()
+    return (
+      <button type="submit" disabled={submitting}>
+        {props.node.text}
+        {submitting ? '...' : ''}
+      </button>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+      setTimeout(() => {
+        form.setSubmitting(false)
+      }, 2000)
+    },
+    components: {
+      SubmitButton,
+    },
+
+    children: [
+      {
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'SubmitButton',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

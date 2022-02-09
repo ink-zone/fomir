@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         value: '',
         validators: {
           required: 'Username is required',
-          maxLength: [4, 'max len'],
+          minLength: [6, 'Min length is 6'],
         },
       },
       {

@@ -1,10 +1,10 @@
 ---
 title: 'Validation'
-description: Learn how to get started with Rocket Docs.
+sidebar_position: 4
 ---
 
 ```jsx live
-const BasicForm = () => {
+function BasicForm() {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -40,6 +40,4 @@ const BasicForm = () => {
 
   return <Form form={form} />
 }
-
-render(<BasicForm />)
 ```

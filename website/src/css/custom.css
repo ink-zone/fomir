@@ -14,7 +14,7 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
-
+  --ifm-toc-border-color: #fff;
   --ifm-scrollbar-track-background-color: transparent;
 }
 
@@ -62,6 +62,23 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .theme-doc-sidebar-container {
   border-right: none !important;
 }
+
 .menu {
   padding-left: 0 !important;
+}
+
+input {
+  border: 1px solid #ddd;
+  padding: 8px 4px;
+  margin: 4px 0;
+  width: 200px;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  padding: 8px 12px;
+  background: sandybrown;
+  border-radius: 4px;
+  margin-bottom: 12px;
 }

@@ -1,45 +1,46 @@
-import type { NextPage } from 'next'
+import { Form, NodeProps, useForm } from 'fomir-react'
 import { Box } from '@fower/react'
-import { Form, useForm } from 'fomir-react'
 
-const Home: NextPage = () => {
+function FormDemo() {
+  const InputWithErrorMessage = ({ node, handler }: NodeProps) => {
+    const { value, label, error, touched } = node
+    return (
+      <div>
+        {label && <Box mb2>{label}</Box>}
+        <input value={value} onChange={handler.handleChange} />
+        {error && touched && <Box red500>{error}</Box>}
+      </div>
+    )
+  }
+
   const form = useForm({
     onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
       console.log('values', values)
+    },
+    components: {
+      InputWithErrorMessage,
     },
 
     children: [
       {
-        component: 'Input',
         label: 'First Name',
         name: 'firstName',
+        component: 'InputWithErrorMessage',
         value: '',
         validators: {
-          required: 'Username is required',
-          maxLength: [4, 'max len'],
-        },
-      },
-      {
-        label: 'Last Name',
-        name: 'lastName',
-        component: 'Input',
-        value: '',
-        validators: {
-          pattern: [/foo/, 'should contain foo'],
+          required: 'First name is required',
+          minLength: [6, 'Min length is 6'],
         },
       },
       {
         component: 'Submit',
-        text: 'submit',
+        text: 'Submit',
       },
     ],
   })
 
-  return (
-    <Box p-100>
-      <Form form={form} />
-    </Box>
-  )
+  return <Form form={form} />
 }
 
-export default Home
+export default FormDemo

@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.0.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.15",
-    "@docusaurus/preset-classic": "2.0.0-beta.15",
     "@docusaurus/plugin-content-docs": "2.0.0-beta.15",
     "@docusaurus/plugin-google-gtag": "2.0.0-beta.15",
     "@docusaurus/plugin-sitemap": "2.0.0-beta.15",
+    "@docusaurus/preset-classic": "2.0.0-beta.15",
     "@docusaurus/theme-live-codeblock": "2.0.0-beta.15",
     "@docusaurus/theme-search-algolia": "2.0.0-beta.15",
     "@mdx-js/react": "^1.6.21",

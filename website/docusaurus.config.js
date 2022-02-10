@@ -26,7 +26,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/forsigner/fomir/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/forsigner/fomir/tree/master/website/',
         },
         blog: {
           showReadingTime: true,
@@ -56,7 +56,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'walkthrough/installation',
+            docId: 'walkthrough/getting-started',
             position: 'left',
             label: 'Docs',
           },

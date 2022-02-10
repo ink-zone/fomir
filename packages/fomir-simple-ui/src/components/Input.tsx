@@ -16,6 +16,8 @@ export const Input = ({ node, handler }: NodeProps) => {
         outlineNone
         borderBrand500--focus
         border
+        cursorNotAllowed--disabled
+        opacity-75--disabled
         disabled={disabled}
         onChange={handler.handleChange}
         value={value}

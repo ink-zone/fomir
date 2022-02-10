@@ -1,5 +1,54 @@
 ---
 title: 'setFormState'
+sidebar_position: 5
 ---
 
-...
+A helper function to change the form state, it will cause component rerendering.
+
+Here we update submitting status by `setFormState`:
+
+```jsx live
+function FormDemo() {
+  const Submit = ({ node }) => {
+    const { submitting } = useFormState()
+    return (
+      <button disabled={submitting}>
+        {node.text}
+        {submitting ? '...' : ''}
+      </button>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      setTimeout(() => {
+        form.setFormState({ submitting: false })
+      }, 3000)
+    },
+    components: {
+      Submit,
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: 'Jobs',
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

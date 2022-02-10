@@ -79,7 +79,7 @@ function Home() {
                   styles.getStarted,
                   css('roundedFull', 'bgBlack', 'bgTrueGray800', 'py3', 'borderNone'),
                 )}
-                to={useBaseUrl('docs/walkthrough/installation')}
+                to={useBaseUrl('docs/walkthrough/getting-started')}
               >
                 Get Started
               </Link>

@@ -2,12 +2,11 @@ import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form, NodeProps, useFieldState, useForm } from 'fomir-react'
 
-const NameValue = () => {
-  const { value } = useFieldState('userName')
-  return <div>Name: {value}</div>
-}
-
 const Home: NextPage = () => {
+  const NameValue = () => {
+    const { value } = useFieldState('userName')
+    return <div>Name: {value}</div>
+  }
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -19,9 +18,7 @@ const Home: NextPage = () => {
     },
 
     children: [
-      {
-        component: 'NameValue',
-      },
+      { component: 'NameValue' },
       {
         name: 'userName',
         component: 'Input',

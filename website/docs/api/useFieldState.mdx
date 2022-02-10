@@ -3,17 +3,22 @@ title: 'useFieldState'
 sidebar_position: 4
 ---
 
+`useFieldState` is a react hooks to subscribe field state by name path. if field state is changed, the component using `useFieldState` will rerender.
+
+You can import it from `fomir-react`:
+
 ```jsx
 import { useFieldState } from 'fomir-react'
 ```
 
+## Example usage
+
 ```jsx live
-function BasicForm() {
+function FormDemo() {
   const NameValue = () => {
     const { value } = useFieldState('userName')
     return <div>Name: {value}</div>
   }
-
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -25,9 +30,7 @@ function BasicForm() {
     },
 
     children: [
-      {
-        component: 'NameValue',
-      },
+      { component: 'NameValue' },
       {
         name: 'userName',
         component: 'Input',

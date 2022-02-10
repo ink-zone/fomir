@@ -1,12 +1,8 @@
----
-title: 'setFieldState'
-sidebar_position: 6
----
+import type { NextPage } from 'next'
+import { Box } from '@fower/react'
+import { Form, useForm, useFormContext } from 'fomir-react'
 
-A helper function to update single field state, it will rerender the field.
-
-```jsx live
-function FormDemo() {
+const Home: NextPage = () => {
   const SetName = () => {
     const form = useFormContext()
     return (
@@ -68,4 +64,5 @@ function FormDemo() {
     </Box>
   )
 }
-```
+
+export default Home

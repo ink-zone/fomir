@@ -1,6 +1,5 @@
 ---
 title: 'Initialize Values'
-description: Learn how to get started with Rocket Docs.
 ---
 
 Use `useForm` api to create a form:
@@ -10,21 +9,21 @@ import { Form, useForm } from 'fomir-react'
 ```
 
 ```jsx live
-const Input = ({ node, handler }) => {
-  const { value = '', label } = node
-  return (
-    <div>
-      {label && <div>{label}</div>}
-      <input value={value} onChange={handler.handleChange} />
-    </div>
-  )
-}
+function BasicForm() {
+  const Input = ({ node, handler }) => {
+    const { value = '', label } = node
+    return (
+      <div>
+        {label && <div>{label}</div>}
+        <input value={value} onChange={handler.handleChange} />
+      </div>
+    )
+  }
 
-const Submit = ({ node }) => {
-  return <button type="submit">{node.text}</button>
-}
+  const Submit = ({ node }) => {
+    return <button type="submit">{node.text}</button>
+  }
 
-const BasicForm = () => {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -58,6 +57,4 @@ const BasicForm = () => {
 
   return <Form form={form} />
 }
-
-render(<BasicForm />)
 ```

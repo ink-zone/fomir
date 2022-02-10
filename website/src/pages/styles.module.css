@@ -1,0 +1,63 @@
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.featureImage {
+  height: 200px;
+  width: 200px;
+}
+
+.indexCtasGitHubButton {
+  border: none;
+  margin-left: 24px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 auto 40px;
+  padding: 60px 0 !important;
+}
+
+
+.red {
+  /* color: #fc8181; */
+  color: #25c2a0;
+}
+
+.green {
+  /* color: var(--ifm-color-primary); */
+  color: #61dafb;
+}
+
+
+.wrapLink {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  /* padding: 0 2rem; */
+  margin-bottom: 40px;
+}
+
+.getStarted {
+  /* background-color: #61dafb; */
+  /* color: #61dafb; */
+}
+
+.getStarted:hover {
+  /* bg--hover="#61dafb--D4" */
+}

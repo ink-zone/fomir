@@ -1,6 +1,6 @@
 ---
 title: 'useFormContext'
-description: Learn how to get started with Rocket Docs.
+sidebar_position: 2
 ---
 
 `useFormContext` is a react hooks to get form instance.
@@ -43,7 +43,7 @@ export const Reset = (props: NodeProps) => {
 Use `Reset` component in form:
 
 ```jsx live
-const ResetForm = () => {
+function ResetForm() {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -82,6 +82,4 @@ const ResetForm = () => {
 
   return <Form form={form} />
 }
-
-render(<ResetForm />)
 ```

@@ -25,6 +25,7 @@ import NavbarItem, { type Props as NavbarItemConfig } from '@theme/NavbarItem'
 import Logo from '@theme/Logo'
 import IconMenu from '@theme/IconMenu'
 import IconClose from '@theme/IconClose'
+import { useLocation } from 'react-router-dom'
 
 import styles from './styles.module.css'
 
@@ -224,6 +225,12 @@ function Navbar(): JSX.Element {
   const hasSearchNavbarItem = items.some((item) => item.type === 'search')
   const { leftItems, rightItems } = splitNavItemsByPosition(items)
 
+  const location = useLocation()
+  let navStyle: any = {}
+  if (location.pathname === '/') {
+    navStyle.borderBottomWidth = 0
+  }
+
   return (
     <nav
       ref={navbarRef}
@@ -234,6 +241,7 @@ function Navbar(): JSX.Element {
         [styles.navbarHideable]: hideOnScroll,
         [styles.navbarHidden]: hideOnScroll && !isNavbarVisible,
       })}
+      style={navStyle}
     >
       <div
         className="navbar__inner"

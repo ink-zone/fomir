@@ -3,22 +3,112 @@ title: useFormState
 sidebar_position: 3
 ---
 
-To add items on the sidebar, it's necessary you create a `sidebar.yml` file under the config folder. Example:
+`useFormState` is a react hooks to subscribe form state. if form state is changed, the component using `useFormState` will rerender.
 
-```yaml title=sidebar.yml
-# Just a simple item
-- label: 'Home'
-  link: '/'
-# With a list of items
-- label: 'With subitems'
-  items:
-    - label: 'My Example'
-      link: '/my-example'
+You can import it from `fomir-react`:
+
+```jsx
+import { useFormState } from 'fomir-react'
 ```
 
-If necessary, you can also add external links:
+## Submitting Example
 
-```yaml
-- label: 'GitHub'
-  link: 'https://github.com/jpedroschmitz'
+This is an example usage for subscribing submitting status:
+
+```jsx live
+function FormDemo() {
+  const SubmitButton = (props) => {
+    const { submitting } = useFormState()
+    return (
+      <button type="submit" disabled={submitting}>
+        {props.node.text}
+        {submitting ? '...' : ''}
+      </button>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+      setTimeout(() => {
+        form.setSubmitting(false)
+      }, 2000)
+    },
+    components: {
+      SubmitButton,
+    },
+
+    children: [
+      {
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'SubmitButton',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## SubmitCount Example
+
+This is an example usage for subscribing submitCount status:
+
+```jsx live
+function FormDemo() {
+  const SubmitCount = (props) => {
+    const { submitCount } = useFormState()
+    return <div>count: {submitCount}</div>
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+    components: {
+      SubmitCount,
+    },
+
+    children: [
+      { component: 'SubmitCount' },
+      {
+        name: 'firstName',
+        component: 'Input',
+        value: 'Steve',
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Form state
+
+Form state come from form schema root node:
+
+```jsx
+interface FormSchema {
+  submitting?: boolean
+  submitted?: boolean
+  submitCount?: number
+
+  validating?: boolean
+  dirty?: boolean
+  valid?: boolean
+  status?: Status
+
+  labelWidth?: number | string
+
+  [key: string]: any
+}
 ```

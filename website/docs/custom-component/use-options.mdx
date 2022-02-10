@@ -1,0 +1,122 @@
+---
+title: 'Use options'
+sidebar_position: 6
+---
+
+Many form components use list data, such as Select, Radio Group, Checkbox group...
+
+## Select example
+
+This is a Select example:
+
+```jsx live
+function FormDemo() {
+  const Select = ({ node, handler }) => {
+    const { label, disabled, options, value } = node
+    return (
+      <Box>
+        {label && <Box>{label}</Box>}
+        <select disabled={disabled} value={value} onChange={handler.handleChange}>
+          {options.map((item, i) => (
+            <option key={i + item.value} value={item.value}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+      </Box>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      Select,
+    },
+
+    children: [
+      {
+        label: 'You like a cat or dog?',
+        name: 'type',
+        component: 'Select',
+        value: 'dog',
+        options: [
+          { label: 'Cat', value: 'cat' },
+          { label: 'Dog', value: 'dog' },
+        ],
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## RadioGroup example
+
+This is a RadioGroup example:
+
+```jsx live
+function FormDemo() {
+  const RadioGroup = ({ node, handler }) => {
+    const { label, value, error, touched, options } = node
+    return (
+      <Box>
+        {label && <Box>{label}</Box>}
+        <Box toLeft>
+          {options.map((item) => (
+            <Box as="label" key={item.value} toLeft toCenterY mr-16>
+              <input
+                type="radio"
+                value={item.value}
+                checked={value === item.value}
+                onChange={() => {
+                  handler.handleChange(item.value)
+                }}
+              />
+              <Box as="span" ml-4>
+                {item.value}
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    )
+  }
+
+  const form = useForm({
+    onSubmit(values) {
+      alert(JSON.stringify(values, null, 2))
+      console.log('values', values)
+    },
+    components: {
+      RadioGroup,
+    },
+
+    children: [
+      {
+        label: 'You like a cat or dog?',
+        name: 'type',
+        component: 'RadioGroup',
+        value: 'dog',
+        options: [
+          { label: 'Cat', value: 'cat' },
+          { label: 'Dog', value: 'dog' },
+        ],
+      },
+      {
+        component: 'Submit',
+        text: 'Submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

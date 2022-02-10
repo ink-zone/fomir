@@ -1,9 +1,8 @@
 import React from 'react'
 import { NodeProps } from 'fomir-react'
 import { Box } from '@fower/react'
-import { FieldNode } from 'fomir'
 
-export const Select = ({ node, handler }: NodeProps<FieldNode>) => {
+export const Select = ({ node, handler }: NodeProps) => {
   const { label, error, disabled, touched, options, value } = node
   return (
     <Box>

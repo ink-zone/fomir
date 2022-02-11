@@ -1,0 +1,132 @@
+---
+title: 'Typescript'
+---
+
+## Values
+
+Define `Values` types, so you can use it in `onSubmit`, `getValues`, `setValues`.
+
+```ts {6}
+interface Values {
+  firstName: string
+  lastName: string
+}
+
+const form = useForm<Values>({
+  onSubmit(values) {
+    //....
+  },
+
+  children: [
+    {
+      label: 'First Name',
+      name: 'firstName',
+      component: 'Input',
+      value: '',
+    },
+    {
+      label: 'Last Name',
+      name: 'lastName',
+      component: 'Input',
+      value: '',
+    },
+    {
+      component: 'Submit',
+      text: 'submit',
+    },
+  ],
+})
+```
+
+## NodeProps
+
+Use `NodeProps` types when customizing component:
+
+```tsx {1}
+export const Input = ({ node, handler }: NodeProps) => {
+  const { value = '', disabled, label, error, touched } = node
+  return (
+    <Box mb2>
+      {label && <Box mb2>{label}</Box>}
+      <Box
+        as="input"
+        type="text"
+        px2
+        py2
+        rounded
+        outlineNone
+        borderBrand500--focus
+        border
+        cursorNotAllowed--disabled
+        opacity-75--disabled
+        disabled={disabled}
+        onChange={handler.handleChange}
+        value={value}
+        maxW-200
+      />
+      {error && touched && <Box red500>{error}</Box>}
+    </Box>
+  )
+}
+```
+
+## Extend Validators types
+
+Default validators types:
+
+```ts
+interface Validators {
+  required?: string
+
+  min?: [number, string]
+
+  max?: [number, string]
+
+  minLength?: [number, string]
+
+  maxLength?: [number, string]
+
+  pattern?: [RegExp, string]
+
+  arrayNotEmpty?: string
+
+  equalTo?: [string, string]
+
+  [key: string]: any
+}
+```
+
+You can extend validators types:
+
+```ts {2,3,4}
+declare module 'fomir' {
+  interface Validators {
+    isEmail?: 'string'
+  }
+}
+```
+
+## Custom Node Types
+
+Fomir recommends to custom your own node type:
+
+```ts {15,16,17}
+interface InputNode extends FieldNode {
+  component: 'Input'
+  value?: string
+  componentProps?: InputHTMLAttributes<HTMLInputElement>
+}
+interface SelectNode extends FieldNode {
+  component: 'Select'
+}
+interface CheckboxNode extends FieldNode {
+  component: 'Checkbox'
+  componentProps?: InputHTMLAttributes<HTMLInputElement>
+}
+
+declare module 'fomir' {
+  interface CustomTypes {
+    Node: InputNode | SelectNode | CheckboxNode
+  }
+}
+```

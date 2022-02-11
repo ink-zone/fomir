@@ -1,7 +1,6 @@
 import type { Form } from '../createForm'
 import type { FormSchema } from './form'
 import type { FieldNode } from './field'
-import type { ExtendedType } from './custom-types'
 
 export type ForceUpdate = any
 
@@ -40,12 +39,6 @@ export type ValidationRuleFn<T = any, K = any> = (
 
 export type OnFormStateChange = (form: Form) => any
 export type OnFieldStateChange = (name: string, form: Form) => any
-
-export interface BaseValidator {
-  message: string
-}
-
-export type Validator = ExtendedType<'Validator', BaseValidator>
 
 export interface FomirPlugin {
   components?: Record<string, any>

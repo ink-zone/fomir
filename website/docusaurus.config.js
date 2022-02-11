@@ -69,14 +69,14 @@ const config = {
       },
       // footer: {
       // },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
       // prism: {
-      //   theme: require('./theme'),
-      //   darkTheme: require('prism-react-renderer/themes/dracula'),
+      //   theme: lightCodeTheme,
+      //   darkTheme: darkCodeTheme,
       // },
+      prism: {
+        theme: require('./theme'),
+        darkTheme: require('prism-react-renderer/themes/dracula'),
+      },
     }),
 }
 

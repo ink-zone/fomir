@@ -4,7 +4,7 @@ declare module 'fomir' {
   interface CustomTypes {
     Node: SimpleUINode
   }
-  // interface Validator {
-  //   foo?: 'string'
-  // }
+  interface Validators {
+    isEmail?: 'string'
+  }
 }

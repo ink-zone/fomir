@@ -17,6 +17,11 @@ const BasicForm: NextPage = () => {
     return <button>{node.text}</button>
   }
 
+  interface Values {
+    firstName: string
+    lastName: string
+  }
+
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))

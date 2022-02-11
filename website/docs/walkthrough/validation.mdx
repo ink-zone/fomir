@@ -3,6 +3,10 @@ title: 'Validation'
 sidebar_position: 4
 ---
 
+## Usage
+
+Use `validators` property to enable validation.
+
 ```jsx live
 function BasicForm() {
   const form = useForm({
@@ -16,20 +20,20 @@ function BasicForm() {
         label: 'First Name',
         name: 'firstName',
         component: 'Input',
+        value: '',
         validators: {
           required: 'First name is required',
         },
-        value: '',
       },
       {
         label: 'Last Name',
         name: 'lastName',
         component: 'Input',
+        value: '',
         validators: {
           required: 'Last name is required',
           minLength: [6, 'min length is 6'],
         },
-        value: '',
       },
       {
         component: 'Submit',
@@ -41,3 +45,16 @@ function BasicForm() {
   return <Form form={form} />
 }
 ```
+
+## Built-in validator rules
+
+List of Built-in validator rules supported:
+
+- required?: string;
+- min?: [number, string];
+- max?: [number, string];
+- minLength?: [number, string];
+- maxLength?: [number, string];
+- pattern?: [RegExp, string];
+- arrayNotEmpty?: string;
+- equalTo?: [string, string];

@@ -3,9 +3,24 @@ title: 'Use plugin'
 sidebar_position: 3
 ---
 
-```jsx
-import { Fomir } from 'fomir'
-import { Form, useForm } from 'fomir-react'
+## What is Fomir plugin
+
+A plugin is simply a object that implements FomirPlugin interface.
+
+## Plugin interface
+
+import { FomirPlugin } from 'fomir'
+
+```ts
+interface FomirPlugin {
+  components?: Record<string, any>
+
+  validators?: Record<string, ValidationRuleFn>
+
+  onFormStateChange?: OnFormStateChange
+
+  onFieldChange?: OnFieldStateChange
+}
 ```
 
 ## Create a plugin

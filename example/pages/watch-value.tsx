@@ -8,23 +8,23 @@ const Home: NextPage = () => {
       console.log('values', values)
     },
 
+    watch: {
+      'firstName.value': (value: any) => {
+        form.setFieldState('lastName', { value })
+      },
+    },
+
     children: [
       {
-        label: 'Have some advice?',
-        name: 'advice',
-        component: 'Checkbox',
-        value: false,
-        onValueChange: ({ value }) => {
-          form.setFieldState('myAdvice', {
-            visible: !!value,
-          })
-        },
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
       },
       {
-        label: 'My advice',
-        name: 'myAdvice',
+        label: 'Last Name',
+        name: 'lastName',
         component: 'Input',
-        visible: false,
         value: '',
       },
       {

@@ -1,32 +1,20 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form, useForm } from 'fomir-react'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
+  const [values, setValues] = useState({})
   const form = useForm({
     onSubmit(values) {
       console.log('values', values)
     },
 
     watch: {
-      '$.submitCount': (count, prevCount) => {
-        console.log('submitCount', count, prevCount)
-      },
-      'firstName.value': (data, prev) => {
-        console.log('firstName change', data, prev)
+      '*.value': (values) => {
+        setValues(values)
       },
 
-      'firstName.error': (data, prev) => {
-        console.log('firstName error change', data, prev)
-      },
-
-      '*.value': (data, prev) => {
-        console.log('values---', data, prev)
-      },
-
-      '*.error': (data, prev) => {
-        console.log('error---', data, prev)
-      },
     },
 
     children: [
@@ -35,9 +23,6 @@ const Home: NextPage = () => {
         name: 'firstName',
         component: 'Input',
         value: '',
-        validators: {
-          // required: 'gogo',
-        },
       },
       {
         label: 'Last Name',
@@ -54,6 +39,8 @@ const Home: NextPage = () => {
 
   return (
     <Box p-100>
+      <div>values:</div>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
       <Form form={form} />
     </Box>
   )

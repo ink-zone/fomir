@@ -1,0 +1,142 @@
+---
+title: 'Watch'
+sidebar_position: 5
+---
+
+In fomir, you can subscribe some state changing by watch api.
+
+## Watch single field value
+
+You can watch field state by watch `[fieldName].[fieldProperty]`:
+
+```jsx live
+function BasicForm() {
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    watch: {
+      'firstName.value': (value) => {
+        form.setFieldState('lastName', { value })
+      },
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Watch all values
+
+Use `*.value` watch all values:
+
+```jsx live
+function FormDemo() {
+  const [values, setValues] = useState({})
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    watch: {
+      '*.value': (values) => {
+        setValues(values)
+      },
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return (
+    <Box>
+      <div>values:</div>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
+      <Form form={form} />
+    </Box>
+  )
+}
+```
+
+## Watch form state
+
+Use `$.[property]` watch form state, for example, `$.submitCount`:
+
+```js live
+function FormDemo() {
+  const [count, setCount] = useState(0)
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    watch: {
+      '$.submitCount': (count) => {
+        setCount(count)
+      },
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        label: 'Last Name',
+        name: 'lastName',
+        component: 'Input',
+        value: '',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return (
+    <Box>
+      <div>Submit count: {count}</div>
+      <Form form={form} />
+    </Box>
+  )
+}
+```

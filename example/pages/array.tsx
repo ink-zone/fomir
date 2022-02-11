@@ -4,7 +4,6 @@ import { Form, useForm } from 'fomir-react'
 
 const Home: NextPage = () => {
   const form = useForm({
-    type: 'form',
     onSubmit(values) {
       console.log('values', values)
     },
@@ -22,13 +21,13 @@ const Home: NextPage = () => {
         value: '',
         children: [
           {
-            type: 'ArrayField',
+            component: 'ArrayField',
             name: 'friends',
             label: 'Friends',
             id: 'field-array',
             initialValues: [{ firstName: '', lastName: '' }],
             children: ['Bill', 'job'].map((v, i) => ({
-              type: 'ArrayFieldItem',
+              component: 'ArrayFieldItem',
               children: [
                 {
                   label: 'First Name' + i,

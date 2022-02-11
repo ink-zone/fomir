@@ -1,0 +1,136 @@
+---
+title: 'Dependent field'
+sidebar_position: 4
+---
+
+## Handle onFieldChange
+
+use `onValueChange` and `setFieldState` to update node state:
+
+```jsx live
+function BasicForm() {
+  const cats = [
+    { label: 'American Bobtai', value: 'American Bobtai' },
+    { label: 'Bengal', value: 'Bengal' },
+    { label: 'Oriental Shorthair', value: 'Oriental Shorthair' },
+  ]
+  const dogs = [
+    { label: 'Husky', value: 'Husky' },
+    { label: 'Golden Retriever', value: 'Golden Retriever' },
+    { label: 'Corgi', value: 'Corgi' },
+    { label: 'Akita Inu', value: 'Akita Inu' },
+  ]
+
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'You like a cat or dog?',
+        name: 'type',
+        component: 'RadioGroup',
+        value: '',
+        options: [
+          { label: 'Cat', value: 'cat' },
+          { label: 'Dog', value: 'dog' },
+        ],
+        onValueChange: ({ value }) => {
+          form.setFieldState('animal', {
+            options: value === 'cat' ? cats : dogs,
+            disabled: !value,
+          })
+        },
+      },
+      {
+        label: 'Animal',
+        name: 'animal',
+        component: 'Select',
+        options: [],
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Dependent self
+
+Also you can update self state when `onValueChange`:
+
+```jsx live
+function FormDemo() {
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'First Name',
+        name: 'firstName',
+        component: 'Input',
+        value: '',
+        onValueChange: ({ value }) => {
+          form.setFieldState('firstName', {
+            value: value.toUpperCase(),
+          })
+        },
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```
+
+## Handle Visible
+
+Most of the time, you should handle visible status for some field:
+
+```jsx live
+function Home() {
+  const form = useForm({
+    onSubmit(values) {
+      console.log('values', values)
+    },
+
+    children: [
+      {
+        label: 'Have some advice?',
+        name: 'advice',
+        component: 'Checkbox',
+        value: false,
+        onValueChange: ({ value }) => {
+          form.setFieldState('myAdvice', {
+            visible: !!value,
+          })
+        },
+      },
+      {
+        label: 'My advice',
+        name: 'myAdvice',
+        component: 'Input',
+        visible: false,
+        value: '',
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

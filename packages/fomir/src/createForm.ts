@@ -130,6 +130,8 @@ export function createForm<T = any>(schema: FormSchema<T>) {
         return acc
       }, {} as any)
 
+    const prevSchema = cloneDeep(schema)
+
     // TODO: need refactor
     const matchedNode = setNode(fieldState, {
       rerender: false,
@@ -153,9 +155,10 @@ export function createForm<T = any>(schema: FormSchema<T>) {
       const arr = key.split('.')
       const type = arr[arr.length - 1]
       const name = arr.slice(0, -1).join('.')
-      const prevSchema = cloneDeep(schema)
+
       const prev = getIn(getFieldState(name, prevSchema), type)
       const next = getIn(getFieldState(name, schema), type)
+
       if (!isEqual(prev, next)) {
         watch[key](next, prev)
       }

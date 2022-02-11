@@ -3,6 +3,18 @@ import { Box } from '@fower/react'
 import { Form, useForm } from 'fomir-react'
 
 const Home: NextPage = () => {
+  const cats = [
+    { label: 'American Bobtai', value: 'American Bobtai' },
+    { label: 'Bengal', value: 'Bengal' },
+    { label: 'Oriental Shorthair', value: 'Oriental Shorthair' },
+  ]
+  const dogs = [
+    { label: 'Husky', value: 'Husky' },
+    { label: 'Golden Retriever', value: 'Golden Retriever' },
+    { label: 'Corgi', value: 'Corgi' },
+    { label: 'Akita Inu', value: 'Akita Inu' },
+  ]
+
   const form = useForm({
     onSubmit(values) {
       console.log('values', values)
@@ -12,24 +24,13 @@ const Home: NextPage = () => {
       {
         label: 'You like a cat or dog?',
         name: 'type',
-        type: 'RadioGroup',
+        component: 'RadioGroup',
         value: '',
         options: [
           { label: 'Cat', value: 'cat' },
           { label: 'Dog', value: 'dog' },
         ],
         onValueChange: ({ value }) => {
-          const cats = [
-            { label: 'American Bobtai', value: 'American Bobtai' },
-            { label: 'Bengal', value: 'Bengal' },
-            { label: 'Oriental Shorthair', value: 'Oriental Shorthair' },
-          ]
-          const dogs = [
-            { label: 'Husky', value: 'Husky' },
-            { label: 'Golden Retriever', value: 'Golden Retriever' },
-            { label: 'Corgi', value: 'Corgi' },
-            { label: 'Akita Inu', value: 'Akita Inu' },
-          ]
           form.setFieldState('animal', {
             options: value === 'cat' ? cats : dogs,
             disabled: !value,
@@ -39,7 +40,7 @@ const Home: NextPage = () => {
       {
         label: 'Animal',
         name: 'animal',
-        type: 'Select',
+        component: 'Select',
         options: [],
       },
       {

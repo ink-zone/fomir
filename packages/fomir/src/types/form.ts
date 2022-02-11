@@ -3,13 +3,13 @@ import { Node } from './node'
 import { Errors } from './types'
 
 export interface ArrayFieldNode {
-  type: 'ArrayField'
+  component: 'ArrayField'
   name: string
   children: (Node | ArrayFieldItemNode)[]
 }
 
 export interface ArrayFieldItemNode {
-  type: 'ArrayFieldItem'
+  component: 'ArrayFieldItem'
   children: Node[]
 }
 

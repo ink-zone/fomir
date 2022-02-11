@@ -25,8 +25,7 @@ const config = {
           sidebarCollapsible: false,
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/forsigner/fomir/tree/master/website/',
+          editUrl: 'https://github.com/forsigner/fomir/tree/master/website/',
         },
         blog: {
           showReadingTime: true,
@@ -56,7 +55,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'walkthrough/getting-started',
+            docId: 'guide/getting-started',
             position: 'left',
             label: 'Docs',
           },

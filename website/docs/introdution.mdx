@@ -1,15 +1,11 @@
 ---
-slug: Fomir
-title: 'Fomir: A Schema-First form library'
-authors: [slorber, yangshun]
-tags: [facebook, hello, docusaurus]
+title: 'Introdution'
+sidebar_position: 0
 ---
 
 ## What is Fomir?
 
-Fomir is a Schema-First library for building form.
-
-Source code in Github: [**Fomir**](https://github.com/forsigner/fomir).
+Fomir is a Schema-First library for buioding form.
 
 ## Why create a new form library?
 
@@ -20,7 +16,7 @@ I have tried many form libraries, like redux-form, formik, final-form, react-hoo
 - High Performance
 - More abstract
 
-So I create a new form library, and name it to [**Fomir**](https://github.com/forsigner/fomir).
+So I create a new form library, and name it to **Fomir**.
 
 ## Philosophy
 
@@ -47,46 +43,3 @@ Fomir builds form with schema, so fomir is very easy to use in low-code scenario
 ### Strongly Typed
 
 Fomir Form provides strong typing via Typescript to allow you to catch common bugs at coding time, and providing the coding intellisense.
-
-## Installation
-
-```bash
-npm install fomir fomir-react
-```
-
-## Basic Usage
-
-```jsx
-function BasicForm() {
-  const form = useForm({
-    onSubmit(values) {
-      alert(JSON.stringify(values, null, 2))
-      console.log('values', values)
-    },
-    children: [
-      {
-        label: 'First Name',
-        name: 'firstName',
-        component: 'Input',
-        value: '',
-      },
-      {
-        label: 'Last Name',
-        name: 'lastName',
-        component: 'Input',
-        value: '',
-      },
-      {
-        component: 'Submit',
-        text: 'submit',
-      },
-    ],
-  })
-
-  return <Form form={form} />
-}
-```
-
-## Documentation
-
-For more detailed usage, please see the documentation: [fomir.vercel.app](https://fomir.vercel.app/).

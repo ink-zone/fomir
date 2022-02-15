@@ -1,6 +1,6 @@
 # Fomir
 
-A Schema-First Form Library
+A Schema-First form library
 
 [![npm](https://img.shields.io/npm/v/fomir.svg)](https://www.npmjs.com/package/fomir)
 [![Minzipped size](https://img.shields.io/bundlephobia/minzip/fomir.svg)](https://bundlephobia.com/result?p=fomir)

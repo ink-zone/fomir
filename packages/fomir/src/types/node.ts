@@ -58,4 +58,4 @@ export interface BaseNode {
   renderChildren?: (node: any) => any
 }
 
-export type Node = ExtendedType<'Node', BaseNode>
+export type Node = ExtendedType<'Node', BaseNode> 

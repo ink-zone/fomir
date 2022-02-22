@@ -2,6 +2,12 @@ import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form, useForm, useFormContext } from 'fomir-react'
 
+declare module 'fomir' {
+  interface Validators {
+    isEmail?: 'string'
+  }
+}
+
 const Home: NextPage = () => {
   const SetName = () => {
     const form = useFormContext()
@@ -50,7 +56,7 @@ const Home: NextPage = () => {
         css: 'spaceX2 toCenterY',
         children: [
           {
-            component: 'SetName',
+            component: 'Box',
           },
           { component: 'SetDisabled' },
         ],

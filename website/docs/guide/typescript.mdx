@@ -125,9 +125,16 @@ interface CheckboxNode extends FieldNode {
   componentProps?: InputHTMLAttributes<HTMLInputElement>
 }
 
+type CustomNode = InputNode | SelectNode | CheckboxNode
+
 declare module 'fomir' {
   interface CustomTypes {
-    Node: InputNode | SelectNode | CheckboxNode
+    Node:
+      | CustomNode
+      | {
+          component: CustomNode['component'] | ({} & string)
+          [key: string]: any
+        }
   }
 }
 ```

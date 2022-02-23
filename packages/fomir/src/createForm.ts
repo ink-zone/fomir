@@ -496,8 +496,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
       const i = NODE_TO_INDEX.get(child)
 
       if (parent.name) {
-        // TODO:
-        if (['ArrayField'].includes(parent.type) && name) {
+        if (parent.isArrayField && name) {
           name = parent.name + `[${i}].` + name
         } else {
           name = parent.name + name

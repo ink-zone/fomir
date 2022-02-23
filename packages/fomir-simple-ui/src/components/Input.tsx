@@ -1,12 +1,22 @@
 import React from 'react'
-import { NodeProps } from 'fomir-react'
+import { NodeProps, useFormContext } from 'fomir-react'
 import { Box } from '@fower/react'
 
 export const Input = ({ node, handler }: NodeProps) => {
   const { value = '', disabled, label, error, touched } = node
+  const { schema } = useFormContext()
+  const { layout = 'vertical' } = schema
   return (
-    <Box mb2>
-      {label && <Box mb2>{label}</Box>}
+    <Box
+      mb2={layout !== 'horizontal'}
+      flexDirection={layout === 'vertical' ? 'column' : 'row'}
+      toCenterY={layout !== 'vertical'}
+    >
+      {label && (
+        <Box mb2 mr2={layout !== 'vertical'}>
+          {label}
+        </Box>
+      )}
       <Box
         as="input"
         type="text"

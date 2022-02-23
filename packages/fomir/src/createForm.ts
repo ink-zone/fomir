@@ -438,8 +438,13 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
   // TODO:
   function getArrayHelpers(name: string, arrayNode?: any) {
-    const node = arrayNode || getNode({ match: (n) => n.name === name })
-    const fields = node.children
+    const arrayField =
+      arrayNode ||
+      getNode({
+        match: (n) => n.name === name,
+      })
+
+    const fields = arrayField.children
 
     const isValidIndex = (...args: number[]) => {
       return !args.some((i) => i < 0 || i > fields.length)
@@ -448,33 +453,33 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     function move(from: number, to: number) {
       if (!isValidIndex(from, to)) return
 
-      node.children = arrayMove(fields, from, to)
-      rerenderNode(node)
+      arrayField.children = arrayMove(fields, from, to)
+      rerenderNode(arrayField)
     }
     return {
       isFirst(index: number) {
         return index === 0
       },
       isLast(index: number) {
-        return index + 1 === node?.children?.length
+        return index + 1 === arrayField?.children?.length
       },
       push<T = any>(value: T) {
-        if (node.children[0]) {
-          const item = cloneDeep(node.children[0])
+        if (arrayField.children[0]) {
+          const item = cloneDeep(arrayField.children[0])
           for (const c of item.children) {
             delete c.value
           }
-          node.children.push(item)
+          arrayField.children.push(item)
         }
-        rerenderNode(node)
+        rerenderNode(arrayField)
         if (value) {
           // TODO:
         }
       },
       // unshift,
       remove(index: number) {
-        node.children.splice(index, 1)
-        rerenderNode(node)
+        arrayField.children.splice(index, 1)
+        rerenderNode(arrayField)
       },
       move,
       swap: move,

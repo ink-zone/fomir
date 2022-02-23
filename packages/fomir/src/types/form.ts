@@ -16,6 +16,7 @@ export interface ArrayFieldItemNode {
 type Status = 'editable' | 'disabled' | 'preview' | ({} & string)
 
 export interface FormSchema<T = any> {
+  layout?: 'horizontal' | 'vertical' | 'inline' | ({} & string)
   submitting?: boolean
   submitted?: boolean
   submitCount?: number

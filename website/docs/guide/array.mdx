@@ -1,0 +1,148 @@
+---
+title: Array
+sidebar_position: 7
+---
+
+Fomir don't support for array field out of the box, but you can build it easily by controlling the form schema.
+
+## Example
+
+Here is a basic example:
+
+```jsx live
+function ArrayForm() {
+  const ArrayField = ({ node }) => {
+    return (
+      <div>
+        <div>{node.label}</div>
+        {node.renderChildren(node)}
+      </div>
+    )
+  }
+
+  const ArrayFieldItem = ({ node }) => {
+    return (
+      <Box toCenterY spaceX2 mb2>
+        {node.renderChildren(node)}
+      </Box>
+    )
+  }
+
+  const Up = ({ node }) => {
+    const form = useFormContext()
+    const index = form.getNodeIndex(form.getParent(node))
+    const helper = form.getArrayHelpers('friends')
+    return (
+      <button
+        type="button"
+        disabled={helper.isFirst(index)}
+        onClick={() => helper.swap(index, index - 1)}
+      >
+        up
+      </button>
+    )
+  }
+
+  const Down = ({ node }) => {
+    const form = useFormContext()
+    const index = form.getNodeIndex(form.getParent(node))
+    const helper = form.getArrayHelpers('friends')
+    return (
+      <button
+        type="button"
+        disabled={helper.isLast(index)}
+        onClick={() => helper.swap(index, index + 1)}
+      >
+        down
+      </button>
+    )
+  }
+
+  const Delete = ({ node }) => {
+    const form = useFormContext()
+    const index = form.getNodeIndex(form.getParent(node))
+    const helper = form.getArrayHelpers('friends')
+    return (
+      <button type="button" onClick={() => helper.remove(index)}>
+        delete
+      </button>
+    )
+  }
+
+  const Add = ({ node }) => {
+    const form = useFormContext()
+    return (
+      <button
+        type="button"
+        style={{ marginBottom: '8px' }}
+        onClick={() => {
+          const helper = form.getArrayHelpers('friends')
+          helper.push({})
+        }}
+      >
+        +
+      </button>
+    )
+  }
+
+  const form = useForm({
+    layout: 'horizontal',
+    onSubmit(values) {
+      console.log('values', values)
+      alert(JSON.stringify(values, null, 2))
+    },
+
+    components: {
+      ArrayField,
+      ArrayFieldItem,
+      Up,
+      Down,
+      Delete,
+      Add,
+    },
+
+    children: [
+      {
+        component: 'Box',
+        children: [
+          {
+            component: 'ArrayField',
+            name: 'friends',
+            isArrayField: true,
+            children: [
+              {
+                component: 'ArrayFieldItem',
+                children: [
+                  {
+                    label: 'First Name',
+                    name: 'firstName',
+                    component: 'Input',
+                    value: 'Steve',
+                  },
+                  {
+                    label: 'Last Name',
+                    name: 'lastName',
+                    component: 'Input',
+                    value: 'Jobs',
+                  },
+                  { component: 'Up' },
+                  { component: 'Down' },
+                  { component: 'Delete' },
+                ],
+              },
+            ],
+          },
+
+          { component: 'Add' },
+        ],
+      },
+      {
+        component: 'Submit',
+        text: 'submit',
+      },
+    ],
+  })
+
+  return <Form form={form} />
+}
+```

@@ -2,12 +2,33 @@ import type { NextPage } from 'next'
 import { Box } from '@fower/react'
 import { Form, useForm, useFormContext } from 'fomir-react'
 
+const ArrayField = ({ node }) => {
+  return (
+    <div>
+      <div>{node.label}</div>
+      {node.renderChildren?.(node)}
+    </div>
+  )
+}
+
+const ArrayFieldItem = ({ node }) => {
+  return (
+    <Box toCenterY spaceX2 mb2>
+      {node.renderChildren?.(node)}
+    </Box>
+  )
+}
+
 const Up = ({ node }) => {
   const form = useFormContext()
   const index = form.getNodeIndex(form.getParent(node))
   const helper = form.getArrayHelpers('friends')
   return (
-    <button type="button" onClick={() => helper.swap(index, index - 1)}>
+    <button
+      type="button"
+      disabled={helper.isFirst(index)}
+      onClick={() => helper.swap(index, index - 1)}
+    >
       up
     </button>
   )
@@ -18,7 +39,11 @@ const Down = ({ node }) => {
   const index = form.getNodeIndex(form.getParent(node))
   const helper = form.getArrayHelpers('friends')
   return (
-    <button type="button" onClick={() => helper.swap(index, index + 1)}>
+    <button
+      type="button"
+      disabled={helper.isLast(index)}
+      onClick={() => helper.swap(index, index + 1)}
+    >
       down
     </button>
   )
@@ -40,6 +65,7 @@ const Add = ({ node }) => {
   return (
     <button
       type="button"
+      style={{ marginBottom: '8px' }}
       onClick={() => {
         const helper = form.getArrayHelpers('friends')
         helper.push({})
@@ -52,11 +78,15 @@ const Add = ({ node }) => {
 
 const Home: NextPage = () => {
   const form = useForm({
+    layout: 'horizontal',
     onSubmit(values) {
       console.log('values', values)
+      alert(JSON.stringify(values, null, 2))
     },
 
     components: {
+      ArrayField,
+      ArrayFieldItem,
       Up,
       Down,
       Delete,
@@ -65,48 +95,37 @@ const Home: NextPage = () => {
 
     children: [
       {
-        label: 'arr',
         component: 'Box',
-        value: '',
         children: [
           {
             component: 'ArrayField',
             name: 'friends',
-            label: 'Friends',
-            id: 'field-array',
-            initialValues: [{ firstName: '', lastName: '' }],
-            children: ['Bill', 'job'].map((v, i) => ({
-              component: 'ArrayFieldItem',
-              children: [
-                {
-                  label: 'First Name',
-                  name: `firstName`,
-                  component: 'Input',
-                  value: v,
-                },
-
-                {
-                  label: 'Last Name',
-                  name: `lastName`,
-                  component: 'Input',
-                  value: v,
-                },
-                {
-                  component: 'Up',
-                },
-                {
-                  component: 'Down',
-                },
-                {
-                  component: 'Delete',
-                },
-              ],
-            })),
+            isArrayField: true,
+            children: [
+              {
+                component: 'ArrayFieldItem',
+                children: [
+                  {
+                    label: 'First Name',
+                    name: 'firstName',
+                    component: 'Input',
+                    value: 'Steve',
+                  },
+                  {
+                    label: 'Last Name',
+                    name: 'lastName',
+                    component: 'Input',
+                    value: 'Jobs',
+                  },
+                  { component: 'Up' },
+                  { component: 'Down' },
+                  { component: 'Delete' },
+                ],
+              },
+            ],
           },
 
-          {
-            component: 'Add',
-          },
+          { component: 'Add' },
         ],
       },
       {

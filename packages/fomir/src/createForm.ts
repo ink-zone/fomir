@@ -263,10 +263,9 @@ export function createForm<T = any>(schema: FormSchema<T>) {
   }
 
   async function change(namePath: string, value: any) {
-    // let fieldNode = getFieldState(name)
     let fieldNode = form.NAME_TO_NODE.get(namePath)
     let nextValue = value
-    if (typeof fieldNode.intercept === 'function') {
+    if (typeof fieldNode?.intercept === 'function') {
       nextValue = fieldNode.intercept(value, fieldNode)
     }
 

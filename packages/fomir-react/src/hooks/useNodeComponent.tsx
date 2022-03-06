@@ -17,7 +17,6 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   useEffect(() => {
     NODE_TO_UPDATER.set(node, forceUpdate)
     const nodeName = form.getNodeName(node)
-    form.onFieldInit(nodeName)
     if (nodeName) {
       form.NAME_TO_NODE.set(nodeName, node)
       form.NODE_TO_NAME.set(node, nodeName)
@@ -27,6 +26,14 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
       NODE_TO_UPDATER.delete(node)
     }
   })
+
+  /**
+   * run onFieldInit function
+   */
+  useEffect(() => {
+    const nodeName = form.getNodeName(node)
+    form.onFieldInit(nodeName)
+  }, [])
 
   const handler = {
     handleChange: (e: ChangeEvent) => {

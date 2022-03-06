@@ -1,6 +1,6 @@
 {
   "name": "fomir-simple-ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@fower/react": "^1.65.0",
-    "fomir": "^0.5.0",
-    "fomir-react": "^0.5.0",
+    "fomir": "^0.6.0",
+    "fomir-react": "^0.6.0",
     "immer": "^9.0.12"
   }
 }

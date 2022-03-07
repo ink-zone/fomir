@@ -1,6 +1,7 @@
 import { Fomir } from 'fomir'
 
 export * from './components/Form'
+export * from './components/Field'
 export * from './components/FormSpy'
 export * from './components/NodeComponent'
 

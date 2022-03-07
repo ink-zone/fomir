@@ -40,8 +40,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
     if (FomirForm)
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
-          {renderNode(schema)}
-          {children}
+          {children ? children : renderNode(schema)}
         </FomirForm>
       )
     if (isNative) return props.children

@@ -31,7 +31,7 @@ export interface FormSchema<T = any> {
   components?: Record<string, any>
 
   // children?: (Node | FieldNode | ArrayFieldNode | ArrayFieldItemNode)[]
-  children: Node[]
+  children?: Node[]
 
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 

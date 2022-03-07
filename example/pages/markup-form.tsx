@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, NodeProps, useForm, Field } from 'fomir-react'
+import { Form, useForm, Field } from 'fomir-react'
 
-const BasicForm: NextPage = () => {
+function BasicForm() {
   const form = useForm({
     onSubmit(values) {
       alert(JSON.stringify(values, null, 2))
@@ -15,11 +15,16 @@ const BasicForm: NextPage = () => {
       <Form form={form}>
         <Field
           component="Input"
-          name="firstName"
           label="First Name"
+          name="firstName"
           validators={{ required: 'First Name is required' }}
         />
-        <Field component="Input" name="lastName" label="Last Name" />
+        <Field
+          component="Input"
+          label="Last Name"
+          name="lastName"
+          validators={{ required: 'Last Name is required' }}
+        />
         <button>Submit</button>
       </Form>
     </Box>

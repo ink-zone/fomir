@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@fower/react'
 import { mdx } from '@mdx-js/react'
 import { Fomir } from 'fomir'
-import { Form, useFieldState, useForm, useFormContext, useFormState } from 'fomir-react'
+import { Form, Field, useFieldState, useForm, useFormContext, useFormState } from 'fomir-react'
 import { FomirSimpleUI } from 'fomir-simple-ui'
 
 Fomir.use(FomirSimpleUI)
@@ -15,6 +15,7 @@ const ReactLiveScope = {
   Box,
   mdx,
   Form,
+  Field,
   useFieldState,
   useForm,
   useFormContext,

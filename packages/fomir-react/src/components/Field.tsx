@@ -1,9 +1,9 @@
-import { FC, useEffect, useRef } from 'react'
-import { FieldNode } from 'fomir'
+import { useEffect, useRef, FC } from 'react'
+import { Node } from 'fomir'
 import { useNodeComponent } from '../hooks/useNodeComponent'
 import { useFormContext } from '../hooks/useFormContext'
 
-export const Field: FC<FieldNode> = ({ children, ...props }) => {
+export const Field: FC<Node> = ({ children, ...props }) => {
   const form = useFormContext()
   const { schema, normalizeNode } = form
   const { current: node } = useRef(normalizeNode(props))

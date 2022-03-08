@@ -31,6 +31,10 @@ export interface TextareaNode extends FieldNode {
   component: 'Textarea'
 }
 
+export interface SwitchNode extends FieldNode {
+  component: 'Switch'
+}
+
 export interface ResetNode extends BaseNode {
   component: 'Reset'
   text: string
@@ -57,6 +61,7 @@ export type BoneUINode =
   | CheckboxGroupNode
   | RadioGroupNode
   | TextareaNode
+  | SwitchNode
   | ResetNode
   | SubmitNode
   | BoxNode

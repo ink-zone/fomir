@@ -11,7 +11,6 @@ export const Switch: FC<NodeProps> = (props) => {
   }
 
   return (
-    // <FormField error={error} my4>
     <FormField error={error}>
       <BoneSwitch {...componentProps} checked={value} onChange={handleChange}>
         {label}

@@ -9,7 +9,7 @@ export const RadioGroup: FC<NodeProps> = (props) => {
   return (
     <FormField error={error} label={label}>
       <BoneRadioGroup value={value} onChange={props.handler.handleChange}>
-        {options?.map((item: any) => (
+        {options.map((item) => (
           <Radio key={item.value} value={item.value}>
             {item.value}
           </Radio>

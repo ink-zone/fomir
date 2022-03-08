@@ -6,7 +6,6 @@ import { useFormContext } from 'fomir-react'
 
 export interface FormFieldProps extends FowerHTMLProps<'div'> {
   label?: ReactNode
-
   error?: string
 }
 
@@ -16,13 +15,22 @@ export const FormField: FC<FormFieldProps> = forwardRef((props: FormFieldProps, 
   const { layout = 'vertical' } = schema
 
   return (
-    <Box className="bone-form-field" ref={ref} relative flex mb6 {...rest}>
+    <Box
+      className="bone-form-field"
+      ref={ref}
+      relative
+      flex
+      mb5
+      column={layout === 'vertical'}
+      {...rest}
+    >
       {label && (
         <Box
+          as="label"
           className="bone-form-field-label"
-          text-16
+          leading-1em
           toCenterY
-          pr-8
+          pr2={layout !== 'vertical'}
           w-100={layout === 'horizontal'}
           mb2={layout === 'vertical'}
           toRight={layout === 'horizontal'}

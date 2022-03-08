@@ -8,6 +8,7 @@ import { CheckboxGroup } from './fields/CheckboxGroup'
 import { Switch } from './fields/Switch'
 import { Select } from './fields/Select'
 import { Reset } from './fields/Reset'
+import { Box } from './fields/Box'
 import { Submit } from './fields/Submit'
 
 export type { BoneUINode } from './bone-ui-node'
@@ -24,6 +25,7 @@ export const FomirBoneUI: FomirPlugin = {
     Select,
     Reset,
     Submit,
+    Box,
   },
 }
 

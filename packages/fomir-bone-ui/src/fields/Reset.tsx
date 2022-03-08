@@ -1,22 +1,16 @@
 import React from 'react'
-import { Box } from '@fower/react'
+import { FormField } from '../FormField'
+import { Button } from '@bone-ui/button'
 import { NodeProps, useFormContext } from 'fomir-react'
 
-export const Reset = (props: NodeProps) => {
+export const Reset = ({ node }: NodeProps) => {
+  const { text, componentProps } = node
   const form = useFormContext()
   return (
-    <Box
-      as="button"
-      type="reset"
-      bgBrand500
-      white
-      px4
-      py2
-      rounded
-      cursorPointer
-      onClick={() => form.resetForm()}
-    >
-      {props.node.text}
-    </Box>
+    <FormField>
+      <Button type="submit" {...componentProps} onClick={() => form.resetForm()}>
+        {text}
+      </Button>
+    </FormField>
   )
 }

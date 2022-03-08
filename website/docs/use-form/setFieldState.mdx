@@ -28,7 +28,7 @@ function FormDemo() {
           form.setFieldState('userName', { disabled: true })
         }}
       >
-        Set Name
+        Set Disabled
       </button>
     )
   }
@@ -62,10 +62,6 @@ function FormDemo() {
     ],
   })
 
-  return (
-    <Box p-100>
-      <Form form={form} />
-    </Box>
-  )
+  return <Form form={form} />
 }
 ```

@@ -20,6 +20,7 @@ function FormDemo() {
   }
 
   const form = useForm({
+    layout: 'vertical',
     onSubmit(values) {
       setTimeout(() => {
         form.setFormState({ submitting: false })

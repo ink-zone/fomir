@@ -67,28 +67,40 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   padding-left: 0 !important;
 }
 
-input:not([type="checkbox"], [type="radio"]) {
-  border: 1px solid #ddd;
-  padding: 8px 4px;
+.field-input input,
+input:not(.bone-input) {
+  border: 2px solid #e6e6e6;
+  padding: 10px 6px;
   margin: 4px 0;
-  width: 200px;
-  border-radius: 4px;
+  width: 240px;
+  border-radius: 8px;
 }
 
 select {
   border: 1px solid #ddd;
   padding: 8px 4px;
   margin: 4px 0;
-  width: 200px;
+  width: 240px !important;
   border-radius: 4px;
+}
+
+input:not([type="checkbox"], [type="radio"]) {
+  width: 240px;
 }
 
 button {
   display: block;
-  padding: 8px 12px;
-  background: sandybrown;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: white;
+  background: #32d8b4;
   border-radius: 4px;
   margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.btn-submit {
+  margin-top: 12px;
 }
 
 button:disabled,

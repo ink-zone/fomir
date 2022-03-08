@@ -7,10 +7,10 @@
 
 .playgroundContainer {
   margin-bottom: var(--ifm-leading);
-  border-radius: var(--ifm-global-radius);
+  /* border-radius: var(--ifm-global-radius); */
   /* box-shadow: var(--ifm-global-shadow-lw); */
-  border: 1px solid #f0f0f0;
-  overflow: hidden;
+  /* border: 1px solid #f0f0f0; */
+  /* overflow: hidden; */
 }
 
 .playgroundHeader {
@@ -29,13 +29,14 @@
 }
 
 .playgroundEditor {
-  font: var(--ifm-code-font-size) / var(--ifm-pre-line-height)
-    var(--ifm-font-family-monospace) !important;
+  font: var(--ifm-code-font-size) / var(--ifm-pre-line-height) var(--ifm-font-family-monospace) !important;
   /* rtl:ignore */
   direction: ltr;
+  background-color: red;
+  border-radius: 6px;
 }
 
 .playgroundPreview {
-  padding: 1rem;
-  background-color: var(--ifm-pre-background);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

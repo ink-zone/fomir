@@ -9,7 +9,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Translate from '@docusaurus/Translate'
 import SearchBar from '@theme/SearchBar'
-import Toggle from '@theme/Toggle'
+import ColorModeToggle from '@theme/ColorModeToggle'
 import {
   useThemeConfig,
   useMobileSecondaryMenuRenderer,
@@ -25,7 +25,6 @@ import NavbarItem, { type Props as NavbarItemConfig } from '@theme/NavbarItem'
 import Logo from '@theme/Logo'
 import IconMenu from '@theme/IconMenu'
 import IconClose from '@theme/IconClose'
-import { useLocation } from 'react-router-dom'
 
 import styles from './styles.module.css'
 
@@ -162,7 +161,7 @@ function NavbarMobileSidebar({ sidebarShown, toggleSidebar }: NavbarMobileSideba
           titleClassName="navbar__title"
         />
         {!colorModeToggle.disabled && (
-          <Toggle
+          <ColorModeToggle
             className={styles.navbarSidebarToggle}
             checked={colorModeToggle.isDarkTheme}
             onChange={colorModeToggle.toggle}
@@ -211,7 +210,7 @@ function NavbarMobileSidebar({ sidebarShown, toggleSidebar }: NavbarMobileSideba
   )
 }
 
-function Navbar(): JSX.Element {
+export default function Navbar(): JSX.Element {
   const {
     navbar: { hideOnScroll, style },
   } = useThemeConfig()
@@ -225,12 +224,6 @@ function Navbar(): JSX.Element {
   const hasSearchNavbarItem = items.some((item) => item.type === 'search')
   const { leftItems, rightItems } = splitNavItemsByPosition(items)
 
-  const location = useLocation()
-  let navStyle: any = {}
-  if (location.pathname === '/') {
-    navStyle.borderBottomWidth = 0
-  }
-
   return (
     <nav
       ref={navbarRef}
@@ -241,7 +234,6 @@ function Navbar(): JSX.Element {
         [styles.navbarHideable]: hideOnScroll,
         [styles.navbarHidden]: hideOnScroll && !isNavbarVisible,
       })}
-      style={navStyle}
     >
       <div
         className="navbar__inner"
@@ -277,7 +269,7 @@ function Navbar(): JSX.Element {
             <NavbarItem {...item} key={i} />
           ))}
           {!colorModeToggle.disabled && (
-            <Toggle
+            <ColorModeToggle
               className={styles.toggle}
               checked={colorModeToggle.isDarkTheme}
               onChange={colorModeToggle.toggle}
@@ -302,5 +294,3 @@ function Navbar(): JSX.Element {
     </nav>
   )
 }
-
-export default Navbar

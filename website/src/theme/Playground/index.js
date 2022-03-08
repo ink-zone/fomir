@@ -27,7 +27,7 @@ function LivePreviewLoader() {
 
 function ResultWithHeader() {
   return (
-    <div className={styles.playgroundPreview} style={{background: '#fff'}}>
+    <div className={styles.playgroundPreview}>
       <BrowserOnly fallback={<LivePreviewLoader />}>
         {() => (
           <>

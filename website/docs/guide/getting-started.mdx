@@ -35,7 +35,7 @@ function BasicForm() {
   const Input = ({ node, handler }) => {
     const { value = '', label } = node
     return (
-      <div>
+      <div class="field-input">
         {label && <div>{label}</div>}
         <input value={value} onChange={handler.handleChange} />
       </div>
@@ -43,7 +43,7 @@ function BasicForm() {
   }
 
   const Submit = ({ node }) => {
-    return <button type="submit">{node.text}</button>
+    return <button class="btn-submit" type="submit">{node.text}</button>
   }
 
   const form = useForm({

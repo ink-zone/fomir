@@ -2,7 +2,7 @@ import isEqual from 'react-fast-compare'
 import arrayMove from 'array-move'
 import isPromise from 'is-promise'
 import cloneDeep from 'lodash.clonedeep'
-import { getIn, setIn, isFormValid } from './utils'
+import { getIn, setIn } from './utils'
 import { FieldNode } from './types/field'
 import { FormSchema } from './types/form'
 import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types/types'
@@ -241,7 +241,6 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
     async function getErrors(arr: any[]) {
       for (const item of arr) {
-        console.log('item:', item)
         if (item.children) {
           await getErrors(item.children)
         } else {
@@ -301,9 +300,8 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     touchAll() // make all fields touched
 
     const errors = await validateForm()
-    console.log('errors:', errors)
 
-    valid = isFormValid(errors)
+    valid = isValid(errors)
 
     if (valid) {
       setSubmitting(true)
@@ -555,6 +553,29 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     return null
   }
 
+  /**
+   * check form is valid
+   * @param errors errors object
+   */
+  function isValid(errors: any = {}): boolean {
+    let valid = true
+    function loopErrors(errors: any) {
+      for (const key of Object.keys(errors)) {
+        let error = errors[key]
+        if (!error) continue // skip it
+
+        if (typeof error === 'object') {
+          loopErrors(error)
+        } else {
+          error = String(error) as string
+          valid = error.length ? false : true
+        }
+      }
+    }
+    loopErrors(errors)
+    return valid
+  }
+
   const form = {
     schema,
     setSchema,
@@ -600,6 +621,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     /** validate */
     validateForm,
     validateField,
+    isValid,
 
     isSchema: (node: any) => {
       return node === schema

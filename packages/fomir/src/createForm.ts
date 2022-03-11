@@ -241,18 +241,20 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
     async function getErrors(arr: any[]) {
       for (const item of arr) {
+        console.log('item:', item)
         if (item.children) {
           await getErrors(item.children)
-          return
-        }
-        if (Reflect.has(item, 'name')) {
-          if (!item.visible) continue
-          const error = await validateField({ fieldState: item, form })
+        } else {
+          if (Reflect.has(item, 'name')) {
+            if (!item.visible) continue
+            // console.log('item--filed:', item)
+            const error = await validateField({ fieldState: item, form })
 
-          // if (error && error !== state.error) {
-          if (error) {
-            setIn(errors, item.name, error)
-            setFieldState(item.name, { error })
+            // if (error && error !== state.error) {
+            if (error) {
+              setIn(errors, item.name, error)
+              setFieldState(item.name, { error })
+            }
           }
         }
       }
@@ -299,6 +301,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     touchAll() // make all fields touched
 
     const errors = await validateForm()
+    console.log('errors:', errors)
 
     valid = isFormValid(errors)
 

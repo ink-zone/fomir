@@ -11,7 +11,8 @@ const Home: NextPage = () => {
     children: [
       {
         component: 'Input',
-        label: 'First Name',
+        // label: 'First Name',
+        label: <Box>First Name---</Box>,
         name: 'firstName',
         value: '',
         validators: {

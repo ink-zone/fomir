@@ -31,13 +31,11 @@
   "homepage": "https://github.com/forsigner/fomir#readme",
   "devDependencies": {
     "@types/is-promise": "^2.2.0",
-    "@types/lodash.clonedeep": "^4.5.6",
     "tsdx": "^0.14.1"
   },
   "dependencies": {
     "array-move": "^3.0.1",
     "is-promise": "^4.0.0",
-    "lodash.clonedeep": "^4.5.0",
     "react-fast-compare": "^3.2.0"
   }
 }

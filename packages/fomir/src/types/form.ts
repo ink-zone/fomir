@@ -36,7 +36,7 @@ export interface FormSchema<T = any> {
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched'
 
   watch?: {
-    [key: string]: <T extends FieldNode = any>(nextData: T, prevData: T) => any
+    [key: string]: <T extends FieldNode = any>(nextData: T, prevData?: T) => any
   }
 
   /**

@@ -246,7 +246,6 @@ export function createForm<T = any>(schema: FormSchema<T>) {
         } else {
           if (Reflect.has(item, 'name')) {
             if (!item.visible) continue
-            // console.log('item--filed:', item)
             const error = await validateField({ fieldState: item, form })
 
             // if (error && error !== state.error) {
@@ -343,10 +342,30 @@ export function createForm<T = any>(schema: FormSchema<T>) {
   }
 
   function setValues(values: T) {
+    const changedNodeNames: string[] = []
     travelNodes(schema.children, (item) => {
       const nodeName = NODE_TO_NAME.get(item)
-      if (nodeName) item.value = getIn(values, nodeName)
+      if (nodeName) {
+        const nextValue = getIn(values, nodeName)
+        if (item.value !== nextValue) {
+          item.value = nextValue
+          changedNodeNames.push(nodeName)
+        }
+      }
     })
+
+    /** handle form watch */
+    const watch = schema.watch || {}
+    for (const key of Object.keys(watch || {})) {
+      if (key.startsWith('*.')) continue
+
+      const arr = key.split('.')
+      const type = arr[arr.length - 1]
+      const name = arr.slice(0, -1).join('.')
+      if (type === 'value' && changedNodeNames.includes(name)) {
+        watch[key](getIn(values, name))
+      }
+    }
 
     rerenderNode(form)
     return getValues()

@@ -9,6 +9,11 @@ const BasicForm: NextPage = () => {
       alert(JSON.stringify(values, null, 2))
       console.log('values', values)
     },
+    watch: {
+      'lastName.value': (value) => {
+        console.log('lastName change:', value)
+      },
+    },
     children: [
       {
         label: 'First Name',
@@ -18,6 +23,11 @@ const BasicForm: NextPage = () => {
       {
         label: 'Last Name',
         name: 'lastName',
+        component: 'Input',
+      },
+      {
+        label: 'Last Name2',
+        name: 'lastName2',
         component: 'Input',
       },
       {

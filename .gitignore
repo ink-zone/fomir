@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 .cache
+.turbo
 
 node_modules/
 dist

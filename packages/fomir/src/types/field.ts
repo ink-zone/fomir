@@ -1,4 +1,7 @@
 import { BaseNode } from '..'
+import type { createForm } from '../createForm'
+
+type Form  = ReturnType<typeof createForm>
 
 export interface Validators {
   required?: string
@@ -27,7 +30,7 @@ export interface FieldHandler {
 
   onValueChange(fieldNode: FieldNode): Promise<any> | any
 
-  onFieldInit(fieldNode: FieldNode): Promise<any> | any
+  onFieldInit(fieldNode: FieldNode, form: Form): Promise<any> | any
 }
 
 export interface FieldNode extends BaseNode, Partial<FieldHandler> {

@@ -25,15 +25,15 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
     return () => {
       NODE_TO_UPDATER.delete(node)
     }
-  })
+  }, [form, NODE_TO_UPDATER, node])
 
   /**
    * run onFieldInit function
    */
   useEffect(() => {
     const nodeName = form.getNodeName(node)
-    form.onFieldInit(nodeName)
-  }, [])
+    form.onFieldInit(nodeName, form)
+  }, [form, node])
 
   const handler = {
     handleChange: (e: ChangeEvent) => {
@@ -50,5 +50,5 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
 
   const Cmp = form.getNodeComponent(node)
   if (!Cmp) return null
-  return createElement(Cmp, { node, handler, children })
+  return createElement(Cmp, { node, handler,  }, children)
 }

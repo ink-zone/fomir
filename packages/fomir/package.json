@@ -2,7 +2,7 @@
   "name": "fomir",
   "version": "0.11.0",
   "author": "forsigner",
-  "module": "dist/core.esm.js",
+  "module": "dist/fomir.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
+    "dev": "tsup src/index.ts --format esm,cjs --dts",
     "build": "tsdx build",
     "test": "tsdx test",
     "test:watch": "tsdx test --watch",
@@ -31,7 +32,8 @@
   "homepage": "https://github.com/forsigner/fomir#readme",
   "devDependencies": {
     "@types/is-promise": "^2.2.0",
-    "tsdx": "^0.14.1"
+    "tsdx": "^0.14.1",
+    "tsup": "^5.12.1"
   },
   "dependencies": {
     "array-move": "^3.0.1",

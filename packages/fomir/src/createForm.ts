@@ -26,8 +26,8 @@ export function normalizeNode(node: any) {
   const falsyProps = ['required', 'focused', 'touched', 'loading', 'disabled']
   const truthyProps = ['showLabel', 'visible', 'display']
 
-  falsyProps.forEach((k) => (node[k] = node[k] ?? false))
-  truthyProps.forEach((k) => (node[k] = node[k] ?? true))
+  falsyProps.forEach(k => (node[k] = node[k] ?? false))
+  truthyProps.forEach(k => (node[k] = node[k] ?? true))
 
   node.status = node.status ?? 'editable'
   node.label = node.label ?? null
@@ -35,7 +35,7 @@ export function normalizeNode(node: any) {
   node.options = node.options ?? []
   node.validators = node.validators ?? {}
   node.componentProps = node.componentProps ?? {}
-  node.description = node.description
+  node.description = node.description ?? null
   return node
 }
 
@@ -67,7 +67,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
   travelNodes(
     schema.children,
-    (item) => {
+    item => {
       normalizeNode(item)
     },
     true,
@@ -86,7 +86,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
   }
 
   function getFieldState(name: string, schema?: FormSchema): FieldNode {
-    return getNode({ schema, match: (n) => n.name === name })
+    return getNode({ schema, match: n => n.name === name })
   }
 
   function setSchema(fn: (shema: FormSchema) => any) {
@@ -122,8 +122,8 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
     /** Put values,errors... to a map */
     const prevMap = Object.keys(watch)
-      .filter((k) => k.startsWith('*.'))
-      .map((k) => k.replace(/^\*\./, ''))
+      .filter(k => k.startsWith('*.'))
+      .map(k => k.replace(/^\*\./, ''))
       .reduce((acc, cur) => {
         acc[cur] = getFieldCollection(cur as keyof FieldNode, [schema])
         return acc
@@ -134,7 +134,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     // TODO: need refactor
     const matchedNode = setNode(fieldState, {
       rerender: false,
-      match: (n) => n === fieldNode,
+      match: n => n === fieldNode,
     })
 
     /** on field change */
@@ -333,7 +333,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
   }
 
   function touchAll() {
-    travelNodes(schema.children, (item) => {
+    travelNodes(schema.children, item => {
       if (Reflect.has(item, 'name')) {
         item.touched = true
       }
@@ -342,7 +342,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
 
   function setValues(values: T) {
     const changedNodeNames: string[] = []
-    travelNodes(schema.children, (item) => {
+    travelNodes(schema.children, item => {
       const nodeName = NODE_TO_NAME.get(item)
       if (nodeName) {
         const nextValue = getIn(values, nodeName)
@@ -381,9 +381,9 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     form.schema?.onReset?.()
   }
 
-  function onFieldInit(namePath: string) {
+  function onFieldInit(namePath: string, form: any) {
     const fieldNode = getFieldState(namePath)
-    fieldNode?.onFieldInit?.(fieldNode)
+    fieldNode?.onFieldInit?.(fieldNode, form)
   }
 
   function getNode<T = any>(opt: NodeOptions) {
@@ -459,13 +459,13 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     const arrayField =
       arrayNode ||
       getNode({
-        match: (n) => n.name === name,
+        match: n => n.name === name,
       })
 
     const fields = arrayField.children
 
     const isValidIndex = (...args: number[]) => {
-      return !args.some((i) => i < 0 || i > fields.length)
+      return !args.some(i => i < 0 || i > fields.length)
     }
 
     function move(from: number, to: number) {

@@ -13,7 +13,7 @@ export const Checkbox = ({ node, handler }: NodeProps<FieldNode>) => {
 
         <input type="checkbox" value={value} onChange={handler.handleChange} />
       </Box>
-      {error && touched && <Box red50>{error}</Box>}
+      {error && touched && <Box red500>{error}</Box>}
     </Box>
   )
 }

@@ -26,7 +26,7 @@
     "tsdx": "^0.14.1"
   },
   "dependencies": {
-    "@fower/react": "^1.68.0",
+    "@fower/react": "^1.71.0",
     "fomir": "^0.11.0",
     "fomir-react": "^0.11.0",
     "immer": "^9.0.12"

@@ -13,7 +13,6 @@
   "scripts": {
     "dev": "lerna run --stream dev",
     "build": "lerna run --stream build",
-    "build:types": "lerna run --parallel --stream build:types",
     "test": "lerna run --parallel --stream test",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "publish": "lerna publish --force-publish=*",

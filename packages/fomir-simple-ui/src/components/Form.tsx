@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, PropsWithChildren } from 'react'
 import { FormRegisterProps } from 'fomir-react'
 
-export const Form = forwardRef<HTMLFormElement, FormRegisterProps>(
+export const Form = forwardRef<HTMLFormElement, PropsWithChildren<FormRegisterProps>>(
   ({ children, submitForm }, ref) => {
     return (
       <form onSubmit={submitForm} ref={ref}>

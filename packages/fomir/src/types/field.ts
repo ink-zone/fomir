@@ -1,7 +1,7 @@
 import { BaseNode } from '..'
 import type { createForm } from '../createForm'
 
-type Form  = ReturnType<typeof createForm>
+type Form = ReturnType<typeof createForm>
 
 export interface Validators {
   required?: string
@@ -24,9 +24,9 @@ export interface Validators {
 }
 
 export interface FieldHandler {
-  intercept<T>(value: T, fieldState: Omit<FieldNode, 'intercept'>): T
+  intercept<T = any>(value: T, fieldState: Omit<FieldNode, 'intercept'>, form: Form): T
 
-  transform<T>(value: T): T
+  transform<T = any>(value: T): T
 
   onValueChange(fieldNode: FieldNode): Promise<any> | any
 

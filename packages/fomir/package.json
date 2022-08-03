@@ -11,11 +11,10 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=14.16"
   },
   "scripts": {
     "start": "tsdx watch",
-    "dev": "tsup src/index.ts --format esm,cjs --dts",
     "build": "tsdx build",
     "test": "tsdx test",
     "test:watch": "tsdx test --watch",
@@ -32,8 +31,7 @@
   "homepage": "https://github.com/forsigner/fomir#readme",
   "devDependencies": {
     "@types/is-promise": "^2.2.0",
-    "tsdx": "^0.14.1",
-    "tsup": "^5.12.1"
+    "tsdx": "^0.14.1"
   },
   "dependencies": {
     "array-move": "^3.0.1",

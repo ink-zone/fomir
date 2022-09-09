@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/is-promise": "^2.2.0",
+    "@types/react": "^17.0.30",
     "tsdx": "^0.14.1"
   },
   "dependencies": {

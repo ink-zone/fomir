@@ -353,6 +353,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
         const nextValue = getIn(values, nodeName)
         if (item.value !== nextValue) {
           item.value = nextValue
+          rerenderNode(item)
           changedNodeNames.push(nodeName)
         }
       }

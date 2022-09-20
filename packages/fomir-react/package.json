@@ -1,6 +1,6 @@
 {
   "name": "fomir-react",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "author": "forsigner",
   "module": "dist/react.esm.js",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "tsdx": "^0.14.1"
   },
   "dependencies": {
-    "fomir": "^0.12.1",
+    "fomir": "^0.13.0",
     "is-promise": "^4.0.0"
   }
 }

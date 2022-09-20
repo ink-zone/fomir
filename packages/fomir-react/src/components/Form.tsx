@@ -5,7 +5,7 @@ import { FormProvider } from '../formContext'
 import { NodeComponent } from './NodeComponent'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
-  const { form, children, ...rest } = props
+  const { form, children, suffix, ...rest } = props
   const { submitForm, schema, NODE_TO_UPDATER } = form
   const [, forceUpdate] = useState({})
 
@@ -41,6 +41,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
           {children ? children : renderNode(schema)}
+          {!!suffix && suffix}
         </FomirForm>
       )
     if (isNative) return props.children

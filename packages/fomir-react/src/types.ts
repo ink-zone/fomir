@@ -21,7 +21,7 @@ export interface FieldHandlers {
 export interface FormProps extends HTMLAttributes<HTMLFormElement> {
   form: Form
   children?: ReactNode
-  [key: string]: any
+  suffix?: ReactNode
 }
 
 export interface FormRegisterProps extends Form {}

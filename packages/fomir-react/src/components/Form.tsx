@@ -3,6 +3,7 @@ import { isNative } from '../utils'
 import { FormProps } from '../types'
 import { FormProvider } from '../formContext'
 import { NodeComponent } from './NodeComponent'
+import { FormSuffix } from './FormSuffix'
 
 export const Form: FC<FormProps> = forwardRef((props, ref) => {
   const { form, children, suffix, ...rest } = props
@@ -41,7 +42,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
       return (
         <FomirForm submitForm={submitForm} {...rest} ref={ref}>
           {children ? children : renderNode(schema)}
-          {!!suffix && suffix}
+          <FormSuffix suffix={suffix} />
         </FomirForm>
       )
     if (isNative) return props.children

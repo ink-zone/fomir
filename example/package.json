@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fower/react": "^1.68.0",
+    "@fower/react": "^1.72.0",
     "@peajs/request": "^0.6.0",
     "fomir": "^0.13.0",
     "fomir-react": "^0.13.0",

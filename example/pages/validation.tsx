@@ -5,6 +5,10 @@ import { Form, useForm } from 'fomir-react'
 const Home: NextPage = () => {
   const form = useForm({
     onSubmit(values) {
+      form.setSubmitting(true)
+      setTimeout(() => {
+        form.setSubmitting(false)
+      }, 2000)
       console.log('values', values)
     },
 
@@ -12,7 +16,7 @@ const Home: NextPage = () => {
       {
         component: 'Input',
         // label: 'First Name',
-        label: <Box>First Name---</Box>,
+        label: <Box>First Name</Box>,
         name: 'firstName',
         value: '',
         validators: {
@@ -29,16 +33,21 @@ const Home: NextPage = () => {
           pattern: [/foo/, 'should contain foo'],
         },
       },
-      {
-        component: 'Submit',
-        text: 'submit',
-      },
     ],
   })
 
   return (
     <Box p-100>
-      <Form form={form} />
+      <Form
+        form={form}
+        suffix={({ submitting }) => {
+          return (
+            <Box as="button" type="submit" cursorPointer disabled={submitting}>
+              Submit
+            </Box>
+          )
+        }}
+      />
     </Box>
   )
 }

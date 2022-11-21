@@ -1,14 +1,15 @@
-import { FormSchema } from 'fomir'
-import { FC, ReactNode } from 'react'
+import React from 'react'
+import { Fragment } from 'react'
 import { useFormState } from '../hooks/useFormState'
+import { FormSuffixType } from '../types'
 
 type Props = {
-  suffix: ReactNode | ((schema: FormSchema) => ReactNode)
+  suffix?: FormSuffixType
 }
 
-export const FormSuffix: FC<Props> = ({ suffix }) => {
+export const FormSuffix = ({ suffix }: Props) => {
   const state = useFormState()
 
   if (typeof suffix === 'function') return suffix(state)
-  return !!suffix ? suffix : null
+  return <Fragment>{suffix ? suffix : null}</Fragment>
 }

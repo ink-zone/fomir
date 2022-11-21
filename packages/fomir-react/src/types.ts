@@ -18,10 +18,12 @@ export interface FieldHandlers {
     | Promise<any>
 }
 
+export type FormSuffixType = JSX.Element | ((schema: FormSchema) => JSX.Element)
+
 export interface FormProps extends HTMLAttributes<HTMLFormElement> {
   form: Form
   children?: ReactNode
-  suffix?: ReactNode | ((schema: FormSchema) => ReactNode)
+  suffix?: FormSuffixType
 }
 
 export interface FormRegisterProps extends Form {}

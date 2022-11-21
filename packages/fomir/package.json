@@ -1,6 +1,6 @@
 {
   "name": "fomir",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "author": "forsigner",
   "module": "dist/fomir.esm.js",
   "main": "dist/index.js",

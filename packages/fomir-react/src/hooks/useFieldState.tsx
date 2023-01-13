@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { FieldNode } from 'fomir'
 import { useFormContext } from './useFormContext'
 
-export function useFieldState<V = any>(name: string) {
+export function useFieldState<V = any>(name: string): Required<FieldNode> {
   const [, forceUpdate] = useState({})
   const form = useFormContext()
   const field = form.getFieldState<V>(name)

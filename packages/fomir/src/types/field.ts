@@ -33,7 +33,7 @@ export interface FieldHandler {
   onFieldInit(fieldNode: FieldNode, form: Form): Promise<any> | any
 }
 
-export interface FieldNode extends BaseNode, Partial<FieldHandler> {
+export interface FieldNode<V = any> extends BaseNode<V>, Partial<FieldHandler> {
   name: string
   validators?: Validators
 }

@@ -12,7 +12,7 @@ export type Option = {
 
 export type Options = Option[]
 
-export interface BaseNode {
+export interface BaseNode<V = any> {
   component: string
 
   isArrayField?: boolean
@@ -27,7 +27,7 @@ export interface BaseNode {
 
   componentProps?: any
 
-  value?: any
+  value?: V
 
   error?: string
 

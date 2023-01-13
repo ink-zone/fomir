@@ -85,7 +85,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     return schema
   }
 
-  function getFieldState(name: string, schema?: FormSchema): FieldNode {
+  function getFieldState<V = any>(name: string, schema?: FormSchema): Required<FieldNode<V>> {
     return getNode({ schema, match: (n) => n.name === name })
   }
 

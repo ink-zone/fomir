@@ -3,7 +3,7 @@ import { Form, useFieldState, useForm } from 'fomir-react'
 
 const Home: NextPage = () => {
   const NameValue = () => {
-    const { value } = useFieldState('userName')
+    const { value } = useFieldState<string>('userName')
     return <div>Name: {value}</div>
   }
   const form = useForm({

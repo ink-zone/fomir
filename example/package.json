@@ -13,7 +13,6 @@
     "@fower/react": "^1.72.0",
     "@peajs/request": "^0.6.0",
     "fomir": "^0.15.2",
-    "fomir-react": "^0.15.2",
     "fomir-simple-ui": "^0.15.2",
     "next": "^12.2.3",
     "react": "^18.2.0",

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Form, useFieldState, useForm } from 'fomir-react'
+import { Form, useFieldState, useForm } from 'fomir'
 
 const Home: NextPage = () => {
   const NameValue = () => {

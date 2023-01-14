@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useForm, useFormContext } from 'fomir-react'
+import { Form, useForm, useFormContext } from 'fomir'
 
 const ArrayField = ({ node }) => {
   return (

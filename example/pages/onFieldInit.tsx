@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useForm } from 'fomir-react'
+import { Form, useForm } from 'fomir'
 import { request } from '@peajs/request'
 
 const Home: NextPage = () => {

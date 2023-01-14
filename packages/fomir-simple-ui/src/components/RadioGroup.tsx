@@ -1,5 +1,5 @@
 import React from 'react'
-import { NodeProps } from 'fomir-react'
+import { NodeProps } from 'fomir'
 import { Box } from '@fower/react'
 import { FieldNode } from 'fomir'
 

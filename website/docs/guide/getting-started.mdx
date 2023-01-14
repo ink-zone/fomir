@@ -5,21 +5,16 @@ sidebar_position: 1
 
 ## Installation
 
-To get started, you need to install tow package:
-
-- Core package `fomir`
-- React binding package `fomir-react`
-
 **Using Yarn:**
 
 ```bash
-yarn add fomir fomir-react
+yarn add fomir
 ```
 
 **Using NPM:**
 
 ```bash
-npm install fomir fomir-react
+npm install fomir
 ```
 
 ## Basic usage
@@ -27,7 +22,7 @@ npm install fomir fomir-react
 Use `useForm` api to create a form:
 
 ```jsx
-import { Form, useForm } from 'fomir-react'
+import { Form, useForm } from 'fomir'
 ```
 
 ```jsx live
@@ -43,7 +38,11 @@ function BasicForm() {
   }
 
   const Submit = ({ node }) => {
-    return <button class="btn-submit" type="submit">{node.text}</button>
+    return (
+      <button class="btn-submit" type="submit">
+        {node.text}
+      </button>
+    )
   }
 
   const form = useForm({

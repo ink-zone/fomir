@@ -1,5 +1,5 @@
 import React from 'react'
-import { NodeProps } from 'fomir-react'
+import { NodeProps } from 'fomir'
 import { Box } from '@fower/react'
 
 export const Select = ({ node, handler }: NodeProps) => {

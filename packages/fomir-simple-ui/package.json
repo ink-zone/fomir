@@ -26,7 +26,6 @@
   "dependencies": {
     "@fower/react": "^1.72.0",
     "fomir": "^0.15.2",
-    "fomir-react": "^0.15.2",
     "immer": "^9.0.15"
   }
 }

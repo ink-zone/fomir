@@ -1,5 +1,5 @@
 import React from 'react'
-import { NodeProps } from 'fomir-react'
+import { NodeProps } from 'fomir'
 import { produce } from 'immer'
 import { Box } from '@fower/react'
 

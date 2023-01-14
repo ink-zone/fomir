@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@fower/react'
-import { NodeProps, useFormContext } from 'fomir-react'
+import { NodeProps, useFormContext } from 'fomir'
 
 export const Reset = (props: NodeProps) => {
   const form = useFormContext()

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@fower/react'
-import { Form, useForm, Field } from 'fomir-react'
+import { Form, useForm, Field } from 'fomir'
 
 function BasicForm() {
   const form = useForm({

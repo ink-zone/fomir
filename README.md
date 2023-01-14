@@ -10,7 +10,7 @@ A Schema-First form library
 ## Installation
 
 ```bash
-npm install fomir fomir-react
+npm install fomir
 ```
 
 ## Quick Start

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NodeProps, useFormContext } from 'fomir-react'
+import { NodeProps, useFormContext } from 'fomir'
 import { Box } from '@fower/react'
 
 export const Input = ({ node, handler }: NodeProps) => {

@@ -1,4 +1,4 @@
-import { Form, NodeProps, useForm } from 'fomir-react'
+import { Form, NodeProps, useForm } from 'fomir'
 import { Box } from '@fower/react'
 
 function FormDemo() {

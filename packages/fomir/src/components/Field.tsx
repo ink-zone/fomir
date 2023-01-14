@@ -1,5 +1,5 @@
 import { useEffect, useRef, FC, PropsWithChildren } from 'react'
-import { Node } from 'fomir'
+import { Node } from '../types'
 import { useNodeComponent } from '../hooks/useNodeComponent'
 import { useFormContext } from '../hooks/useFormContext'
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FieldNode } from 'fomir'
+import { FieldNode } from '../types'
 import { useFormContext } from './useFormContext'
 
 export function useFieldState<V = any>(name: string): Required<FieldNode> {

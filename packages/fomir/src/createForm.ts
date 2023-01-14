@@ -4,7 +4,7 @@ import isPromise from 'is-promise'
 import { getIn, setIn, cloneDeep } from './utils'
 import { FieldNode } from './types/field'
 import { FormSchema } from './types/form'
-import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types/types'
+import { NodeOptions, SetNodeFunction, ValidatorOptions } from './types'
 import { Fomir } from './Fomir'
 import { Node } from '.'
 
@@ -39,7 +39,7 @@ export function normalizeNode(node: any) {
   return node
 }
 
-export type Form<T = any> = Omit<ReturnType<typeof createForm>, 'setValues'> & {
+export type FormType<T = any> = Omit<ReturnType<typeof createForm>, 'setValues'> & {
   setValues(values: T): T
 }
 

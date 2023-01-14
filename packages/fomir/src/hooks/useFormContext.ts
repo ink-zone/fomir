@@ -1,7 +1,7 @@
-import { Form } from 'fomir'
+import { FormType } from '../createForm'
 import { useContext } from 'react'
 import { formContext } from '../formContext'
 
 export function useFormContext() {
-  return useContext(formContext) as Form
+  return useContext(formContext) as FormType
 }

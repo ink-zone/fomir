@@ -1,6 +1,6 @@
 import { FieldNode } from './field'
 import { Node } from './node'
-import { Errors } from './types'
+import { Errors } from '.'
 
 export interface ArrayFieldNode {
   component: 'ArrayField'

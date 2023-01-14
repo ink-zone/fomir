@@ -1,4 +1,4 @@
-import { FomirPlugin, OnFormStateChange, OnFieldStateChange } from './types/types'
+import { FomirPlugin, OnFormStateChange, OnFieldStateChange } from './types'
 
 export class Fomir {
   static compenents: Record<string, any> = {}

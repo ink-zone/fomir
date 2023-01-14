@@ -6,7 +6,7 @@ import { Form, Field, useFieldState, useForm, useFormContext, useFormState } fro
 // import { FomirSimpleUI } from 'fomir-simple-ui'
 // Fomir.use(FomirSimpleUI)
 
-import { FomirBoneUI } from 'fomir-bone-ui'
+import { FomirBoneUI } from 'bone-ui'
 Fomir.use(FomirBoneUI)
 
 

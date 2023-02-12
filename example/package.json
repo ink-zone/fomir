@@ -1,6 +1,6 @@
 {
   "name": "fomir-example",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
@@ -12,8 +12,8 @@
   "dependencies": {
     "@fower/react": "^1.72.0",
     "@peajs/request": "^0.6.0",
-    "fomir": "^0.16.0",
-    "fomir-simple-ui": "^0.16.0",
+    "fomir": "^0.16.1",
+    "fomir-simple-ui": "^0.16.1",
     "next": "^12.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

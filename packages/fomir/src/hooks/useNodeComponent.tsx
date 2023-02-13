@@ -32,7 +32,9 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
    */
   useEffect(() => {
     const nodeName = form.getNodeName(node)
-    form.onFieldInit(nodeName, form)
+    setTimeout(() => {
+      form.onFieldInit(nodeName, form)
+    }, 0)
   }, [form, node])
 
   const handler = {
@@ -50,5 +52,5 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
 
   const Cmp = form.getNodeComponent(node)
   if (!Cmp) return null
-  return createElement(Cmp, { node, handler,  }, children)
+  return createElement(Cmp, { node, handler }, children)
 }

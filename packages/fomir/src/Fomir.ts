@@ -1,7 +1,7 @@
 import { FomirPlugin, OnFormStateChange, OnFieldStateChange } from './types'
 
 export class Fomir {
-  static compenents: Record<string, any> = {}
+  static components: Record<string, any> = {}
   static validators: Record<string, any> = {}
 
   static onFormStateChangeCallbacks: OnFormStateChange[] = []
@@ -10,8 +10,8 @@ export class Fomir {
   static use = (plugin: FomirPlugin) => {
     const { onFormStateChange, onFieldChange } = plugin
 
-    Fomir.compenents = {
-      ...Fomir.compenents,
+    Fomir.components = {
+      ...Fomir.components,
       ...plugin.components,
     }
 

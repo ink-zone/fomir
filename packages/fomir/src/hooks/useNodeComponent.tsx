@@ -1,10 +1,10 @@
-import { ChangeEvent, createElement, useEffect, useState } from 'react'
+import { ChangeEvent, createElement, useEffect, useState, useMemo } from 'react'
 import { NodeProps } from '../types'
 import { getValueFormEvent } from '../utils/getValueFormEvent'
 import { useFormContext } from './useFormContext'
 
 /**
- * To get the NodeComponet to render
+ * To get the NodeComponent to render
  * @param opt
  * @returns
  */
@@ -12,20 +12,18 @@ export function useNodeComponent(opt: Omit<NodeProps, 'handler'>) {
   const { node, children } = opt
   const [, forceUpdate] = useState({})
   const form = useFormContext()
-  const { NODE_TO_UPDATER } = form
+  const { NODE_TO_UPDATER, NAME_TO_NODE, NODE_TO_NAME } = form
+
+  const nodeName = form.getNodeName(node)
 
   useEffect(() => {
+    NAME_TO_NODE.set(nodeName, node)
+    NODE_TO_NAME.set(node, nodeName)
     NODE_TO_UPDATER.set(node, forceUpdate)
-    const nodeName = form.getNodeName(node)
-    if (nodeName) {
-      form.NAME_TO_NODE.set(nodeName, node)
-      form.NODE_TO_NAME.set(node, nodeName)
-    }
-
     return () => {
       NODE_TO_UPDATER.delete(node)
     }
-  }, [form, NODE_TO_UPDATER, node])
+  }, [NODE_TO_UPDATER, node])
 
   /**
    * run onFieldInit function

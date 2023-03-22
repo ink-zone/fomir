@@ -28,11 +28,11 @@ export interface NodeOptions {
 
   /** is rerender current node */
   rerender?: boolean
-  match?: (node: any) => boolean
+  match?: (node: Node) => boolean
   // mode?: 'highest' | 'lowest'
 }
 
-export type SetNodeFunction<T> = (node: T) => any
+export type SetNodeFunction<T = Node> = (node: T) => any
 
 export interface ValidatorOptions {
   fieldState: FieldNode

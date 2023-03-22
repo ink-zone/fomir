@@ -21,6 +21,7 @@ export const Form: FC<FormProps> = forwardRef((props, ref) => {
         form.NODE_TO_PARENT.set(item, node)
 
         item.renderChildren = renderNode
+
         return (
           <NodeComponent key={index} node={item}>
             {renderNode(item)}

@@ -24,7 +24,7 @@ export interface Validators {
 }
 
 export interface FieldHandler {
-  intercept<T = any>(value: T, fieldState: Omit<FieldNode, 'intercept'>, form: Form): T
+  intercept(value: any, prevFieldState: Omit<FieldNode, 'intercept'>, form: Form): any
 
   transform<T = any>(value: T): T
 

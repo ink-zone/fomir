@@ -61,7 +61,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
   schema.status = 'editable'
 
   schema.components = {
-    ...Fomir.compenents,
+    ...Fomir.components,
     ...schema.components,
   }
 
@@ -116,7 +116,13 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     runFormUpdaters()
   }
 
-  function setFieldState(namePath: string, fieldState: Partial<FieldNode>) {
+  /**
+   * set Field state, and make it rerender
+   * @param namePath
+   * @param fieldState
+   * @param isAsyncRender 是否是异步渲染
+   */
+  function setFieldState(namePath: string, fieldState: Partial<FieldNode>, isAsyncRender = true) {
     const { watch = {} } = form.schema
     let fieldNode = form.NAME_TO_NODE.get(namePath)
 
@@ -172,7 +178,13 @@ export function createForm<T = any>(schema: FormSchema<T>) {
       fn(namePath, form)
     }
 
-    rerenderNode(matchedNode)
+    if (isAsyncRender) {
+      setTimeout(() => {
+        rerenderNode(matchedNode)
+      }, 0)
+    } else {
+      rerenderNode(matchedNode)
+    }
   }
 
   function rerenderNode(node: any) {
@@ -273,7 +285,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
       nextValue = fieldNode.intercept(value, fieldNode, form)
     }
 
-    setFieldState(namePath, { value: nextValue }) // sync value
+    setFieldState(namePath, { value: nextValue }, false) // sync value
 
     fieldNode = { ...fieldNode, value: nextValue }
     const fieldError = await validateField({ fieldState: fieldNode, form })
@@ -425,8 +437,9 @@ export function createForm<T = any>(schema: FormSchema<T>) {
       const rerender = typeof opt?.rerender === 'boolean' ? opt?.rerender : true
 
       if (typeof propertiesOrSetter === 'function') {
+        ;(propertiesOrSetter as any)(matchedNode)
         if (rerender) rerenderNode(matchedNode)
-        return (propertiesOrSetter as any)(node)
+        return
       }
 
       for (const k in propertiesOrSetter) {

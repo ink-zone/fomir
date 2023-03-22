@@ -29,6 +29,10 @@ export interface BaseNode<V = any> {
 
   value?: V
 
+  id?: string
+
+  name?: string
+
   error?: string
 
   warning?: string

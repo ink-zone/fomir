@@ -32,6 +32,7 @@ export function normalizeNode(node: any) {
   node.status = node.status ?? 'editable'
   node.label = node.label ?? null
   node.data = node.data ?? null
+  node.wrapper = node.wrapper ?? true
   node.options = node.options ?? []
   node.validators = node.validators ?? {}
   node.componentProps = node.componentProps ?? {}

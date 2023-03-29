@@ -1,3 +1,4 @@
+import { ComponentType } from 'react'
 import { ExtendedType } from './custom-types'
 
 type Status = 'editable' | 'disabled' | 'preview' | ({} & string)
@@ -58,6 +59,8 @@ export interface BaseNode<V = any> {
   options?: Options
 
   data?: any
+
+  wrapper?: boolean | ComponentType<any>
 
   updaters?: ((...args: any[]) => void)[]
 

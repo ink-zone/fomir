@@ -1,6 +1,6 @@
 {
   "name": "fomir",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "A form base on schema",
   "author": "forsigner",
   "main": "dist/index.js",
@@ -12,6 +12,9 @@
     "type-check": "tsc",
     "test": "jest --coverage --passWithNoTests",
     "test:watch": "jest --watch"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist"

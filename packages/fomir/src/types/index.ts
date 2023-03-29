@@ -1,5 +1,5 @@
-import type { FormType } from '../createForm'
 import React, { HTMLAttributes, ReactNode } from 'react'
+import type { FormType } from '../createForm'
 import type { FormSchema } from './form'
 import type { FieldNode } from './field'
 import { Node, BaseNode } from './node'

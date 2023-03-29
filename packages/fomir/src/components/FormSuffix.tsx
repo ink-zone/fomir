@@ -1,4 +1,3 @@
-import React from 'react'
 import { Fragment } from 'react'
 import { useFormState } from '../hooks/useFormState'
 import { FormSuffixType } from '../types'

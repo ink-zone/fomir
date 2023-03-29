@@ -14,7 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@bone-ui/hooks": "^0.26.0",
+    "@bone-ui/hooks": "^0.31.0",
     "@docusaurus/core": "2.0.0-beta.17",
     "@docusaurus/plugin-content-docs": "2.0.0-beta.17",
     "@docusaurus/plugin-google-gtag": "2.0.0-beta.17",
@@ -23,7 +23,7 @@
     "@docusaurus/theme-live-codeblock": "2.0.0-beta.17",
     "@docusaurus/theme-search-algolia": "2.0.0-beta.17",
     "@mdx-js/react": "^1.6.21",
-    "bone-ui": "^0.26.0",
+    "bone-ui": "^0.31.0",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",

@@ -12,8 +12,8 @@
   "dependencies": {
     "@fower/react": "^1.72.0",
     "@peajs/request": "^0.6.0",
-    "fomir": "^0.16.2",
-    "fomir-simple-ui": "^0.16.2",
+    "fomir": "*",
+    "fomir-simple-ui": "*",
     "next": "^12.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

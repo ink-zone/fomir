@@ -90,7 +90,7 @@ export function createForm<T = any>(schema: FormSchema<T>) {
     return getNode({ schema, match: (n) => n.name === name })
   }
 
-  function setSchema(fn: (shema: FormSchema) => any) {
+  function setSchema(fn: (schema: FormSchema) => any) {
     fn(schema)
     runFormUpdaters()
   }
